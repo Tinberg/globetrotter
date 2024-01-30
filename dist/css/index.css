@@ -1,0 +1,11 @@
+.img-container {
+  background-image: url(/images/skyline.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.custom-card {
+  width: 30rem;
+}
+
+/*# sourceMappingURL=index.css.map */
