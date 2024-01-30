@@ -1,5 +1,37 @@
-$primary: #ff5722;
+/* Bootstrap variables*/
+$primary: #ffa88f;
+$secondary: #142f42;
+$font-family-base: 'BodyFontName', lato, sans-serif; 
+$headings-font-family: 'HeaderFontName', hammersmith one, sans-serif; 
 
+//Bootstrap modified styles
+
+
+@import url("https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Lato:wght@300;400;700&display=swap");
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
+/*  Bootstrap modified styles */
 
+
+/* Global Resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-style: none;
+  list-style-type: none;
+}
+
+html {
+    font-size: 16px;
+}
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+/* Customized Utility classes */
+//Font Size
+.small-text {
+    font-size: .85rem;
+}
