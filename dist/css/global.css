@@ -10730,9 +10730,16 @@ body {
   scroll-behavior: smooth;
 }
 
-/* Customized Utility classes */
-.small-text {
-  font-size: 0.85rem;
+a {
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  display: inline-block;
 }
+
+a:hover {
+  transform: scale(1.05);
+}
+
+/* Customized Utility classes */
 
 /*# sourceMappingURL=global.css.map */
