@@ -7,9 +7,10 @@
   width: 40rem;
   background-color: rgba(26, 93, 111, 0.4);
   backdrop-filter: blur(120px);
+  border-radius: 20px;
 }
 .img-container .small-text {
   font-size: 0.85rem;
 }
 
-/*# sourceMappingURL=index.css.map */
+/*# sourceMappingURL=loginRegister.css.map */
