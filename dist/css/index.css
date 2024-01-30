@@ -1,15 +1,12 @@
-<<<<<<< Updated upstream
 .img-container {
   background-image: url(/images/skyline.jpg);
   background-size: cover;
   background-position: center;
 }
-
-.custom-card {
-  width: 30rem;
+.img-container .custom-card {
+  width: 40rem;
+  background-color: rgba(26, 93, 111, 0.4);
+  backdrop-filter: blur(120px);
 }
-=======
-
->>>>>>> Stashed changes
 
 /*# sourceMappingURL=index.css.map */
