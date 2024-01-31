@@ -1,5 +1,6 @@
 @charset "UTF-8";
-/* Bootstrap variables*/
+/* Bootstrap Custom Theme Variables */
+/*  Bootstrap custom grid variable */
 @import url("https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Lato:wght@300;400;700&display=swap");
 /*!
  * Bootstrap  v5.2.0 (https://getbootstrap.com/)
@@ -659,7 +660,7 @@ progress {
 }
 @media (min-width: 1400px) {
   .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 1320px;
+    max-width: 1470px;
   }
 }
 .row {
@@ -10711,7 +10712,6 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-/*  Bootstrap modified styles */
 /* Global Resets */
 * {
   margin: 0;
@@ -10734,6 +10734,7 @@ a {
   text-decoration: none;
   transition: transform 0.3s ease;
   display: inline-block;
+  cursor: pointer;
 }
 
 a:hover {
