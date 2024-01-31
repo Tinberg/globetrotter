@@ -1,4 +1,4 @@
-//--Import the API Function Register --> api.js--//
+//--Import the API Function Register --> modules/api.js--//
 import { registerUser } from '../modules/api.js';
 
 //addeventlistner and fucntion handle for register api
@@ -15,7 +15,7 @@ document.getElementById('registerForm').addEventListener('submit', async (event)
 
         if (result && result.status !== 'Bad Request') {
             console.log(result);
-            window.location.href = '/html/my-profile.html'; 
+            window.location.href = '/index.html'; 
         } else {
             console.error('Registration failed: ', result.errors);
             // show error message bad request likt brukernavn epost eller feil epost

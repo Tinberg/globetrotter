@@ -1,17 +1,75 @@
-/* Bootstrap variables*/
+// /* Bootstrap variables*/
+// $primary: #ffa88f;
+// $secondary: #142f42;
+// $font-family-base: 'BodyFontName', lato, sans-serif;
+// $headings-font-family: 'HeaderFontName', hammersmith one, sans-serif;
+
+// //Bootstrap modified styles
+
+// @import url("https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Lato:wght@300;400;700&display=swap");
+// @import "../../node_modules/bootstrap/scss/bootstrap";
+
+// /*  Bootstrap modified styles */
+
+// /* Global Resets */
+// * {
+//   margin: 0;
+//   padding: 0;
+//   box-sizing: border-box;
+//   border-style: none;
+//   list-style-type: none;
+// }
+
+// html {
+//     font-size: 16px;
+// }
+// html,
+// body {
+//   scroll-behavior: smooth;
+// }
+
+// a {
+//     text-decoration: none;
+//     transition: transform 0.3s ease;
+//     display: inline-block;
+// }
+// a:hover {
+//     transform: scale(1.05);
+// }
+
+// /* Customized Utility classes */
+
+
+
+
+//------- Bootstrap -------//
+
+/* Bootstrap Custom Theme Variables */
 $primary: #ffa88f;
 $secondary: #142f42;
-$font-family-base: 'BodyFontName', lato, sans-serif; 
-$headings-font-family: 'HeaderFontName', hammersmith one, sans-serif; 
+$font-family-base: "BodyFontName", lato, sans-serif;
+$headings-font-family: "HeaderFontName", hammersmith one, sans-serif;
 
-//Bootstrap modified styles
+//import function and varaibles for customization
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
 
+/*  Bootstrap custom grid variable */
+$container-max-widths: map-merge(
+  $container-max-widths,
+  (
+    "xxl": 1470px,
+  )
+);
 
+//Googlefont Import
 @import url("https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Lato:wght@300;400;700&display=swap");
+
+//Bootstrap library import
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
-/*  Bootstrap modified styles */
 
+//------- SCSS -------//
 
 /* Global Resets */
 * {
@@ -23,7 +81,7 @@ $headings-font-family: 'HeaderFontName', hammersmith one, sans-serif;
 }
 
 html {
-    font-size: 16px;
+  font-size: 16px;
 }
 html,
 body {
@@ -31,17 +89,13 @@ body {
 }
 
 a {
-    text-decoration: none;
-    transition: transform 0.3s ease;
-    display: inline-block; 
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  display: inline-block;
+  cursor: pointer;
 }
 a:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 /* Customized Utility classes */
-
-
-
-
-
