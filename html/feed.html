@@ -1,18 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/dist/css/global.css"/>
-    <link rel="stylesheet" href="/dist/css/feed.css"/>
+    <link
+      rel="stylesheet"
+      href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/dist/css/global.css" />
+    <link rel="stylesheet" href="/dist/css/feed.css" />
+    <!--Script for bootstrap JS-->
     <script
-    src="https://kit.fontawesome.com/0933736d52.js"
-    crossorigin="anonymous"
-  ></script>
-</head>
-<body>
-    
-</body>
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <!--Script for Fontawesome-->
+    <script
+      src="https://kit.fontawesome.com/0933736d52.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container-xxl p-0">
+      <header>
+        <nav class="navbar navbar-expand-sm bg-secondary">
+          <div class="container-fluid">
+            <a
+              class="navbar-brand active fs-3 text-white mx-3"
+              aria-current="page"
+              href="#"
+              >Globetrotter</a
+            >
+            <button
+              class="navbar-toggler text-white"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div
+              class="collapse navbar-collapse justify-content-end"
+              id="navbarNavDropdown"
+            >
+              <ul class="navbar-nav d-flex flex-row align-items-center my-1">
+                <li class="nav-item mx-3 mx-sm-4">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    aria-current="page"
+                    ><i class="fa-solid fa-plus"></i><span>New post</span></a
+                  >
+                </li>
+                <li class="nav-item mx-3 mx-sm-4">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    aria-current="page"
+                    ><i class="fa-solid fa-house"></i><span>Home</span></a
+                  >
+                </li>
+                <li class="nav-item mx-3 ms-sm-4 me-sm-3">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    aria-current="page"
+                    ><i class="fa-solid fa-user"></i><span>My Profile</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          -
+        </nav>
+      </header>
+      <main>
+        <div class="container-fluid">
+          <div class="row mt-5">
+            <div class="col-3">
+              <div class="container border-end border-2">
+                <h2>Filter</h2>
+                <h3>Continents</h3>
+                <form class="">
+                  <div class="d-flex gap-3">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id=""
+                      name=""
+                      value=""
+                    />
+                    <label for="">Europe</label>
+                  </div>
+
+                  <div class="d-flex gap-3">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id=""
+                      name=""
+                      value=""
+                    />
+                    <label class="form-check-label" for="">North-America</label>
+                  </div>
+
+                  <div class="d-flex gap-3">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id=""
+                      name=""
+                      value=""
+                    />
+                    <label class="form-check-label" for="">South-America</label>
+                  </div>
+
+                  <div class="d-flex gap-3">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id=""
+                      name=""
+                      value=""
+                    />
+                    <label class="form-check-label" for="">Oceania</label>
+                  </div>
+
+                  <div class="d-flex gap-3">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id=""
+                      name=""
+                      value=""
+                    />
+                    <label class="form-check-label" for="">Africa</label>
+                  </div>
+
+                  <div class="d-flex gap-3">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id=""
+                      name=""
+                      value=""
+                    />
+                    <label class="form-check-label" for="">Asia</label>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-9">
+              <div class="container row">
+                <div class="col-10">
+                <form class="d-flex gap-2" action="">
+                  <input
+                    class="border border-2 rounded p-2 w-50 form-control"
+                    type="text"
+                    placeholder="Search all posts"
+                    aria-label="search for all posts"
+                  />
+                  <button class="btn btn-primary" type="button">Søk</button>
+                </form>
+              </div>
+                <div class="col-2 d-flex">
+                  <p class="m-0 align-self-center">Sort</p>
+                
+                  <div class="dropdown d-line align-self-center ">
+                    <button
+                      class="btn btn-no-bg border-0 dropdown-toggle"
+                      type="button"
+                      id="sort"
+                    >
+                      Stigende rekkefølge
+                      <!-- bare skrevet manuelt for å vise før den blir endret med js ´ -->
+                    </button>
+                    <div class="dropdown-menu col-4">
+                      <ul class="list-unstyled">
+                        <li>
+                          <a class="dropdown-item" href="#" data-sort="asc"
+                            >Ascending order</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="#" data-sort="desc"
+                            >Descending order</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            class="dropdown-item"
+                            href="#"
+                            data-sort="alpha-asc"
+                            >Alphabetical (A-Z)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            class="dropdown-item"
+                            href="#"
+                            data-sort="alpha-desc"
+                            >Alphabetical (Z-A)</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                <!--List of cards-->
+                <div class="row">
+                  <div class="col-4">
+                    <p>hei</p>
+                  </div>
+                  <div class="col-4">
+                    <p>hei</p>
+                  </div>
+                  <div class="col-4">
+                    <p>hei</p>
+                  </div>
+                  <div class="col-4">
+                    <p>hei</p>
+                  </div>
+                  <div class="col-4">
+                    <p>hei</p>
+                  </div>
+                  <div class="col-4">
+                    <p>hei</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer></footer>
+    </div>
+  </body>
 </html>
