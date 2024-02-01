@@ -2,13 +2,28 @@
   background-image: url(/images/background.jpg);
 }
 
-.banner {
+.banner-image,
+.banner-div {
   height: 250px;
 }
 
 .profile-img {
   width: 150px;
   height: 150px;
+}
+
+.post-container {
+  width: 400px;
+  height: 400px;
+}
+
+.post-container img {
+  max-height: 80%;
+}
+
+.post-text-img {
+  height: 50px;
+  width: 50px;
 }
 
 /*# sourceMappingURL=my-profile.css.map */

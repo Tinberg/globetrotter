@@ -80,23 +80,63 @@
       </header>
       <main>
         <!--Section 1 Heading-->
-        <section class="heading-section d-flex flex-column align-items-center">
+        <section
+          class="heading-section d-flex flex-column align-items-center pb-5"
+        >
           <div
             class="d-flex flex-column position-relative justify-content-center align-items-center"
           >
+            <div class="banner-div">
+              <!--remove this and inject with js if the user decide to user banner-->
+              <img
+                src="/images/exampleBanner.jpg"
+                class="banner-image w-100"
+                id="bannerImage"
+                alt="Personal banner image"
+              />
+            </div>
+            <!--target #profileImage in js to change the img this is the default im-->
             <img
-              src="/images/exampleBanner.jpg"
-              class="banner w-100"
-              id="banner"
-              alt="Personal banner image"
-            /><img
-              src="/images/profileExample.jpg"
-              class="profile-img img-fluid rounded-circle position-absolute border"
+              src="/images/profileImage.jpg"
+              class="profile-img rounded-circle position-absolute border"
+              id="profileImage"
             />
           </div>
-          <div class="row">
-            <h1 id="userName">Tinberg</h1>
-            <div col-1></div>
+          <div class="d-flex flex-column align-items-center">
+            <!--target #userName in js and remove Tinberg-->
+            <h1 class="mt-4" id="userName">Tinberg</h1>
+            <div class="d-flex mt-4">
+              <div class="d-flex flex-column align-items-center mx-4">
+                <p>All posts</p>
+                <!--js inject number-->
+                <p id="allPosts">989</p>
+              </div>
+              <div class="d-flex flex-column align-items-center mx-4">
+                <p>Followers</p>
+                <!--js inject number-->
+                <p id="followers">321</p>
+              </div>
+              <div class="d-flex flex-column align-items-center mx-4">
+                <p>Following</p>
+                <!--js inject number-->
+                <p id="following">123</p>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary mt-4 px-5">Edit Profile</button>
+        </section>
+          <!--Section 2 Posts-->
+        <section>
+          <div class="row mx-md-5 justify-content-center">
+            <div class="col-4 post-container m-4" id="postContainer"><img class="img-fluid w-100 h-100" src="/images/post.jpg"><div class="post-text d-flex align-items-center" id="postText"><img class="post-text-img ms-4" src="/images/profileImage.jpg"><div class="d-flex flex-column"><p class="ms-5">Posted by<span>Tinberg</span></p><p class="ms-5"><i class="fa-solid fa-heart"></i></p></div></div></div>
+            <div class="col-4 post-container m-4" id="postContainer"><img class="img-fluid w-100 h-100" src="/images/post2.jpg"><div class="post-text d-flex align-items-center" id="postText"><img class="post-text-img ms-4" src="/images/profileImage.jpg"><div class="d-flex flex-column"><p class="ms-5">Posted by<span>Tinberg</span></p><p class="ms-5"><i class="fa-solid fa-heart"></i></p></div></div></div>
+            <div class="col-4 post-container m-4" id="postContainer"><img class="img-fluid w-100 h-100" src="/images/post.jpg"><div class="post-text d-flex align-items-center" id="postText"><img class="post-text-img ms-4" src="/images/profileImage.jpg"><div class="d-flex flex-column"><p class="ms-5">Posted by<span>Tinberg</span></p><p class="ms-5"><i class="fa-solid fa-heart"></i></p></div></div></div>
+            <div class="col-4 post-container m-4" id="postContainer"><img class="img-fluid w-100 h-100" src="/images/post2.jpg"><div class="post-text d-flex align-items-center" id="postText"><img class="post-text-img ms-4" src="/images/profileImage.jpg"><div class="d-flex flex-column"><p class="ms-5">Posted by<span>Tinberg</span></p><p class="ms-5"><i class="fa-solid fa-heart"></i></p></div></div></div>
+            <div class="col-4 post-container m-4" id="postContainer"><img class="img-fluid w-100 h-100" src="/images/post.jpg"><div class="post-text d-flex align-items-center" id="postText"><img class="post-text-img ms-4" src="/images/profileImage.jpg"><div class="d-flex flex-column"><p class="ms-5">Posted by<span>Tinberg</span></p><p class="ms-5"><i class="fa-solid fa-heart"></i></p></div></div></div>
+            <div class="col-4 post-container m-4" id="postContainer"><img class="img-fluid w-100 h-100" src="/images/post.jpg"><div class="post-text d-flex align-items-center" id="postText"><img class="post-text-img ms-4" src="/images/profileImage.jpg"><div class="d-flex flex-column"><p class="ms-5">Posted by<span>Tinberg</span></p><p class="ms-5"><i class="fa-solid fa-heart"></i></p></div></div></div>
+            <div class="col-4 post-container m-4" id="postContainer"><img class="img-fluid w-100 h-100" src="/images/post.jpg"><div class="post-text d-flex align-items-center" id="postText"><img class="post-text-img ms-4" src="/images/profileImage.jpg"><div class="d-flex flex-column"><p class="ms-5">Posted by<span>Tinberg</span></p><p class="ms-5"><i class="fa-solid fa-heart"></i></p></div></div></div>
+            <div class="col-4 post-container m-4" id="postContainer"><img class="img-fluid w-100 h-100" src="/images/post.jpg"><div class="post-text d-flex align-items-center" id="postText"><img class="post-text-img ms-4" src="/images/profileImage.jpg"><div class="d-flex flex-column"><p class="ms-5">Posted by<span>Tinberg</span></p><p class="ms-5"><i class="fa-solid fa-heart"></i></p></div></div></div>
+            <div class="col-4 post-container m-4" id="postContainer"><img class="img-fluid w-100 h-100" src="/images/post.jpg"><div class="post-text d-flex align-items-center" id="postText"><img class="post-text-img ms-4" src="/images/profileImage.jpg"><div class="d-flex flex-column"><p class="ms-5">Posted by<span>Tinberg</span></p><p class="ms-5"><i class="fa-solid fa-heart"></i></p></div></div></div>
           </div>
         </section>
       </main>

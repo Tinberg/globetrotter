@@ -1,13 +1,32 @@
+//----Section 1-----//
 .heading-section {
-    background-image: url(/images/background.jpg);
+  background-image: url(/images/background.jpg);
 }
 
-.banner {
-    height: 250px;
+.banner-image,
+.banner-div {
+  height: 250px;
 }
 
 .profile-img {
-    width: 150px;
-    height: 150px;
-    
+  width: 150px;
+  height: 150px;
+}
+
+
+//----Section 2-----//
+
+.post-container {
+    width: 400px;
+    height: 400px;
+}
+
+.post-container img {
+    max-height: 80%;
+}
+
+
+.post-text-img {
+    height: 50px;
+    width: 50px;
 }
