@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":[],"names":[],"mappings":"","file":"my-profile.css"}
+{"version":3,"sourceRoot":"","sources":["../../src/scss/my-profile.scss"],"names":[],"mappings":"AAAA;EACI;;;AAGJ;EACI;;;AAGJ;EACI;EACA","file":"my-profile.css"}
