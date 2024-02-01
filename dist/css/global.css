@@ -10741,6 +10741,10 @@ a {
   cursor: pointer;
 }
 
+img {
+  object-fit: cover;
+}
+
 a:hover {
   transform: scale(1.05);
 }
