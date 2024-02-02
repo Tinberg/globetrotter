@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <meta
+      name="description"
+      content="Explore your Social journey! View your posts, Followers and connections."
+    />
+    <title>Globetrotter | My profile - Followers, Following & Posts</title>
     <link
       rel="stylesheet"
       href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
@@ -11,6 +15,7 @@
     <link rel="stylesheet" href="/dist/css/global.css" />
     <link rel="stylesheet" href="/dist/css/my-profile.css" />
     <link />
+    <script src="/javascript/pages/my-profile.js" defer></script>
     <!--Script for bootstrap JS-->
     <script
       defer
@@ -32,7 +37,7 @@
             <a
               class="navbar-brand active fs-3 text-white ms-4"
               aria-current="page"
-              href="#"
+              href="/html/feed.html"
               >Globetrotter</a
             >
             <button
@@ -59,14 +64,14 @@
                   >
                 </li>
                 <li class="nav-item mx-3">
-                  <a
+                  <a href="/html/feed.html"
                     class="nav-link active text-white d-flex flex-column align-items-center"
                     aria-current="page"
                     ><i class="fa-solid fa-house"></i><span>Home</span></a
                   >
                 </li>
-                <li class="nav-item mx-3  me-sm-4">
-                  <a
+                <li class="nav-item mx-3 me-sm-4">
+                  <a href="/html/my-profile.html"
                     class="nav-link active text-white d-flex flex-column align-items-center"
                     aria-current="page"
                     ><i class="fa-solid fa-user"></i><span>My Profile</span></a
@@ -123,183 +128,439 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-primary mt-4 px-5">Edit Profile</button>
+          <button
+            type="button"
+            class="btn btn-primary mt-4 px-5"
+            data-bs-toggle="modal"
+            data-bs-target="#editProfileModal"
+          >
+            Edit Profile
+          </button>
+          <!-- Edit Profile Modal -->
+          <div
+            class="modal modal-lg fade"
+            id="editProfileModal"
+            tabindex="-1"
+            aria-labelledby="editProfileModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editProfileModalLabel">
+                    Edit Profile
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <!--Modal Content here-->
+                  <form id="editProfileForm">
+                    <!-- Circular Profile Image -->
+                    <div
+                      class="profile-aspect-ratio-guide mb-3 align-items-center d-flex flex-column border border-bottom-0 rounded"
+                    >
+                      <label class="my-2">Avatar Image</label>
+                      <div
+                        class="aspect-circle d-flex justify-content-center align-items-center rounded-circle "
+                      >
+                        <i class="fas fa-image fa-3x"></i>
+                      </div>
+                      <p class="fw-lighter my-2">Recommanded AR 1:1</p>
+                      <input
+                        type="file"
+                        class="form-control"
+                        id="profileImageInput"
+                        name="profileImage"
+                      />
+                    </div>
+                    <!-- Square Banner Image-->
+                    <div
+                      class="banner-aspect-ratio-guide mb-3 align-items-center d-flex flex-column border border-bottom-0 rounded"
+                    >
+                      <label class="my-2">Banner Image</label>
+                      <div
+                        class="aspect-square d-flex justify-content-center align-items-center rounded "
+                      >
+                        <i class="fas fa-image fa-3x"></i>
+                      </div>
+
+                      <p class="fw-lighter my-2">Recommanded AR 5:1</p>
+                      <input
+                        type="file"
+                        class="form-control"
+                        id="bannerImageInput"
+                        name="bannerImage"
+                      />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary my-2">
+                      Save Changes
+                    </button>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
-          <!--Section 2 Posts-->
+        <!--Section 2 Posts-->
         <section>
           <div class="row justify-content-center mx-3 mx-md-5">
             <div class="col-lg-4 col-sm-6 mb-5">
-                <div class="card">
-                  <div class="card-img-top-container w-100 position-relative h-0">
-                    <!--Js injection post media image-->
-                    <img src="/images/post.jpg" id="postImage" class="card-img-top position-absolute w-100 h-100 top-0 start-0" alt="Post image">
-                  </div>
-                  <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <!--Js injection post profile image-->
-                      <img src="/images/profileImage.jpg" id="postProfileImage" class="rounded-circle me-3" alt="Profile image">
-                      <div class="d-flex flex-column">
-                        <!--JS injection post user name-->
-                        <p class="mb-0 fs-6 fw-light">Posted by <span id="postUserName" class="fw-normal">Tinberg</span></p>
-                        <!--JS injection likes and comments-->
-                        <p class="card-text fw-light"><i class="fa-solid fa-heart text-primary"></i> <span class="mx-1" id="postLikes">65</span>|<span class="mx-1" id="postComments">6</span> comments</p>
-                      </div>
-                    </div>
-                  </div>
+              <div class="card">
+                <div class="card-img-top-container w-100 position-relative h-0">
+                  <!--Js injection post media image-->
+                  <img
+                    src="/images/post.jpg"
+                    class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
+                    alt="Post image"
+                  />
                 </div>
-              </div><div class="col-lg-4 col-sm-6 mb-5">
-                <div class="card">
-                  <div class="card-img-top-container w-100 position-relative h-0">
-                    <!--Js injection post media image-->
-                    <img src="/images/post.jpg" id="postImage" class="card-img-top position-absolute w-100 h-100 top-0 start-0" alt="Post image">
-                  </div>
-                  <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <!--Js injection post profile image-->
-                      <img src="/images/profileImage.jpg" id="postProfileImage" class="rounded-circle me-3" alt="Profile image">
-                      <div class="d-flex flex-column">
-                        <!--JS injection post user name-->
-                        <p class="mb-0 fs-6 fw-light">Posted by <span id="postUserName" class="fw-normal">Tinberg</span></p>
-                        <!--JS injection likes and comments-->
-                        <p class="card-text fw-light"><i class="fa-solid fa-heart text-primary"></i> <span class="mx-1" id="postLikes">65</span>|<span class="mx-1" id="postComments">6</span> comments</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div><div class="col-lg-4 col-sm-6 mb-5">
-                <div class="card">
-                  <div class="card-img-top-container w-100 position-relative h-0">
-                    <!--Js injection post media image-->
-                    <img src="/images/post.jpg" id="postImage" class="card-img-top position-absolute w-100 h-100 top-0 start-0" alt="Post image">
-                  </div>
-                  <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <!--Js injection post profile image-->
-                      <img src="/images/profileImage.jpg" id="postProfileImage" class="rounded-circle me-3" alt="Profile image">
-                      <div class="d-flex flex-column">
-                        <!--JS injection post user name-->
-                        <p class="mb-0 fs-6 fw-light">Posted by <span id="postUserName" class="fw-normal">Tinberg</span></p>
-                        <!--JS injection likes and comments-->
-                        <p class="card-text fw-light"><i class="fa-solid fa-heart text-primary"></i> <span class="mx-1" id="postLikes">65</span>|<span class="mx-1" id="postComments">6</span> comments</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div><div class="col-lg-4 col-sm-6 mb-5">
-                <div class="card">
-                  <div class="card-img-top-container w-100 position-relative h-0">
-                    <!--Js injection post media image-->
-                    <img src="/images/post.jpg" id="postImage" class="card-img-top position-absolute w-100 h-100 top-0 start-0" alt="Post image">
-                  </div>
-                  <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <!--Js injection post profile image-->
-                      <img src="/images/profileImage.jpg" id="postProfileImage" class="rounded-circle me-3" alt="Profile image">
-                      <div class="d-flex flex-column">
-                        <!--JS injection post user name-->
-                        <p class="mb-0 fs-6 fw-light">Posted by <span id="postUserName" class="fw-normal">Tinberg</span></p>
-                        <!--JS injection likes and comments-->
-                        <p class="card-text fw-light"><i class="fa-solid fa-heart text-primary"></i> <span class="mx-1" id="postLikes">65</span>|<span class="mx-1" id="postComments">6</span> comments</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div><div class="col-lg-4 col-sm-6 mb-5">
-                <div class="card">
-                  <div class="card-img-top-container w-100 position-relative h-0">
-                    <!--Js injection post media image-->
-                    <img src="/images/post.jpg" id="postImage" class="card-img-top position-absolute w-100 h-100 top-0 start-0" alt="Post image">
-                  </div>
-                  <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <!--Js injection post profile image-->
-                      <img src="/images/profileImage.jpg" id="postProfileImage" class="rounded-circle me-3" alt="Profile image">
-                      <div class="d-flex flex-column">
-                        <!--JS injection post user name-->
-                        <p class="mb-0 fs-6 fw-light">Posted by <span id="postUserName" class="fw-normal">Tinberg</span></p>
-                        <!--JS injection likes and comments-->
-                        <p class="card-text fw-light"><i class="fa-solid fa-heart text-primary"></i> <span class="mx-1" id="postLikes">65</span>|<span class="mx-1" id="postComments">6</span> comments</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div><div class="col-lg-4 col-sm-6 mb-5">
-                <div class="card">
-                  <div class="card-img-top-container w-100 position-relative h-0">
-                    <!--Js injection post media image-->
-                    <img src="/images/post.jpg" id="postImage" class="card-img-top position-absolute w-100 h-100 top-0 start-0" alt="Post image">
-                  </div>
-                  <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <!--Js injection post profile image-->
-                      <img src="/images/profileImage.jpg" id="postProfileImage" class="rounded-circle me-3" alt="Profile image">
-                      <div class="d-flex flex-column">
-                        <!--JS injection post user name-->
-                        <p class="mb-0 fs-6 fw-light">Posted by <span id="postUserName" class="fw-normal">Tinberg</span></p>
-                        <!--JS injection likes and comments-->
-                        <p class="card-text fw-light"><i class="fa-solid fa-heart text-primary"></i> <span class="mx-1" id="postLikes">65</span>|<span class="mx-1" id="postComments">6</span> comments</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div><div class="col-lg-4 col-sm-6 mb-5">
-                <div class="card">
-                  <div class="card-img-top-container w-100 position-relative h-0">
-                    <!--Js injection post media image-->
-                    <img src="/images/post.jpg" id="postImage" class="card-img-top position-absolute w-100 h-100 top-0 start-0" alt="Post image">
-                  </div>
-                  <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <!--Js injection post profile image-->
-                      <img src="/images/profileImage.jpg" id="postProfileImage" class="rounded-circle me-3" alt="Profile image">
-                      <div class="d-flex flex-column">
-                        <!--JS injection post user name-->
-                        <p class="mb-0 fs-6 fw-light">Posted by <span id="postUserName" class="fw-normal">Tinberg</span></p>
-                        <!--JS injection likes and comments-->
-                        <p class="card-text fw-light"><i class="fa-solid fa-heart text-primary"></i> <span class="mx-1" id="postLikes">65</span>|<span class="mx-1" id="postComments">6</span> comments</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div><div class="col-lg-4 col-sm-6 mb-5">
-                <div class="card">
-                  <div class="card-img-top-container w-100 position-relative h-0">
-                    <!--Js injection post media image-->
-                    <img src="/images/post.jpg" id="postImage" class="card-img-top position-absolute w-100 h-100 top-0 start-0" alt="Post image">
-                  </div>
-                  <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <!--Js injection post profile image-->
-                      <img src="/images/profileImage.jpg" id="postProfileImage" class="rounded-circle me-3" alt="Profile image">
-                      <div class="d-flex flex-column">
-                        <!--JS injection post user name-->
-                        <p class="mb-0 fs-6 fw-light">Posted by <span id="postUserName" class="fw-normal">Tinberg</span></p>
-                        <!--JS injection likes and comments-->
-                        <p class="card-text fw-light"><i class="fa-solid fa-heart text-primary"></i> <span class="mx-1" id="postLikes">65</span>|<span class="mx-1" id="postComments">6</span> comments</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div><div class="col-lg-4 col-sm-6 mb-5">
-                <div class="card">
-                  <div class="card-img-top-container w-100 position-relative h-0">
-                    <!--Js injection post media image-->
-                    <img src="/images/post.jpg" id="postImage" class="card-img-top position-absolute w-100 h-100 top-0 start-0" alt="Post image">
-                  </div>
-                  <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <!--Js injection post profile image-->
-                      <img src="/images/profileImage.jpg" id="postProfileImage" class="rounded-circle me-3" alt="Profile image">
-                      <div class="d-flex flex-column">
-                        <!--JS injection post user name-->
-                        <p class="mb-0 fs-6 fw-light">Posted by <span id="postUserName" class="fw-normal">Tinberg</span></p>
-                        <!--JS injection likes and comments-->
-                        <p class="card-text fw-light"><i class="fa-solid fa-heart text-primary"></i> <span class="mx-1" id="postLikes">65</span>|<span class="mx-1" id="postComments">6</span> comments</p>
-                      </div>
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-3">
+                    <!--Js injection post profile image-->
+                    <img
+                      src="/images/profileImage.jpg"
+                      class="post-profile-image rounded-circle me-3"
+                      alt="Profile image"
+                    />
+                    <div class="d-flex flex-column">
+                      <!--JS injection post user name-->
+                      <p class="mb-0 fs-6 fw-light">
+                        Posted by
+                        <span class="post-user-name fw-normal">Tinberg</span>
+                      </p>
+                      <!--JS injection likes and comments-->
+                      <p class="card-text fw-light">
+                        <i class="fa-solid fa-heart text-primary"></i>
+                        <span class="post-likes mx-1">65</span>|<span
+                          class="post-comments mx-1"
+                          >6</span
+                        >
+                        comments
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-5">
+              <div class="card">
+                <div class="card-img-top-container w-100 position-relative h-0">
+                  <!--Js injection post media image-->
+                  <img
+                    src="/images/post.jpg"
+                    class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
+                    alt="Post image"
+                  />
+                </div>
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-3">
+                    <!--Js injection post profile image-->
+                    <img
+                      src="/images/profileImage.jpg"
+                      class="post-profile-image rounded-circle me-3"
+                      alt="Profile image"
+                    />
+                    <div class="d-flex flex-column">
+                      <!--JS injection post user name-->
+                      <p class="mb-0 fs-6 fw-light">
+                        Posted by
+                        <span class="post-user-name fw-normal">Tinberg</span>
+                      </p>
+                      <!--JS injection likes and comments-->
+                      <p class="card-text fw-light">
+                        <i class="fa-solid fa-heart text-primary"></i>
+                        <span class="post-likes mx-1">65</span>|<span
+                          class="post-comments mx-1"
+                          >6</span
+                        >
+                        comments
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-5">
+              <div class="card">
+                <div class="card-img-top-container w-100 position-relative h-0">
+                  <!--Js injection post media image-->
+                  <img
+                    src="/images/post.jpg"
+                    class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
+                    alt="Post image"
+                  />
+                </div>
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-3">
+                    <!--Js injection post profile image-->
+                    <img
+                      src="/images/profileImage.jpg"
+                      class="post-profile-image rounded-circle me-3"
+                      alt="Profile image"
+                    />
+                    <div class="d-flex flex-column">
+                      <!--JS injection post user name-->
+                      <p class="mb-0 fs-6 fw-light">
+                        Posted by
+                        <span class="post-user-name fw-normal">Tinberg</span>
+                      </p>
+                      <!--JS injection likes and comments-->
+                      <p class="card-text fw-light">
+                        <i class="fa-solid fa-heart text-primary"></i>
+                        <span class="post-likes mx-1">65</span>|<span
+                          class="post-comments mx-1"
+                          >6</span
+                        >
+                        comments
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-5">
+              <div class="card">
+                <div class="card-img-top-container w-100 position-relative h-0">
+                  <!--Js injection post media image-->
+                  <img
+                    src="/images/post.jpg"
+                    class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
+                    alt="Post image"
+                  />
+                </div>
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-3">
+                    <!--Js injection post profile image-->
+                    <img
+                      src="/images/profileImage.jpg"
+                      class="post-profile-image rounded-circle me-3"
+                      alt="Profile image"
+                    />
+                    <div class="d-flex flex-column">
+                      <!--JS injection post user name-->
+                      <p class="mb-0 fs-6 fw-light">
+                        Posted by
+                        <span class="post-user-name fw-normal">Tinberg</span>
+                      </p>
+                      <!--JS injection likes and comments-->
+                      <p class="card-text fw-light">
+                        <i class="fa-solid fa-heart text-primary"></i>
+                        <span class="post-likes mx-1">65</span>|<span
+                          class="post-comments mx-1"
+                          >6</span
+                        >
+                        comments
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-5">
+              <div class="card">
+                <div class="card-img-top-container w-100 position-relative h-0">
+                  <!--Js injection post media image-->
+                  <img
+                    src="/images/post.jpg"
+                    class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
+                    alt="Post image"
+                  />
+                </div>
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-3">
+                    <!--Js injection post profile image-->
+                    <img
+                      src="/images/profileImage.jpg"
+                      class="post-profile-image rounded-circle me-3"
+                      alt="Profile image"
+                    />
+                    <div class="d-flex flex-column">
+                      <!--JS injection post user name-->
+                      <p class="mb-0 fs-6 fw-light">
+                        Posted by
+                        <span class="post-user-name fw-normal">Tinberg</span>
+                      </p>
+                      <!--JS injection likes and comments-->
+                      <p class="card-text fw-light">
+                        <i class="fa-solid fa-heart text-primary"></i>
+                        <span class="post-likes mx-1">65</span>|<span
+                          class="post-comments mx-1"
+                          >6</span
+                        >
+                        comments
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-5">
+              <div class="card">
+                <div class="card-img-top-container w-100 position-relative h-0">
+                  <!--Js injection post media image-->
+                  <img
+                    src="/images/post.jpg"
+                    class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
+                    alt="Post image"
+                  />
+                </div>
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-3">
+                    <!--Js injection post profile image-->
+                    <img
+                      src="/images/profileImage.jpg"
+                      class="post-profile-image rounded-circle me-3"
+                      alt="Profile image"
+                    />
+                    <div class="d-flex flex-column">
+                      <!--JS injection post user name-->
+                      <p class="mb-0 fs-6 fw-light">
+                        Posted by
+                        <span class="post-user-name fw-normal">Tinberg</span>
+                      </p>
+                      <!--JS injection likes and comments-->
+                      <p class="card-text fw-light">
+                        <i class="fa-solid fa-heart text-primary"></i>
+                        <span class="post-likes mx-1">65</span>|<span
+                          class="post-comments mx-1"
+                          >6</span
+                        >
+                        comments
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-5">
+              <div class="card">
+                <div class="card-img-top-container w-100 position-relative h-0">
+                  <!--Js injection post media image-->
+                  <img
+                    src="/images/post.jpg"
+                    class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
+                    alt="Post image"
+                  />
+                </div>
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-3">
+                    <!--Js injection post profile image-->
+                    <img
+                      src="/images/profileImage.jpg"
+                      class="post-profile-image rounded-circle me-3"
+                      alt="Profile image"
+                    />
+                    <div class="d-flex flex-column">
+                      <!--JS injection post user name-->
+                      <p class="mb-0 fs-6 fw-light">
+                        Posted by
+                        <span class="post-user-name fw-normal">Tinberg</span>
+                      </p>
+                      <!--JS injection likes and comments-->
+                      <p class="card-text fw-light">
+                        <i class="fa-solid fa-heart text-primary"></i>
+                        <span class="post-likes mx-1">65</span>|<span
+                          class="post-comments mx-1"
+                          >6</span
+                        >
+                        comments
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-5">
+              <div class="card">
+                <div class="card-img-top-container w-100 position-relative h-0">
+                  <!--Js injection post media image-->
+                  <img
+                    src="/images/post.jpg"
+                    class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
+                    alt="Post image"
+                  />
+                </div>
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-3">
+                    <!--Js injection post profile image-->
+                    <img
+                      src="/images/profileImage.jpg"
+                      class="post-profile-image rounded-circle me-3"
+                      alt="Profile image"
+                    />
+                    <div class="d-flex flex-column">
+                      <!--JS injection post user name-->
+                      <p class="mb-0 fs-6 fw-light">
+                        Posted by
+                        <span class="post-user-name fw-normal">Tinberg</span>
+                      </p>
+                      <!--JS injection likes and comments-->
+                      <p class="card-text fw-light">
+                        <i class="fa-solid fa-heart text-primary"></i>
+                        <span class="post-likes mx-1">65</span>|<span
+                          class="post-comments mx-1"
+                          >6</span
+                        >
+                        comments
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-5">
+              <div class="card">
+                <div class="card-img-top-container w-100 position-relative h-0">
+                  <!--Js injection post media image-->
+                  <img
+                    src="/images/post.jpg"
+                    class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
+                    alt="Post image"
+                  />
+                </div>
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-3">
+                    <!--Js injection post profile image-->
+                    <img
+                      src="/images/profileImage.jpg"
+                      class="post-profile-image rounded-circle me-3"
+                      alt="Profile image"
+                    />
+                    <div class="d-flex flex-column">
+                      <!--JS injection post user name-->
+                      <p class="mb-0 fs-6 fw-light">
+                        Posted by
+                        <span class="post-user-name fw-normal">Tinberg</span>
+                      </p>
+                      <!--JS injection likes and comments-->
+                      <p class="card-text fw-light">
+                        <i class="fa-solid fa-heart text-primary"></i>
+                        <span class="post-likes mx-1">65</span>|<span
+                          class="post-comments mx-1"
+                          >6</span
+                        >
+                        comments
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </main>
