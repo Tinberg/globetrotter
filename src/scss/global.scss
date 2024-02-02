@@ -39,9 +39,6 @@
 
 // /* Customized Utility classes */
 
-
-
-
 //-------  Bootstrap Customizations-------//
 
 /* Sets custom values for Bootstrap's Variables */
@@ -62,19 +59,17 @@ $container-max-widths: map-merge(
   )
 );
 
-
 //Googlefont Import
 @import url("https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Lato:wght@300;400;700&display=swap");
 
 //Bootstrap library import
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
-
 //-------  Bootstrap Overwriting-------//
 .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-  }
-  
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
 //------- SCSS -------//
 
 /* Global Resets */
@@ -88,7 +83,9 @@ $container-max-widths: map-merge(
 
 html {
   font-size: 16px;
+  background-color: #f5f5f5;
 }
+
 html,
 body {
   scroll-behavior: smooth;
@@ -102,10 +99,12 @@ a {
 }
 
 img {
-    object-fit: cover;
+  object-fit: cover;
 }
 a:hover {
   transform: scale(1.05);
 }
 
 /* Customized Utility classes */
+
+/*NavBar*/
