@@ -1,3 +1,14 @@
+.card {
+  background-color: #f0f0f0;
+}
 
+.card-img-top-container {
+  padding-top: 80%;
+}
+
+.card-body img {
+  height: 50px;
+  width: 50px;
+}
 
 /*# sourceMappingURL=feed.css.map */
