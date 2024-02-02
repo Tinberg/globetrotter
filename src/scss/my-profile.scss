@@ -14,19 +14,16 @@
 }
 
 
-//----Section 2-----//
-
-.post-container {
-    width: 400px;
-    height: 400px;
+.card {
+    background-color: #f0f0f0; 
 }
 
-.post-container img {
-    max-height: 80%;
+.card-img-top-container {
+    padding-top: 80%;
 }
 
-
-.post-text-img {
+.card-body img {
     height: 50px;
     width: 50px;
 }
+
