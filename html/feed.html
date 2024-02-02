@@ -23,13 +23,13 @@
       crossorigin="anonymous"
     ></script>
   </head>
-  <body>
+  <body class="container-xxl p-0">
     <div class="container-xxl p-0">
       <header>
         <nav class="navbar navbar-expand-sm bg-secondary">
           <div class="container-fluid">
             <a
-              class="navbar-brand active fs-3 text-white mx-3"
+              class="navbar-brand active fs-3 text-white ms-4"
               aria-current="page"
               href="#"
               >Globetrotter</a
@@ -50,24 +50,26 @@
               id="navbarNavDropdown"
             >
               <ul class="navbar-nav d-flex flex-row align-items-center my-1">
-                <li class="nav-item mx-3 mx-sm-4">
+                <li class="nav-item mx-3">
                   <a
                     class="nav-link active text-white d-flex flex-column align-items-center"
                     aria-current="page"
                     ><i class="fa-solid fa-plus"></i><span>New post</span></a
                   >
                 </li>
-                <li class="nav-item mx-3 mx-sm-4">
+                <li class="nav-item mx-3">
                   <a
                     class="nav-link active text-white d-flex flex-column align-items-center"
                     aria-current="page"
+                    href="/html/feed.html"
                     ><i class="fa-solid fa-house"></i><span>Home</span></a
                   >
                 </li>
-                <li class="nav-item mx-3 ms-sm-4 me-sm-3">
+                <li class="nav-item mx-3 me-sm-4">
                   <a
                     class="nav-link active text-white d-flex flex-column align-items-center"
                     aria-current="page"
+                    href="/html/my-profile.html"
                     ><i class="fa-solid fa-user"></i><span>My Profile</span></a
                   >
                 </li>
@@ -155,81 +157,179 @@
             </div>
             <div class="col-9">
               <div class="container row">
-                <div class="col-10">
-                <form class="d-flex gap-2" action="">
-                  <input
-                    class="border border-2 rounded p-2 w-50 form-control"
-                    type="text"
-                    placeholder="Search all posts"
-                    aria-label="search for all posts"
-                  />
-                  <button class="btn btn-primary" type="button">Søk</button>
-                </form>
-              </div>
-                <div class="col-2 d-flex">
-                  <p class="m-0 align-self-center">Sort</p>
-                
-                  <div class="dropdown d-line align-self-center ">
-                    <button
-                      class="btn btn-no-bg border-0 dropdown-toggle"
-                      type="button"
-                      id="sort"
-                    >
-                      Stigende rekkefølge
-                      <!-- bare skrevet manuelt for å vise før den blir endret med js ´ -->
-                    </button>
-                    <div class="dropdown-menu col-4">
-                      <ul class="list-unstyled">
-                        <li>
-                          <a class="dropdown-item" href="#" data-sort="asc"
-                            >Ascending order</a
-                          >
-                        </li>
-                        <li>
-                          <a class="dropdown-item" href="#" data-sort="desc"
-                            >Descending order</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            class="dropdown-item"
-                            href="#"
-                            data-sort="alpha-asc"
-                            >Alphabetical (A-Z)</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            class="dropdown-item"
-                            href="#"
-                            data-sort="alpha-desc"
-                            >Alphabetical (Z-A)</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
+                <div class="col-9">
+                  <form class="d-flex gap-2" action="">
+                    <input
+                      class="border border-2 rounded p-2 w-50 form-control"
+                      type="text"
+                      placeholder="Search all posts"
+                      aria-label="search for all posts"
+                    />
+                    <button class="btn btn-primary" type="button">Søk</button>
+                  </form>
+                </div>
+                <div class="col-3 d-flex justify-content-end">
+                  <label for="sortBy" class="m-0 align-self-center">Sort</label>
+
+                  <div class="d-line align-self-center">
+                    <select name="" id="sortBy">
+                      <option value="" data-sort="asc">Newest</option>
+                      <option value="" data-sort="desc">Oldest</option>
+                      <option value="" data-sort="alpha-asc">
+                        Alphabetical (A-Z)
+                      </option>
+                      <option value="" data-sort="alpha-desc">
+                        Alphabetical (Z-A)
+                      </option>
+                    </select>
                   </div>
                 </div>
               </div>
-                <!--List of cards-->
-                <div class="row">
-                  <div class="col-4">
-                    <p>hei</p>
+              <!--List of cards-->
+
+              <div class="row mx-md-5 justify-content-between">
+                <div class="col-4 post-container m-4" id="postContainer">
+                  <img class="img-fluid w-100 h-100" src="/images/post.jpg" />
+                  <div
+                    class="post-text d-flex align-items-center"
+                    id="postText"
+                  >
+                    <img
+                      class="post-text-img ms-4"
+                      src="/images/profileImage.jpg"
+                    />
+                    <div class="d-flex flex-column">
+                      <p class="ms-5">Posted by<span>Tinberg</span></p>
+                      <p class="ms-5"><i class="fa-solid fa-heart"></i></p>
+                    </div>
                   </div>
-                  <div class="col-4">
-                    <p>hei</p>
+                </div>
+                <div class="col-4 post-container m-4" id="postContainer">
+                  <img class="img-fluid w-100 h-100" src="/images/post2.jpg" />
+                  <div
+                    class="post-text d-flex align-items-center"
+                    id="postText"
+                  >
+                    <img
+                      class="post-text-img ms-4"
+                      src="/images/profileImage.jpg"
+                    />
+                    <div class="d-flex flex-column">
+                      <p class="ms-5">Posted by<span>Tinberg</span></p>
+                      <p class="ms-5"><i class="fa-solid fa-heart"></i></p>
+                    </div>
                   </div>
-                  <div class="col-4">
-                    <p>hei</p>
+                </div>
+                <div class="col-4 post-container m-4" id="postContainer">
+                  <img class="img-fluid w-100 h-100" src="/images/post.jpg" />
+                  <div
+                    class="post-text d-flex align-items-center"
+                    id="postText"
+                  >
+                    <img
+                      class="post-text-img ms-4"
+                      src="/images/profileImage.jpg"
+                    />
+                    <div class="d-flex flex-column">
+                      <p class="ms-5">Posted by<span>Tinberg</span></p>
+                      <p class="ms-5"><i class="fa-solid fa-heart"></i></p>
+                    </div>
                   </div>
-                  <div class="col-4">
-                    <p>hei</p>
+                </div>
+                <div class="col-4 post-container m-4" id="postContainer">
+                  <img class="img-fluid w-100 h-100" src="/images/post2.jpg" />
+                  <div
+                    class="post-text d-flex align-items-center"
+                    id="postText"
+                  >
+                    <img
+                      class="post-text-img ms-4"
+                      src="/images/profileImage.jpg"
+                    />
+                    <div class="d-flex flex-column">
+                      <p class="ms-5">Posted by<span>Tinberg</span></p>
+                      <p class="ms-5"><i class="fa-solid fa-heart"></i></p>
+                    </div>
                   </div>
-                  <div class="col-4">
-                    <p>hei</p>
+                </div>
+                <div class="col-4 post-container m-4" id="postContainer">
+                  <img class="img-fluid w-100 h-100" src="/images/post.jpg" />
+                  <div
+                    class="post-text d-flex align-items-center"
+                    id="postText"
+                  >
+                    <img
+                      class="post-text-img ms-4"
+                      src="/images/profileImage.jpg"
+                    />
+                    <div class="d-flex flex-column">
+                      <p class="ms-5">Posted by<span>Tinberg</span></p>
+                      <p class="ms-5"><i class="fa-solid fa-heart"></i></p>
+                    </div>
                   </div>
-                  <div class="col-4">
-                    <p>hei</p>
+                </div>
+                <div class="col-4 post-container m-4" id="postContainer">
+                  <img class="img-fluid w-100 h-100" src="/images/post.jpg" />
+                  <div
+                    class="post-text d-flex align-items-center"
+                    id="postText"
+                  >
+                    <img
+                      class="post-text-img ms-4"
+                      src="/images/profileImage.jpg"
+                    />
+                    <div class="d-flex flex-column">
+                      <p class="ms-5">Posted by<span>Tinberg</span></p>
+                      <p class="ms-5"><i class="fa-solid fa-heart"></i></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4 post-container m-4" id="postContainer">
+                  <img class="img-fluid w-100 h-100" src="/images/post.jpg" />
+                  <div
+                    class="post-text d-flex align-items-center"
+                    id="postText"
+                  >
+                    <img
+                      class="post-text-img ms-4"
+                      src="/images/profileImage.jpg"
+                    />
+                    <div class="d-flex flex-column">
+                      <p class="ms-5">Posted by<span>Tinberg</span></p>
+                      <p class="ms-5"><i class="fa-solid fa-heart"></i></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4 post-container m-4" id="postContainer">
+                  <img class="img-fluid w-100 h-100" src="/images/post.jpg" />
+                  <div
+                    class="post-text d-flex align-items-center"
+                    id="postText"
+                  >
+                    <img
+                      class="post-text-img ms-4"
+                      src="/images/profileImage.jpg"
+                    />
+                    <div class="d-flex flex-column">
+                      <p class="ms-5">Posted by<span>Tinberg</span></p>
+                      <p class="ms-5"><i class="fa-solid fa-heart"></i></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4 post-container m-4" id="postContainer">
+                  <img class="img-fluid w-100 h-100" src="/images/post.jpg" />
+                  <div
+                    class="post-text d-flex align-items-center"
+                    id="postText"
+                  >
+                    <img
+                      class="post-text-img ms-4"
+                      src="/images/profileImage.jpg"
+                    />
+                    <div class="d-flex flex-column">
+                      <p class="ms-5">Posted by<span>Tinberg</span></p>
+                      <p class="ms-5"><i class="fa-solid fa-heart"></i></p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -237,7 +337,11 @@
           </div>
         </div>
       </main>
-      <footer></footer>
+      <footer class="footer bg-secondary mt-5">
+        <div class="container text-white">
+          <p>© Globetrotter 2024</p>
+        </div>
+      </footer>
     </div>
   </body>
 </html>
