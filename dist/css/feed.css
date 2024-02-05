@@ -11,4 +11,8 @@
   width: 50px;
 }
 
+.background-img {
+  background-image: url(/images/background.jpg);
+}
+
 /*# sourceMappingURL=feed.css.map */

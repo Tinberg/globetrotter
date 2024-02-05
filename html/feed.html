@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Globetrotter | Feed</title>
     <link
       rel="stylesheet"
       href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
@@ -23,7 +23,7 @@
       crossorigin="anonymous"
     ></script>
   </head>
-  <body class="container-xxl p-0">
+  <body class="background-img container-xxl p-0">
     <div class="container-xxl p-0">
       <header>
         <nav class="navbar navbar-expand-sm bg-secondary">
@@ -81,120 +81,143 @@
       </header>
       <main>
         <div class="container-fluid">
-          <div class="row mt-5">
-            <div class="col-md-3">
-              <div class="container d-flex justify-content-md-start flex-column align-items-center align-items-md-start">
-                <h2>Filter</h2>
-                <h3>Continents</h3>
-                <form class="m-3 m-md-0">
-                  <div class="d-flex gap-3">
+          <div class="row">
+            <div class="col-md-2 mt-5 pt-3">
+              <div
+                class="container d-flex justify-content-md-start flex-column align-items-center align-items-md-start"
+              >
+                <p class="fs-4">Filter</p>
+                <p class="lead">Continents</p>
+                <form
+                  class="gap-3 m-md-3 m-md-0 row d-flex justify-content-center"
+                >
+                  <div class="d-flex gap-2 col-4 col-md-12">
                     <input
                       class="form-check-input"
                       type="checkbox"
                       id=""
-                      name=""
+                      name="Africa"
                       value=""
                     />
-                    <label for="">Europe</label>
+                    <label class="form-check-label" for="Africa">Africa</label>
                   </div>
 
-                  <div class="d-flex gap-3">
+                  <div class="d-flex gap-2 col-4 col-md-12">
                     <input
                       class="form-check-input"
                       type="checkbox"
                       id=""
-                      name=""
+                      name="Asia"
                       value=""
                     />
-                    <label class="form-check-label" for="">North-America</label>
+                    <label class="form-check-label" for="Asia">Asia</label>
                   </div>
 
-                  <div class="d-flex gap-3">
+                  <div class="d-flex gap-2 flex-wrap col-4 col-md-12">
                     <input
                       class="form-check-input"
                       type="checkbox"
                       id=""
-                      name=""
+                      name="Europe"
                       value=""
                     />
-                    <label class="form-check-label" for="">South-America</label>
+                    <label for="Europe">Europe</label>
+                  </div>
+                  <div class="d-flex gap-2 col-4 col-md-12">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id=""
+                      name="Oceania"
+                      value=""
+                    />
+                    <label class="form-check-label" for="Oceania"
+                      >Oceania</label
+                    >
                   </div>
 
-                  <div class="d-flex gap-3">
+                  <div class="d-flex gap-2 col-4 col-md-12">
                     <input
                       class="form-check-input"
                       type="checkbox"
                       id=""
-                      name=""
+                      name="North-America"
                       value=""
                     />
-                    <label class="form-check-label" for="">Oceania</label>
+                    <label class="form-check-label" for="North-America"
+                      >North-America</label
+                    >
                   </div>
 
-                  <div class="d-flex gap-3">
+                  <div class="d-flex gap-2 col-4 col-md-12">
                     <input
                       class="form-check-input"
                       type="checkbox"
                       id=""
-                      name=""
+                      name="South-America"
                       value=""
                     />
-                    <label class="form-check-label" for="">Africa</label>
-                  </div>
-
-                  <div class="d-flex gap-3">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id=""
-                      name=""
-                      value=""
-                    />
-                    <label class="form-check-label" for="">Asia</label>
+                    <label class="form-check-label" for="South-America"
+                      >South-America</label
+                    >
                   </div>
                 </form>
-              </div>
             </div>
-            <div class="col-md-9 border-start border-2 d-flex align-items-center flex-column mt-3 mt-md-0">
-              <div class="container row mb-5 gap-3 gap-md-0">
-                <div class="col-12 col-md-9">
-                  <form class="d-flex gap-2 justify-content-center justify-content-md-start" action="">
+            </div>
+            <div
+              class="col-md-10 border-start border-2 d-flex align-items-center flex-column mt-3 mt-md-0"
+            >
+              <div class="container mb-5 gap-3 gap-md-0">
+                <h1 class="fs-2 d-flex justify-content-center mb-5 mt-5 pt-3 pb-3">Explore the World</h1>
+                <div class="mb-3 mb-md-0 mx-3 mx-md-3 flex-column flex-md-row d-flex justify-content-between">
+                  <form
+                    class="
+                    d-flex gap-4 gap-md-2 justify-content-center justify-content-md-start align-items-center flex-column flex-md-row"
+                    action=""
+                  >
                     <input
-                      class="border border-2 rounded p-2 w-50 form-control"
+                      class="border border-2 rounded p-2 w-100 form-control"
                       type="text"
                       placeholder="Search all posts"
                       aria-label="search for all posts"
                     />
-                    <button class="btn btn-primary d-none d-sm-block" type="button">Søk</button>
+                    <button class="btn btn-primary" type="button">Søk</button>
                   </form>
-                </div>
-                <div class="col-md-3 d-flex justify-content-center">
-                  <label for="sortBy" class="m-0 align-self-center">Sort</label>
-
-                  <div class="d-line align-self-center">
-                    <select class="bg-transparent text-center" name="" id="sortBy">
-                      <option value="" data-sort="asc">Newest</option>
-                      <option  value="" data-sort="desc">Oldest</option>
-                      <option value="" data-sort="alpha-asc">
-                        Alphabetical (A-Z)
-                      </option>
-                      <option value="" data-sort="alpha-desc">
-                        Alphabetical (Z-A)
-                      </option>
-                    </select>
+                <!--Sort by-->
+                  <div class="d-flex justify-content-center mx-3 mx-md-3 mt-5 mt-md-0">
+                    <label for="sortBy" class="m-0 align-self-center">Sort</label>
+  
+                    <div class="d-line align-self-center">
+                      <select
+                        class="bg-transparent text-center"
+                        name=""
+                        id="sortBy"
+                      >
+                        <option value="" data-sort="asc">Newest</option>
+                        <option value="" data-sort="desc">Oldest</option>
+                        <option value="" data-sort="alpha-asc">
+                          Alphabetical (A-Z)
+                        </option>
+                        <option value="" data-sort="alpha-desc">
+                          Alphabetical (Z-A)
+                        </option>
+                      </select>
+                    </div>
                   </div>
                 </div>
+
               </div>
               <!--List of cards-->
               <section>
                 <div class="row justify-content-center mx-3 mx-md-3">
                   <div class="col-lg-4 col-sm-6 mb-5">
                     <div class="card">
-                      <div class="card-img-top-container w-100 position-relative h-0">
+                      <div
+                        class="card-img-top-container w-100 position-relative h-0"
+                      >
                         <!--Js injection post media image-->
                         <img
                           src="/images/post.jpg"
-                         
                           class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
                           alt="Post image"
                         />
@@ -204,22 +227,22 @@
                           <!--Js injection post profile image-->
                           <img
                             src="/images/profileImage.jpg"
-                          
-                            class="post-profile-imagerounded-circle me-3"
+                            class="post-profile-image rounded-circle me-3"
                             alt="Profile image"
                           />
                           <div class="d-flex flex-column">
                             <!--JS injection post user name-->
                             <p class="mb-0 fs-6 fw-light">
                               Posted by
-                              <span class="post-user-name fw-normal">Tinberg</span>
+                              <span class="post-user-name fw-normal"
+                                >Tinberg</span
+                              >
                             </p>
                             <!--JS injection likes and comments-->
                             <p class="card-text fw-light">
                               <i class="fa-solid fa-heart text-primary"></i>
                               <span class="post-likes mx-1">65</span>|<span
                                 class="post-comments mx-1"
-                               
                                 >6</span
                               >
                               comments
@@ -231,11 +254,12 @@
                   </div>
                   <div class="col-lg-4 col-sm-6 mb-5">
                     <div class="card">
-                      <div class="card-img-top-container w-100 position-relative h-0">
+                      <div
+                        class="card-img-top-container w-100 position-relative h-0"
+                      >
                         <!--Js injection post media image-->
                         <img
                           src="/images/post.jpg"
-                         
                           class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
                           alt="Post image"
                         />
@@ -245,7 +269,6 @@
                           <!--Js injection post profile image-->
                           <img
                             src="/images/profileImage.jpg"
-                           
                             class="post-profile-image rounded-circle me-3"
                             alt="Profile image"
                           />
@@ -253,14 +276,15 @@
                             <!--JS injection post user name-->
                             <p class="mb-0 fs-6 fw-light">
                               Posted by
-                              <span class="post-user-name fw-normal">Tinberg</span>
+                              <span class="post-user-name fw-normal"
+                                >Tinberg</span
+                              >
                             </p>
                             <!--JS injection likes and comments-->
                             <p class="card-text fw-light">
                               <i class="fa-solid fa-heart text-primary"></i>
                               <span class="post-likes mx-1">65</span>|<span
                                 class="post-comments mx-1"
-                              
                                 >6</span
                               >
                               comments
@@ -272,11 +296,12 @@
                   </div>
                   <div class="col-lg-4 col-sm-6 mb-5">
                     <div class="card">
-                      <div class="card-img-top-container w-100 position-relative h-0">
+                      <div
+                        class="card-img-top-container w-100 position-relative h-0"
+                      >
                         <!--Js injection post media image-->
                         <img
                           src="/images/post.jpg"
-                         
                           class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
                           alt="Post image"
                         />
@@ -286,7 +311,6 @@
                           <!--Js injection post profile image-->
                           <img
                             src="/images/profileImage.jpg"
-                           
                             class="post-profile-image rounded-circle me-3"
                             alt="Profile image"
                           />
@@ -294,14 +318,15 @@
                             <!--JS injection post user name-->
                             <p class="mb-0 fs-6 fw-light">
                               Posted by
-                              <span class="post-user-name fw-normal">Tinberg</span>
+                              <span class="post-user-name fw-normal"
+                                >Tinberg</span
+                              >
                             </p>
                             <!--JS injection likes and comments-->
                             <p class="card-text fw-light">
                               <i class="fa-solid fa-heart text-primary"></i>
                               <span class="post-likes mx-1">65</span>|<span
                                 class="post-comments mx-1"
-                                
                                 >6</span
                               >
                               comments
@@ -313,11 +338,12 @@
                   </div>
                   <div class="col-lg-4 col-sm-6 mb-5">
                     <div class="card">
-                      <div class="card-img-top-container w-100 position-relative h-0">
+                      <div
+                        class="card-img-top-container w-100 position-relative h-0"
+                      >
                         <!--Js injection post media image-->
                         <img
                           src="/images/post.jpg"
-                          
                           class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
                           alt="Post image"
                         />
@@ -327,7 +353,6 @@
                           <!--Js injection post profile image-->
                           <img
                             src="/images/profileImage.jpg"
-                            
                             class="post-profile-image rounded-circle me-3"
                             alt="Profile image"
                           />
@@ -335,96 +360,15 @@
                             <!--JS injection post user name-->
                             <p class="mb-0 fs-6 fw-light">
                               Posted by
-                              <span class="post-user-name fw-normal">Tinberg</span>
-                            </p>
-                            <!--JS injection likes and comments-->
-                            <p class="card-text fw-light">
-                              <i class="fa-solid fa-heart text-primary"></i>
-                              <span class="post-likes mx-1" >65</span>|<span
-                                class="post-comments mx-1"
-                                
-                                >6</span
+                              <span class="post-user-name fw-normal"
+                                >Tinberg</span
                               >
-                              comments
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6 mb-5">
-                    <div class="card">
-                      <div class="card-img-top-container w-100 position-relative h-0">
-                        <!--Js injection post media image-->
-                        <img
-                          src="/images/post.jpg"
-                         
-                          class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
-                          alt="Post image"
-                        />
-                      </div>
-                      <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                          <!--Js injection post profile image-->
-                          <img
-                            src="/images/profileImage.jpg"
-                           
-                            class="post-profile-image rounded-circle me-3"
-                            alt="Profile image"
-                          />
-                          <div class="d-flex flex-column">
-                            <!--JS injection post user name-->
-                            <p class="mb-0 fs-6 fw-light">
-                              Posted by
-                              <span  class="post-user-name fw-normal">Tinberg</span>
-                            </p>
-                            <!--JS injection likes and comments-->
-                            <p class="card-text fw-light">
-                              <i class="fa-solid fa-heart text-primary"></i>
-                              <span class="post-likes mx-1" >65</span>|<span
-                                class="post-comments mx-1"
-                               
-                                >6</span
-                              >
-                              comments
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6 mb-5">
-                    <div class="card">
-                      <div class="card-img-top-container w-100 position-relative h-0">
-                        <!--Js injection post media image-->
-                        <img
-                          src="/images/post.jpg"
-                          
-                          class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
-                          alt="Post image"
-                        />
-                      </div>
-                      <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                          <!--Js injection post profile image-->
-                          <img
-                            src="/images/profileImage.jpg"
-                           
-                            class="post-profile-image rounded-circle me-3"
-                            alt="Profile image"
-                          />
-                          <div class="d-flex flex-column">
-                            <!--JS injection post user name-->
-                            <p class="mb-0 fs-6 fw-light">
-                              Posted by
-                              <span class="post-user-name fw-normal">Tinberg</span>
                             </p>
                             <!--JS injection likes and comments-->
                             <p class="card-text fw-light">
                               <i class="fa-solid fa-heart text-primary"></i>
                               <span class="post-likes mx-1">65</span>|<span
                                 class="post-comments mx-1"
-                                
                                 >6</span
                               >
                               comments
@@ -436,11 +380,12 @@
                   </div>
                   <div class="col-lg-4 col-sm-6 mb-5">
                     <div class="card">
-                      <div class="card-img-top-container w-100 position-relative h-0">
+                      <div
+                        class="card-img-top-container w-100 position-relative h-0"
+                      >
                         <!--Js injection post media image-->
                         <img
                           src="/images/post.jpg"
-                         
                           class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
                           alt="Post image"
                         />
@@ -450,7 +395,6 @@
                           <!--Js injection post profile image-->
                           <img
                             src="/images/profileImage.jpg"
-                            
                             class="post-profile-image rounded-circle me-3"
                             alt="Profile image"
                           />
@@ -458,14 +402,15 @@
                             <!--JS injection post user name-->
                             <p class="mb-0 fs-6 fw-light">
                               Posted by
-                              <span class="post-user-name fw-normal">Tinberg</span>
+                              <span class="post-user-name fw-normal"
+                                >Tinberg</span
+                              >
                             </p>
                             <!--JS injection likes and comments-->
                             <p class="card-text fw-light">
                               <i class="fa-solid fa-heart text-primary"></i>
                               <span class="post-likes mx-1">65</span>|<span
                                 class="post-comments mx-1"
-                                
                                 >6</span
                               >
                               comments
@@ -477,11 +422,12 @@
                   </div>
                   <div class="col-lg-4 col-sm-6 mb-5">
                     <div class="card">
-                      <div class="card-img-top-container w-100 position-relative h-0">
+                      <div
+                        class="card-img-top-container w-100 position-relative h-0"
+                      >
                         <!--Js injection post media image-->
                         <img
                           src="/images/post.jpg"
-                          
                           class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
                           alt="Post image"
                         />
@@ -491,7 +437,6 @@
                           <!--Js injection post profile image-->
                           <img
                             src="/images/profileImage.jpg"
-                            
                             class="post-profile-image rounded-circle me-3"
                             alt="Profile image"
                           />
@@ -499,14 +444,15 @@
                             <!--JS injection post user name-->
                             <p class="mb-0 fs-6 fw-light">
                               Posted by
-                              <span class="post-user-name fw-normal">Tinberg</span>
+                              <span class="post-user-name fw-normal"
+                                >Tinberg</span
+                              >
                             </p>
                             <!--JS injection likes and comments-->
                             <p class="card-text fw-light">
                               <i class="fa-solid fa-heart text-primary"></i>
                               <span class="post-likes mx-1">65</span>|<span
                                 class="post-comments mx-1"
-                                
                                 >6</span
                               >
                               comments
@@ -518,11 +464,12 @@
                   </div>
                   <div class="col-lg-4 col-sm-6 mb-5">
                     <div class="card">
-                      <div class="card-img-top-container w-100 position-relative h-0">
+                      <div
+                        class="card-img-top-container w-100 position-relative h-0"
+                      >
                         <!--Js injection post media image-->
                         <img
                           src="/images/post.jpg"
-                          
                           class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
                           alt="Post image"
                         />
@@ -532,7 +479,6 @@
                           <!--Js injection post profile image-->
                           <img
                             src="/images/profileImage.jpg"
-                            
                             class="post-profile-image rounded-circle me-3"
                             alt="Profile image"
                           />
@@ -540,14 +486,99 @@
                             <!--JS injection post user name-->
                             <p class="mb-0 fs-6 fw-light">
                               Posted by
-                              <span class="post-user-name fw-normal">Tinberg</span>
+                              <span class="post-user-name fw-normal"
+                                >Tinberg</span
+                              >
+                            </p>
+                            <!--JS injection likes and comments-->
+                            <p class="card-text fw-light">
+                              <i class="fa-solid fa-heart text-primary"></i>
+                              <span class="post-likes mx-1">65</span>|<span
+                                class="post-comments mx-1"
+                                >6</span
+                              >
+                              comments
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-sm-6 mb-5">
+                    <div class="card">
+                      <div
+                        class="card-img-top-container w-100 position-relative h-0"
+                      >
+                        <!--Js injection post media image-->
+                        <img
+                          src="/images/post.jpg"
+                          class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
+                          alt="Post image"
+                        />
+                      </div>
+                      <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                          <!--Js injection post profile image-->
+                          <img
+                            src="/images/profileImage.jpg"
+                            class="post-profile-image rounded-circle me-3"
+                            alt="Profile image"
+                          />
+                          <div class="d-flex flex-column">
+                            <!--JS injection post user name-->
+                            <p class="mb-0 fs-6 fw-light">
+                              Posted by
+                              <span class="post-user-name fw-normal"
+                                >Tinberg</span
+                              >
+                            </p>
+                            <!--JS injection likes and comments-->
+                            <p class="card-text fw-light">
+                              <i class="fa-solid fa-heart text-primary"></i>
+                              <span class="post-likes mx-1">65</span>|<span
+                                class="post-comments mx-1"
+                                >6</span
+                              >
+                              comments
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-sm-6 mb-5">
+                    <div class="card">
+                      <div
+                        class="card-img-top-container w-100 position-relative h-0"
+                      >
+                        <!--Js injection post media image-->
+                        <img
+                          src="/images/post.jpg"
+                          class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
+                          alt="Post image"
+                        />
+                      </div>
+                      <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                          <!--Js injection post profile image-->
+                          <img
+                            src="/images/profileImage.jpg"
+                            class="post-profile-image rounded-circle me-3"
+                            alt="Profile image"
+                          />
+                          <div class="d-flex flex-column">
+                            <!--JS injection post user name-->
+                            <p class="mb-0 fs-6 fw-light">
+                              Posted by
+                              <span class="post-user-name fw-normal"
+                                >Tinberg</span
+                              >
                             </p>
                             <!--JS injection likes and comments-->
                             <p class="card-text fw-light">
                               <i class="fa-solid fa-heart text-primary"></i>
                               <span class="mx-1">65</span>|<span
                                 class="post-comments post-likes mx-1"
-                                
                                 >6</span
                               >
                               comments
@@ -561,11 +592,13 @@
               </section>
             </div>
           </div>
+        
         </div>
+
       </main>
-      <footer class="footer bg-secondary mt-5">
+      <footer class="footer bg-secondary mt-5 pt-4 pb-4">
         <div class="container text-white">
-          <p>© Globetrotter 2024</p>
+          <p class="px-5 m-0">© Globetrotter 2024</p>
         </div>
       </footer>
     </div>
