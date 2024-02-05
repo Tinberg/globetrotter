@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/dist/css/global.css" />
     <link rel="stylesheet" href="/dist/css/my-profile.css" />
     <link />
-    <script src="/javascript/pages/my-profile.js" defer></script>
+    <script type="module" src="/javascript/pages/my-profile.js" defer></script>
     <!--Script for bootstrap JS-->
     <script
       defer
@@ -64,14 +64,16 @@
                   >
                 </li>
                 <li class="nav-item mx-3">
-                  <a href="/html/feed.html"
+                  <a
+                    href="/html/feed.html"
                     class="nav-link active text-white d-flex flex-column align-items-center"
                     aria-current="page"
                     ><i class="fa-solid fa-house"></i><span>Home</span></a
                   >
                 </li>
                 <li class="nav-item mx-3 me-sm-4">
-                  <a href="/html/my-profile.html"
+                  <a
+                    href="/html/my-profile.html"
                     class="nav-link active text-white d-flex flex-column align-items-center"
                     aria-current="page"
                     ><i class="fa-solid fa-user"></i><span>My Profile</span></a
@@ -89,42 +91,42 @@
           class="heading-section d-flex flex-column align-items-center pb-5"
         >
           <div
-            class="d-flex flex-column position-relative justify-content-center align-items-center"
+            class="d-flex flex-column position-relative justify-content-center align-items-center w-100"
           >
-            <div class="banner-div">
-              <!--remove this and inject with js if the user decide to user banner-->
+            <div class="banner-div w-100">
+              <!-- target bannerImage in js and set/change the profile banner-->
               <img
-                src="/images/exampleBanner.jpg"
                 class="banner-image w-100"
                 id="bannerImage"
                 alt="Personal banner image"
               />
             </div>
-            <!--target #profileImage in js to change the img this is the default im-->
+
+            <!--target profileImage in js and set/change the profile avatar-->
             <img
-              src="/images/profileImage.jpg"
               class="profile-img rounded-circle position-absolute border"
               id="profileImage"
             />
           </div>
+
           <div class="d-flex flex-column align-items-center">
-            <!--target #userName in js and remove Tinberg-->
-            <h1 class="mt-4" id="userName">Tinberg</h1>
+            <!--target #userName in js and set the user userName-->
+            <h1 class="mt-4" id="userName"></h1>
             <div class="d-flex mt-4">
               <div class="d-flex flex-column align-items-center mx-4">
                 <p>Posts</p>
-                <!--js inject number-->
-                <p id="allPosts">989</p>
+                <!--js inject number Posts-->
+                <p id="allPosts"></p>
               </div>
               <div class="d-flex flex-column align-items-center mx-4">
                 <p>Followers</p>
-                <!--js inject number-->
-                <p id="followers">321</p>
+                <!--js inject number Followers-->
+                <p id="followers"></p>
               </div>
               <div class="d-flex flex-column align-items-center mx-4">
                 <p>Following</p>
-                <!--js inject number-->
-                <p id="following">123</p>
+                <!--js inject number Following-->
+                <p id="following"></p>
               </div>
             </div>
           </div>
@@ -147,9 +149,9 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="editProfileModalLabel">
+                  <p class="modal-title fs-5" id="editProfileModalLabel">
                     Edit Profile
-                  </h5>
+                  </p>
                   <button
                     type="button"
                     class="btn-close"
@@ -166,39 +168,74 @@
                     >
                       <label class="my-2">Avatar Image</label>
                       <div
-                        class="aspect-circle d-flex justify-content-center align-items-center rounded-circle "
+                        class="aspect-circle d-flex justify-content-center align-items-center rounded-circle"
                       >
                         <i class="fas fa-image fa-3x"></i>
                       </div>
                       <p class="fw-lighter my-2">Recommanded AR 1:1</p>
                       <input
-                        type="file"
+                        type="text"
                         class="form-control"
                         id="profileImageInput"
                         name="profileImage"
+                        placeholder="Image URL to a uploaded image"
                       />
+                      <!-- Checkbox to reset avatar image -->
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="resetAvatarCheckbox"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="resetAvatarCheckbox"
+                        >
+                          Reset avatar to default
+                        </label>
+                      </div>
                     </div>
+
                     <!-- Square Banner Image-->
                     <div
                       class="banner-aspect-ratio-guide mb-3 align-items-center d-flex flex-column border border-bottom-0 rounded"
                     >
                       <label class="my-2">Banner Image</label>
                       <div
-                        class="aspect-square d-flex justify-content-center align-items-center rounded "
+                        class="aspect-square d-flex justify-content-center align-items-center rounded"
                       >
                         <i class="fas fa-image fa-3x"></i>
                       </div>
 
                       <p class="fw-lighter my-2">Recommanded AR 5:1</p>
                       <input
-                        type="file"
+                        type="text"
                         class="form-control"
                         id="bannerImageInput"
                         name="bannerImage"
+                        placeholder="Image URL to a uploaded image"
                       />
+                      <!-- Checkbox to reset banner image -->
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="resetBannerCheckbox"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="resetBannerCheckbox"
+                        >
+                          Reset banner to default
+                        </label>
+                      </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary my-2">
+                    <button
+                      type="submit"
+                      id="editProfileForm"
+                      class="btn btn-primary my-2"
+                    >
                       Save Changes
                     </button>
                   </form>
@@ -218,7 +255,13 @@
         </section>
         <!--Section 2 Posts-->
         <section>
-          <div class="row justify-content-center mx-3 mx-md-5">
+          <!--Js Post Container-->
+          <div
+            id="postContainer"
+            class="row justify-content-center mx-3 mx-md-5"
+          >
+            <!--Remove this when done-->
+            <!--Inject posts with JS for each post-->
             <div class="col-lg-4 col-sm-6 mb-5">
               <div class="card">
                 <div class="card-img-top-container w-100 position-relative h-0">
