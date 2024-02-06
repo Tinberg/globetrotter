@@ -10740,7 +10740,7 @@ body {
 }
 
 main {
-  padding-top: 76px;
+  padding-top: 80px;
 }
 
 a {
@@ -10761,6 +10761,7 @@ a:hover {
 /*Header*/
 nav {
   z-index: 1000;
+  min-height: 79.55px;
 }
 
 /* Customized Utility classes */
