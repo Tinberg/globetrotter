@@ -10739,6 +10739,10 @@ body {
   scroll-behavior: smooth;
 }
 
+main {
+  padding-top: 76px;
+}
+
 a {
   text-decoration: none;
   transition: transform 0.3s ease;
@@ -10752,6 +10756,11 @@ img {
 
 a:hover {
   transform: scale(1.05);
+}
+
+/*Header*/
+.navbar {
+  z-index: 1000;
 }
 
 /* Customized Utility classes */
