@@ -19,6 +19,8 @@ export { fetchUserProfile };
 export { fetchPostsByUserName };
 //-- For fetch edit profile media --> my-profile.js
 export { updateProfileMedia };
+//-- For fetch create post --> new-post.js
+export { createPost };
 
 /**
  *
@@ -127,3 +129,26 @@ async function updateProfileMedia(userName, bannerUrl, avatarUrl) {
   return await response.json();
 }
 
+/**
+ * Creates a new post.
+ * @param {Object} postData - The data for the new post.
+ * @returns {Promise}
+ */
+async function createPost(postData) {
+  const token = getToken();
+  const response = await fetch(`${API_BASE_URL}/social/posts`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`, // Assuming getToken() retrieves the stored JWT.
+    },
+    body: JSON.stringify(postData),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(`Failed to create post: ${errorData.message}`);
+  }
+
+  return await response.json();
+}
