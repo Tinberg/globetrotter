@@ -31,37 +31,77 @@
   </head>
   <body class="container-xxl p-0">
     <div class="container-xxl p-0">
-     <!-- New Post Modal -->
-<div class="modal modal-lg fade" id="newPostModal" tabindex="-1" aria-labelledby="newPostModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="newPostModalLabel">New Post</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="newPostForm">
-            <!-- Left Column for Image Selection -->
-            <div class="d-flex">
-              <div class="me-3">
-                <div class="mb-3 text-center bg-secondary p-3" style="aspect-ratio: 1 / 1; width: 100px;">
-                  <i class="fas fa-image fa-2x text-white"></i>
-                </div>
-                <input class="form-control" type="text" placeholder="Image URL" aria-label="Image URL">
-              </div>
-              <!-- Right Column for Title, Caption, and Continent -->
-              <div class="flex-grow-1">
+      <!-- New Post Modal -->
+      <div
+        class="modal modal-lg fade"
+        id="newPostModal"
+        tabindex="-1"
+        aria-labelledby="newPostModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header text-start">
+              <p class="modal-title fs-5 w-100" id="newPostModalLabel">
+                New Post
+              </p>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="newPostForm" class="text-center">
                 <div class="mb-3">
-                  <label for="postTitle" class="form-label">Title</label>
-                  <input type="text" class="form-control" id="postTitle" placeholder="Title">
+                  <label for="postImageInput" class="form-label fw-semibold"
+                    >Post Image</label
+                  >
+                  <div class="d-flex justify-content-center">
+                    <div
+                      class="img-icon bg-secondary d-inline-flex justify-content-center align-items-center mb-2 rounded"
+                    >
+                      <i class="fas fa-image fa-3x text-white"></i>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Image URL to a uploaded image "
+                    class="form-control mt-2 mx-auto"
+                  />
+                  <div class="form-text">Recommended aspect ratio: 1:1</div>
                 </div>
+                <div class="border my-4"></div>
                 <div class="mb-3">
-                  <label for="postCaption" class="form-label">Caption</label>
-                  <textarea class="form-control" id="postCaption" rows="3" placeholder="Caption"></textarea>
+                  <label for="postTitle" class="form-label fw-semibold"
+                    >Title</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control mx-auto"
+                    id="postTitle"
+                    placeholder="Enter title here"
+                  />
                 </div>
+                <div class="border my-4"></div>
                 <div class="mb-3">
-                  <label for="continentSelect" class="form-label">Continent</label>
-                  <select class="form-select" id="continentSelect">
+                  <label for="postCaption" class="form-label fw-semibold"
+                    >Caption</label
+                  >
+                  <textarea
+                    class="form-control mx-auto"
+                    id="postCaption"
+                    rows="5"
+                    placeholder="Write a caption..."
+                  ></textarea>
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="continentSelect" class="form-label fw-semibold"
+                    >Continent</label
+                  >
+                  <select class="form-select mx-auto" id="continentSelect">
                     <option selected>Choose...</option>
                     <option value="Africa">Africa</option>
                     <option value="Asia">Asia</option>
@@ -71,18 +111,24 @@
                     <option value="South-America">South America</option>
                   </select>
                 </div>
-              </div>
+                <div class="border my-4"></div>
+                <button type="submit" class="btn btn-primary my-2">
+                  Publish
+                </button>
+              </form>
             </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="publishPostButton">Publish</button>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  
 
       <header>
         <nav
@@ -259,7 +305,7 @@
                     <div class="border my-4"></div>
                     <!-- Square Banner Image-->
                     <div
-                      class="banner-aspect-ratio-guide mb-3 align-items-center d-flex flex-column rounded "
+                      class="banner-aspect-ratio-guide mb-3 align-items-center d-flex flex-column rounded"
                     >
                       <label class="my-2 fw-semibold">Banner Image</label>
                       <div
@@ -291,14 +337,15 @@
                         </label>
                       </div>
                     </div>
-
-                    <button
-                      type="submit"
-                      id="editProfileForm"
-                      class="btn btn-primary my-2"
-                    >
-                      Save Changes
-                    </button>
+                    <div class="d-flex justify-content-center mt-3">
+                      <button
+                        type="submit"
+                        id="editProfileForm"
+                        class="btn btn-primary my-2 px-5"
+                      >
+                        Save Changes
+                      </button>
+                    </div>
                   </form>
                 </div>
                 <div class="modal-footer">
