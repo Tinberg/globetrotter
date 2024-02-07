@@ -31,68 +31,169 @@
   </head>
   <body class="container-xxl p-0">
     <div class="container-xxl p-0">
-        <header>
-            <nav class="navbar navbar-expand-md bg-secondary position-fixed container-xxl py-3 py-md-2 ">
-              <div class="container-fluid">
-                <a
-                  class="navbar-brand active fs-3 text-white ms-4"
-                  aria-current="page"
-                  href="#"
-                  >Globetrotter</a
-                >
-                <button
-                  class="navbar-toggler text-white"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#navbarNavDropdown"
-                  aria-controls="navbarNavDropdown"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div
-                  class="collapse navbar-collapse justify-content-end"
-                  id="navbarNavDropdown"
-                >
-                  <ul class="navbar-nav d-flex flex-md-row mt-md-1 mt-4">
-                   
-                    <li class="nav-item mx-3 my-md-0 my-2 text-center">
-                      <a
-                        class="nav-link active text-white d-flex flex-column align-items-center"
-                        aria-current="page"
-                        href="/html/home.html"
-                        ><i class="fa-solid fa-house"></i><span>Home</span></a
-                      >
-                    </li>
-                    <li class="nav-item mx-3 my-md-0 my-2 text-center">
-                      <a
-                        class="nav-link active text-white d-flex flex-column align-items-center"
-                        aria-current="page"
-                        href="/html/explore.html"
-                        ><i class="fa-solid fa-globe"></i><span>Explore</span></a
-                      >
-                    </li>
-                    <li class="nav-item mx-3 my-md-0 my-2 text-center">
-                      <a
-                        class="nav-link active text-white d-flex flex-column align-items-center"
-                        aria-current="page"
-                        ><i class="fa-solid fa-plus"></i><span>New post</span></a
-                      >
-                    </li>
-                    <li class="nav-item mx-3 my-md-0 my-2 text-center me-md-4">
-                      <a
-                        class="nav-link active text-white d-flex flex-column align-items-center"
-                        aria-current="page"
-                        href="/html/my-profile.html"
-                        ><i class="fa-solid fa-user"></i><span>My Profile</span></a
-                      >
-                    </li>
-                  </ul>
+      <!-- New Post Modal -->
+      <div
+        class="modal modal-lg fade"
+        id="newPostModal"
+        tabindex="-1"
+        aria-labelledby="newPostModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header text-start">
+              <p class="modal-title fs-5 w-100" id="newPostModalLabel">
+                New Post
+              </p>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="newPostForm" class="text-center">
+                <div class="mb-3">
+                  <label for="postImageInput" class="form-label fw-semibold"
+                    >Post Image</label
+                  >
+                  <div class="d-flex justify-content-center">
+                    <div
+                      class="img-icon bg-secondary d-inline-flex justify-content-center align-items-center mb-2 rounded"
+                    >
+                      <i class="fas fa-image fa-3x text-white"></i>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Image URL to a uploaded image "
+                    class="form-control mt-2 mx-auto"
+                  />
+                  <div class="form-text">Recommended aspect ratio: 1:1</div>
                 </div>
-              </div>
-            </nav>
-          </header>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="postTitle" class="form-label fw-semibold"
+                    >Title</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control mx-auto"
+                    id="postTitle"
+                    placeholder="Enter title here"
+                  />
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="postCaption" class="form-label fw-semibold"
+                    >Caption</label
+                  >
+                  <textarea
+                    class="form-control mx-auto"
+                    id="postCaption"
+                    rows="5"
+                    placeholder="Write a caption..."
+                  ></textarea>
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="continentSelect" class="form-label fw-semibold"
+                    >Continent</label
+                  >
+                  <select class="form-select mx-auto" id="continentSelect">
+                    <option selected>Choose...</option>
+                    <option value="Africa">Africa</option>
+                    <option value="Asia">Asia</option>
+                    <option value="Europe">Europe</option>
+                    <option value="Oceania">Oceania</option>
+                    <option value="North-America">North America</option>
+                    <option value="South-America">South America</option>
+                  </select>
+                </div>
+                <div class="border my-4"></div>
+                <button type="submit" class="btn btn-primary my-2">
+                  Publish
+                </button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <header>
+        <nav
+          class="navbar navbar-expand-md bg-secondary position-fixed container-xxl py-3 py-md-2"
+        >
+          <div class="container-fluid">
+            <a
+              class="navbar-brand active fs-3 text-white ms-4"
+              aria-current="page"
+              href="#"
+              >Globetrotter</a
+            >
+            <button
+              class="navbar-toggler text-white"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div
+              class="collapse navbar-collapse justify-content-end"
+              id="navbarNavDropdown"
+            >
+              <ul class="navbar-nav d-flex flex-md-row mt-md-1 mt-4">
+                <li class="nav-item mx-3 my-md-0 my-2 text-center">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    aria-current="page"
+                    href="/html/home.html"
+                    ><i class="fa-solid fa-house"></i><span>Home</span></a
+                  >
+                </li>
+                <li class="nav-item mx-3 my-md-0 my-2 text-center">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    aria-current="page"
+                    href="/html/explore.html"
+                    ><i class="fa-solid fa-globe"></i><span>Explore</span></a
+                  >
+                </li>
+                <li class="nav-item mx-3 my-md-0 my-2 text-center">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    data-bs-toggle="modal"
+                    data-bs-target="#newPostModal"
+                    ><i class="fa-solid fa-plus"></i><span>New post</span></a
+                  >
+                </li>
+                <li class="nav-item mx-3 my-md-0 my-2 text-center me-md-4">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    aria-current="page"
+                    href="/html/my-profile.html"
+                    ><i class="fa-solid fa-user"></i><span>My Profile</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
       <main>
         <!--Section 1 Heading-->
         <section
@@ -109,14 +210,12 @@
                 alt="Personal banner image"
               />
             </div>
-
             <!--target profileImage in js and set/change the profile avatar-->
             <img
               class="profile-img rounded-circle position-absolute border"
               id="profileImage"
             />
           </div>
-
           <div class="d-flex flex-column align-items-center">
             <!--target #userName in js and set the user userName-->
             <h1 class="mt-4" id="userName"></h1>
@@ -172,9 +271,9 @@
                   <form id="editProfileForm">
                     <!-- Circular Profile Image -->
                     <div
-                      class="profile-aspect-ratio-guide mb-3 align-items-center d-flex flex-column border border-bottom-0 rounded"
+                      class="profile-aspect-ratio-guide mb-3 align-items-center d-flex flex-column rounded"
                     >
-                      <label class="my-2">Avatar Image</label>
+                      <label class="my-2 fw-semibold">Avatar Image</label>
                       <div
                         class="aspect-circle d-flex justify-content-center align-items-center rounded-circle"
                       >
@@ -189,26 +288,26 @@
                         placeholder="Image URL to a uploaded image"
                       />
                       <!-- Checkbox to reset avatar image -->
-                      <div class="form-check">
+                      <div class="form-check mt-1">
                         <input
                           class="form-check-input"
                           type="checkbox"
                           id="resetAvatarCheckbox"
                         />
                         <label
-                          class="form-check-label"
+                          class="form-check-label fw-light"
                           for="resetAvatarCheckbox"
                         >
                           Reset avatar to default
                         </label>
                       </div>
                     </div>
-
+                    <div class="border my-4"></div>
                     <!-- Square Banner Image-->
                     <div
-                      class="banner-aspect-ratio-guide mb-3 align-items-center d-flex flex-column border border-bottom-0 rounded"
+                      class="banner-aspect-ratio-guide mb-3 align-items-center d-flex flex-column rounded"
                     >
-                      <label class="my-2">Banner Image</label>
+                      <label class="my-2 fw-semibold">Banner Image</label>
                       <div
                         class="aspect-square d-flex justify-content-center align-items-center rounded"
                       >
@@ -224,28 +323,29 @@
                         placeholder="Image URL to a uploaded image"
                       />
                       <!-- Checkbox to reset banner image -->
-                      <div class="form-check">
+                      <div class="form-check mt-1">
                         <input
                           class="form-check-input"
                           type="checkbox"
                           id="resetBannerCheckbox"
                         />
                         <label
-                          class="form-check-label"
+                          class="form-check-label fw-light"
                           for="resetBannerCheckbox"
                         >
                           Reset banner to default
                         </label>
                       </div>
                     </div>
-
-                    <button
-                      type="submit"
-                      id="editProfileForm"
-                      class="btn btn-primary my-2"
-                    >
-                      Save Changes
-                    </button>
+                    <div class="d-flex justify-content-center mt-3">
+                      <button
+                        type="submit"
+                        id="editProfileForm"
+                        class="btn btn-primary my-2 px-5"
+                      >
+                        Save Changes
+                      </button>
+                    </div>
                   </form>
                 </div>
                 <div class="modal-footer">

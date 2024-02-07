@@ -25,8 +25,108 @@
   </head>
   <body class="background-img container-xxl p-0">
     <div class="container-xxl p-0">
+      <!-- New Post Modal -->
+      <div
+        class="modal modal-lg fade"
+        id="newPostModal"
+        tabindex="-1"
+        aria-labelledby="newPostModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header text-start">
+              <p class="modal-title fs-5 w-100" id="newPostModalLabel">
+                New Post
+              </p>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="newPostForm" class="text-center">
+                <div class="mb-3">
+                  <label for="postImageInput" class="form-label fw-semibold"
+                    >Post Image</label
+                  >
+                  <div class="d-flex justify-content-center">
+                    <div
+                      class="img-icon bg-secondary d-inline-flex justify-content-center align-items-center mb-2 rounded"
+                    >
+                      <i class="fas fa-image fa-3x text-white"></i>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Image URL to a uploaded image "
+                    class="form-control mt-2 mx-auto"
+                  />
+                  <div class="form-text">Recommended aspect ratio: 1:1</div>
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="postTitle" class="form-label fw-semibold"
+                    >Title</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control mx-auto"
+                    id="postTitle"
+                    placeholder="Enter title here"
+                  />
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="postCaption" class="form-label fw-semibold"
+                    >Caption</label
+                  >
+                  <textarea
+                    class="form-control mx-auto"
+                    id="postCaption"
+                    rows="5"
+                    placeholder="Write a caption..."
+                  ></textarea>
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="continentSelect" class="form-label fw-semibold"
+                    >Continent</label
+                  >
+                  <select class="form-select mx-auto" id="continentSelect">
+                    <option selected>Choose...</option>
+                    <option value="Africa">Africa</option>
+                    <option value="Asia">Asia</option>
+                    <option value="Europe">Europe</option>
+                    <option value="Oceania">Oceania</option>
+                    <option value="North-America">North America</option>
+                    <option value="South-America">South America</option>
+                  </select>
+                </div>
+                <div class="border my-4"></div>
+                <button type="submit" class="btn btn-primary my-2">
+                  Publish
+                </button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <header>
-        <nav class="navbar navbar-expand-md bg-secondary position-fixed container-xxl py-3 py-md-2 ">
+        <nav
+          class="navbar navbar-expand-md bg-secondary position-fixed container-xxl py-3 py-md-2"
+        >
           <div class="container-fluid">
             <a
               class="navbar-brand active fs-3 text-white ms-4"
@@ -50,7 +150,6 @@
               id="navbarNavDropdown"
             >
               <ul class="navbar-nav d-flex flex-md-row mt-md-1 mt-4">
-               
                 <li class="nav-item mx-3 my-md-0 my-2 text-center">
                   <a
                     class="nav-link active text-white d-flex flex-column align-items-center"
@@ -71,6 +170,8 @@
                   <a
                     class="nav-link active text-white d-flex flex-column align-items-center"
                     aria-current="page"
+                    data-bs-toggle="modal"
+                    data-bs-target="#newPostModal"
                     ><i class="fa-solid fa-plus"></i><span>New post</span></a
                   >
                 </li>
@@ -182,17 +283,24 @@
                     >
                   </div>
                 </form>
-            </div>
+              </div>
             </div>
             <div
               class="col-md-10 border-start border-2 d-flex align-items-center flex-column mt-3 mt-md-0"
             >
-              <div class="container mb-4 gap-3 gap-md-0 d-flex flex-column-reverse flex-md-column mt-5 mt-md-0">
-                <h1 class="fs-2 d-flex justify-content-center mb-md-5 mt-3 mt-md-5 pt-md-3 pb-md-3">Explore the World</h1>
-                <div class="mb-3 mb-md-0 mx-3 mx-md-3 flex-column flex-md-row d-flex justify-content-between">
+              <div
+                class="container mb-4 gap-3 gap-md-0 d-flex flex-column-reverse flex-md-column mt-5 mt-md-0"
+              >
+                <h1
+                  class="fs-2 d-flex justify-content-center mb-md-5 mt-3 mt-md-5 pt-md-3 pb-md-3"
+                >
+                  Explore the World
+                </h1>
+                <div
+                  class="mb-3 mb-md-0 mx-3 mx-md-3 flex-column flex-md-row d-flex justify-content-between"
+                >
                   <form
-                    class="
-                    d-flex gap-4 gap-md-2 justify-content-center justify-content-md-start align-items-center flex-column flex-md-row"
+                    class="d-flex gap-4 gap-md-2 justify-content-center justify-content-md-start align-items-center flex-column flex-md-row"
                     action=""
                   >
                     <input
@@ -201,12 +309,18 @@
                       placeholder="Search all posts"
                       aria-label="search for all posts"
                     />
-                    <button class="btn btn-primary" type="button">Search</button>
+                    <button class="btn btn-primary" type="button">
+                      Search
+                    </button>
                   </form>
-                <!--Sort by-->
-                  <div class="d-flex justify-content-center mx-3 mx-md-3 mt-5 mt-md-0">
-                    <label for="sortBy" class="m-0 align-self-center">Sort</label>
-  
+                  <!--Sort by-->
+                  <div
+                    class="d-flex justify-content-center mx-3 mx-md-3 mt-5 mt-md-0"
+                  >
+                    <label for="sortBy" class="m-0 align-self-center"
+                      >Sort</label
+                    >
+
                     <div class="d-line align-self-center">
                       <select
                         class="bg-transparent text-center"
@@ -225,7 +339,6 @@
                     </div>
                   </div>
                 </div>
-
               </div>
               <!--List of cards-->
               <section>
@@ -612,9 +725,7 @@
               </section>
             </div>
           </div>
-        
         </div>
-
       </main>
       <footer class="footer bg-secondary mt-5 pt-4 pb-4">
         <div class="container text-white">
