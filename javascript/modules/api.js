@@ -1,4 +1,3 @@
-
 //-- This is the Base URL --//
 const API_BASE_URL = "https://api.noroff.dev/api/v1";
 
@@ -11,7 +10,7 @@ import { getToken } from "./auth.js";
 
 //-- For fetch register user --> register.js
 export { registerUser };
-//-- For fetch login user --> index.js 
+//-- For fetch login user --> index.js
 export { loginUser };
 //-- For fetch spesific user info --> my-profile.js MAYBE profile.js as well??????
 export { fetchUserProfile };
@@ -140,7 +139,7 @@ async function createPost(postData) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`, // Assuming getToken() retrieves the stored JWT.
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(postData),
   });
