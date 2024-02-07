@@ -1,7 +1,7 @@
 //------ Import --------/
 import { createPost } from "../modules/api.js";
 
-// Handle the submission for the new post form
+// --Handle the submission for the new post form --//
 document
   .getElementById("newPostForm")
   .addEventListener("submit", async (event) => {
