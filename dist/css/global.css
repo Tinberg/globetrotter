@@ -10770,5 +10770,8 @@ nav {
 }
 
 /* Customized Utility classes */
+.background-img {
+  background-image: url(/images/background.jpg);
+}
 
 /*# sourceMappingURL=global.css.map */
