@@ -10,14 +10,14 @@
     />
     <link rel="stylesheet" href="/dist/css/global.css" />
     <link rel="stylesheet" href="/dist/css/post.css" />
-        <!--Script for bootstrap JS-->
-        <script
-        defer
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"
-      ></script>
-          <!--Script for Fontawesome-->
+    <!--Script for bootstrap JS-->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <!--Script for Fontawesome-->
     <script
       src="https://kit.fontawesome.com/0933736d52.js"
       crossorigin="anonymous"
@@ -124,7 +124,7 @@
         </div>
       </div>
 
-              <!---Navigation--->
+      <!---Navigation--->
 
       <header>
         <nav
@@ -191,65 +191,187 @@
           </div>
         </nav>
       </header>
-      <main>
 
-                <!--- Section 1: Post section --->
-        <section class="user-post-section container-fluid d-flex justify-content-center pt-5">
-          <div class="row background-grey d-flex">
-            <div class="container-fluid col-6 order-1 p-0">
-              <img class="w-100 h-100" src="/images/post.jpg" alt="">
+      <main class="padding-fixed-navbar">
+        <!--- Section 1: Post section --->
+        <section
+          class="user-post-section container-fluid d-flex justify-content-center pt-5"
+        >
+          <div class="row background-grey d-flex flex-column flex-md-row">
+            <div class="container-fluid col-12 col-md-6 order-1 p-0">
+              <img class="w-100 h-100" src="/images/post.jpg" alt="" />
             </div>
 
-            <div class="col-6 d-flex flex-column justify-content-center order-2 container-fluid">
-              <div class="container p-5">
-              <div class=" posting-user-details d-flex align-items-center border-bottom pb-3 mt-4">
-               <!--Js injection post profile image-->
-               <div>
-               <img
-               src="/images/profileImage.jpg"
-               class="post-profile-image rounded-circle me-3"
-               alt="Profile image"
-             />
-            </div>
-              <div class="d-flex flex-column">
-                <p class="fw-light mb-2">Posted by <span class="fw-normal ps-1">Mathias T.</span></p>
-                <p class="fw-light mb-2">Continent:<span class="fw-normal ps-1">Europe</span></p>
-                <p class="card-text fw-light">
-                  <i class="fa-solid fa-heart text-primary"></i>
-                  <span class="post-likes mx-1">65</span>|<span
-                    class="post-comments mx-1"
-                    >6</span
-                  >
-                  comments
-                </p>
-              </div>
-            </div>
-            <div class="text-section">
-              <h1 class="post-title pt-3">Hello from the desert</h1>
-              <p class="fw-light">
-                Making new friends in the heart of Egypt! 🇪🇬 Just chilling with my new buddy here in the vast, breathtaking deserts. Who knew camels were such great companions? 🌞✨  
-              </p>
-            </div>
-            <div class="reaction-section">
-              <form class="d-flex flex-column" action="">
-                <textarea class="border p-3 w-100" rows="5" placeholder="Leave a comment..." aria-placeholder="Leave a comment"></textarea>
-                <div class="justify-content-end d-flex gap-3 pt-3">
-                  <button class="rounded px-4 pe-4 pt-1 pb-1 bg-transparent border d-flex gap-2 align-items-center" type="submit"><i class="fa-regular fa-heart"></i>Like</button>
-                  <button class=" send-comment bg-primary rounded px-4 pe-4 pt-1 pb-1">Send</button>
+            <div
+              class="col-12 col-md-6 d-flex flex-column justify-content-center order-2 container-fluid"
+            >
+              <div class="container p-md-5 pb-5 d-flex flex-column align-items-center align-items-md-start">
+                <div
+                  class="posting-user-details d-flex align-items-center border-bottom w-100 pb-3 mt-4"
+                >
+                  <!--Js injection post profile image-->
+                  <div>
+                    <img
+                      src="/images/profileImage.jpg"
+                      class="post-profile-image rounded-circle me-3"
+                      alt="Profile image"
+                    />
+                  </div>
+                  <div class="d-flex flex-md-column gap-3 gap-md-0 flex-wrap">
+                    <p class="fw-light mb-2">
+                      Posted by <span class="fw-normal ps-1">Mathias T.</span>
+                    </p>
+                    <p class="fw-light mb-2">
+                      Continent:<span class="fw-normal ps-1">Europe</span>
+                    </p>
+                    <p class="card-text fw-light">
+                      <i class="fa-solid fa-heart text-primary"></i>
+                      <span class="post-likes mx-1">65</span>|<span
+                        class="post-comments mx-1"
+                        >6</span
+                      >
+                      comments
+                    </p>
+                  </div>
                 </div>
-              </form>
-            </div>
-            </div>
+                <div class="text-section">
+                  <h1 class="post-title pt-3">Hello from the desert</h1>
+                  <p class="fw-light">
+                    Making new friends in the heart of Egypt! 🇪🇬 Just chilling
+                    with my new buddy here in the vast, breathtaking deserts.
+                    Who knew camels were such great companions? 🌞✨
+                  </p>
+                </div>
+                <div class="reaction-section w-100">
+                  <form class="d-flex flex-column" action="">
+                    <textarea
+                      class="border p-3"
+                      rows="5"
+                      placeholder="Leave a comment..."
+                      aria-placeholder="Leave a comment"
+                    ></textarea>
+                    <div class="justify-content-end d-flex gap-3 pt-3">
+                      <button
+                        class="rounded px-4 pe-4 pt-1 pb-1 bg-transparent border d-flex gap-2 align-items-center"
+                        type="submit"
+                      >
+                        <i class="fa-regular fa-heart"></i>Like
+                      </button>
+                      <button
+                        class="send-comment bg-primary rounded px-4 pe-4 pt-1 pb-1"
+                      >
+                        Send
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        
         <!--- Section 2: Comments section --->
+        <!--Comment input below must be replaced w/ JS -->
         <section class="container-fluid d-flex justify-content-center pt-5">
-
+          <div class="background-grey w-100 p-5 d-flex flex-column gap-3 mb-5">
+            <div class="container border bg-white">
+              <div
+                class="posting-user-details d-flex align-items-center pb-3 mt-4"
+              >
+                <div class="mx-3">
+                  <img
+                    src="/images/profileImage.jpg"
+                    class="post-profile-image rounded-circle me-3"
+                    alt="Profile image"
+                  />
+                </div>
+                <div class="d-flex flex-column">
+                  <p class="fw-medium mb-2">Harry</p>
+                  <p class="fw-light">What type of car is that?</p>
+                </div>
+              </div>
+            </div>
+                          <!--- Comment input end-->
+            <div class="container border bg-white">
+              <div
+                class="posting-user-details d-flex align-items-center pb-3 mt-4"
+              >
+                <div class="mx-3">
+                  <img
+                    src="/images/profileImage.jpg"
+                    class="post-profile-image rounded-circle me-3"
+                    alt="Profile image"
+                  />
+                </div>
+                <div class="d-flex flex-column">
+                  <p class="fw-medium mb-2">Harry</p>
+                  <p class="fw-light">What type of car is that?</p>
+                </div>
+              </div>
+            </div>
+            <!--- Comment input end-->
+            <div class="container border bg-white">
+              <div
+                class="posting-user-details d-flex align-items-center pb-3 mt-4"
+              >
+                <div class="mx-3">
+                  <img
+                    src="/images/profileImage.jpg"
+                    class="post-profile-image rounded-circle me-3"
+                    alt="Profile image"
+                  />
+                </div>
+                <div class="d-flex flex-column">
+                  <p class="fw-medium mb-2">Harry</p>
+                  <p class="fw-light">What type of car is that?</p>
+                </div>
+              </div>
+            </div>
+            <!--- Comment input end-->
+            <div class="container border bg-white">
+              <div
+                class="posting-user-details d-flex align-items-center pb-3 mt-4"
+              >
+                <div class="mx-3">
+                  <img
+                    src="/images/profileImage.jpg"
+                    class="post-profile-image rounded-circle me-3"
+                    alt="Profile image"
+                  />
+                </div>
+                <div class="d-flex flex-column">
+                  <p class="fw-medium mb-2">Harry</p>
+                  <p class="fw-light">Wow, what an incredible photo! 🌟 It's not every day you see such a unique and heartwarming friendship. This image truly captures the essence of adventure and the unexpected bonds we can form while exploring the world. The way you're just chilling with your new camel friend in the vast expanse of Egypt's landscape is absolutely breathtaking. It reminds us all that there's so much to discover out there, and sometimes the most memorable moments come from the connections we make with the local wildlife. Keep these amazing updates coming – I’m living vicariously through your adventures! Stay safe and enjoy every moment of your journey. 🐪🌍✨ #Wanderlust #NewFriendsInNewPlaces</p>
+                </div>
+              </div>
+            </div>
+            <!--- Comment input end-->
+            <div class="container border bg-white">
+              <div
+                class="posting-user-details d-flex align-items-center pb-3 mt-4"
+              >
+                <div class="mx-3">
+                  <img
+                    src="/images/profileImage.jpg"
+                    class="post-profile-image rounded-circle me-3"
+                    alt="Profile image"
+                  />
+                </div>
+                <div class="d-flex flex-column">
+                  <p class="fw-medium mb-2">Harry</p>
+                  <p class="fw-light">Wow, what an incredible photo! 🌟 It's not every day you see such a unique and heartwarming friendship. This image truly captures the essence of adventure and the unexpected bonds we can form while exploring the world. The way you're just chilling with your new camel friend in the vast expanse of Egypt's landscape is absolutely breathtaking. It reminds us all that there's so much to discover out there, and sometimes the most memorable moments come from the connections we make with the local wildlife. Keep these amazing updates coming – I’m living vicariously through your adventures! Stay safe and enjoy every moment of your journey. 🐪🌍✨ #Wanderlust #NewFriendsInNewPlaces</p>
+                </div>
+              </div>
+            </div>
+            <!--- Comment input end-->
+          </div>
         </section>
-
       </main>
-    </body>
+      <footer class="footer bg-secondary mt-5 pt-4 pb-4">
+        <div class="container text-white">
+          <p class="px-5 m-0">© Globetrotter 2024</p>
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>

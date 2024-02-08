@@ -19,4 +19,11 @@ section {
   max-width: 85%;
 }
 
+@media (max-width: 767px) {
+  .posting-user-details img {
+    height: 45px;
+    width: 45px;
+  }
+}
+
 /*# sourceMappingURL=post.css.map */
