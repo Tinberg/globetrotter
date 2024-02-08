@@ -1,17 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/dist/css/global.css"/>
-    <link rel="stylesheet" href="/dist/css/profile.css"/>
+    <link
+      rel="stylesheet"
+      href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/dist/css/global.css" />
+    <link rel="stylesheet" href="/dist/css/profile.css" />
+    <script type="module" src="/javascript/modules/new-post.js"></script>
+    <script type="module" src="/javascript/pages/profile.js"></script>
+    <!--Script for bootstrap JS-->
     <script
-    src="https://kit.fontawesome.com/0933736d52.js"
-    crossorigin="anonymous"
-  ></script>
-</head>
-<body>
-</body>
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <!--Script for Fontawesome-->
+    <script
+      src="https://kit.fontawesome.com/0933736d52.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="container-xxl p-0">
+    <div class="container-xxl p-0">
+      <!-- New Post Modal -->
+      <div
+        class="modal modal-lg fade"
+        id="newPostModal"
+        tabindex="-1"
+        aria-labelledby="newPostModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header text-start">
+              <p class="modal-title fs-5 w-100" id="newPostModalLabel">
+                New Post
+              </p>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="newPostForm" class="text-center">
+                <div class="mb-3">
+                  <label for="postImageInput" class="form-label fw-semibold"
+                    >Post Image</label
+                  >
+                  <div class="d-flex justify-content-center">
+                    <div
+                      class="img-icon bg-secondary d-inline-flex justify-content-center align-items-center mb-2 rounded"
+                    >
+                      <i class="fas fa-image fa-3x text-white"></i>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    id="postImage"
+                    placeholder="Image URL to a uploaded image "
+                    class="form-control mt-2 mx-auto"
+                  />
+                  <div class="form-text">Recommended aspect ratio: 1:1</div>
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="postTitle" class="form-label fw-semibold"
+                    >Title</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control mx-auto"
+                    id="postTitle"
+                    placeholder="Enter title here"
+                  />
+                  <div id="titleFeedback" class="form-text">
+                    0/280 characters
+                  </div>
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="postCaption" class="form-label fw-semibold"
+                    >Caption</label
+                  >
+                  <textarea
+                    class="form-control mx-auto"
+                    id="postCaption"
+                    rows="5"
+                    placeholder="Write a caption..."
+                  ></textarea>
+                  <div id="captionFeedback" class="form-text">
+                    0/280 characters
+                  </div>
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="continentSelect" class="form-label fw-semibold"
+                    >Continent</label
+                  >
+                  <select class="form-select mx-auto" id="continentSelect">
+                    <option selected>Not Specified</option>
+                    <option value="Africa">Africa</option>
+                    <option value="Asia">Asia</option>
+                    <option value="Europe">Europe</option>
+                    <option value="Oceania">Oceania</option>
+                    <option value="North-America">North America</option>
+                    <option value="South-America">South America</option>
+                  </select>
+                </div>
+                <div class="border my-4"></div>
+                <button type="submit" class="btn btn-primary my-2">
+                  Publish
+                </button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <header>
+        <nav
+          class="navbar navbar-expand-md bg-secondary position-fixed container-xxl py-3 py-md-2"
+        >
+          <div class="container-fluid">
+            <a
+              class="navbar-brand active fs-3 text-white ms-4"
+              aria-current="page"
+              href="#"
+              >Globetrotter</a
+            >
+            <button
+              class="navbar-toggler text-white"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div
+              class="collapse navbar-collapse justify-content-end"
+              id="navbarNavDropdown"
+            >
+              <ul class="navbar-nav d-flex flex-md-row mt-md-1 mt-4">
+                <li class="nav-item mx-3 my-md-0 my-2 text-center">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    aria-current="page"
+                    href="/html/home.html"
+                    ><i class="fa-solid fa-house"></i><span>Home</span></a
+                  >
+                </li>
+                <li class="nav-item mx-3 my-md-0 my-2 text-center">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    aria-current="page"
+                    href="/html/explore.html"
+                    ><i class="fa-solid fa-globe"></i><span>Explore</span></a
+                  >
+                </li>
+                <li class="nav-item mx-3 my-md-0 my-2 text-center">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    data-bs-toggle="modal"
+                    data-bs-target="#newPostModal"
+                    ><i class="fa-solid fa-plus"></i><span>New post</span></a
+                  >
+                </li>
+                <li class="nav-item mx-3 my-md-0 my-2 text-center me-md-4">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    aria-current="page"
+                    href="/html/my-profile.html"
+                    ><i class="fa-solid fa-user"></i><span>My Profile</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <main>
+        <!--Section 1 Heading-->
+        <section
+          class="heading-section d-flex flex-column align-items-center pb-5"
+        >
+          <div
+            class="d-flex flex-column position-relative justify-content-center align-items-center w-100"
+          >
+            <div class="banner-div w-100">
+              <!-- target bannerImage in js and set/change the profile banner-->
+              <img
+                class="banner-image w-100"
+                id="bannerImage"
+                alt="Personal banner image"
+              />
+            </div>
+            <!--target profileImage in js and set/change the profile avatar-->
+            <img
+              class="profile-img rounded-circle position-absolute border"
+              id="profileImage"
+            />
+          </div>
+          <div class="d-flex flex-column align-items-center">
+            <!--target #userName in js and set the user userName-->
+            <h1 class="mt-4" id="userName"></h1>
+            <div class="d-flex mt-4">
+              <div class="d-flex flex-column align-items-center mx-4">
+                <p>Posts</p>
+                <!--js inject number Posts-->
+                <p id="allPosts"></p>
+              </div>
+              <div class="d-flex flex-column align-items-center mx-4">
+                <p>Followers</p>
+                <!--js inject number Followers-->
+                <p id="followers"></p>
+              </div>
+              <div class="d-flex flex-column align-items-center mx-4">
+                <p>Following</p>
+                <!--js inject number Following-->
+                <p id="following"></p>
+              </div>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-primary mt-4 px-5"
+            data-bs-toggle="modal"
+            data-bs-target="#follow-unfollow"
+          ></button>
+        </section>
+        <!--Section 2 Posts-->
+        <section>
+          <!--Js Post Container-->
+          <div
+            id="postContainer"
+            class="row justify-content-center mx-3 mx-md-5"
+          >
+            <!--Post added from my-profile.js -->
+          </div>
+        </section>
+      </main>
+      <footer></footer>
+    </div>
+  </body>
 </html>
