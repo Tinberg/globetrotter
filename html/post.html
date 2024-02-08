@@ -10,10 +10,247 @@
     />
     <link rel="stylesheet" href="/dist/css/global.css" />
     <link rel="stylesheet" href="/dist/css/post.css" />
+        <!--Script for bootstrap JS-->
+        <script
+        defer
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"
+      ></script>
+          <!--Script for Fontawesome-->
     <script
       src="https://kit.fontawesome.com/0933736d52.js"
       crossorigin="anonymous"
     ></script>
   </head>
-  <body></body>
+
+  <body class="background-img container-xxl p-0">
+    <div class="container-xxl p-0">
+      <!-- New Post Modal -->
+      <div
+        class="modal modal-lg fade"
+        id="newPostModal"
+        tabindex="-1"
+        aria-labelledby="newPostModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header text-start">
+              <p class="modal-title fs-5 w-100" id="newPostModalLabel">
+                New Post
+              </p>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="newPostForm" class="text-center">
+                <div class="mb-3">
+                  <label for="postImageInput" class="form-label fw-semibold"
+                    >Post Image</label
+                  >
+                  <div class="d-flex justify-content-center">
+                    <div
+                      class="img-icon bg-secondary d-inline-flex justify-content-center align-items-center mb-2 rounded"
+                    >
+                      <i class="fas fa-image fa-3x text-white"></i>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Image URL to a uploaded image "
+                    class="form-control mt-2 mx-auto"
+                  />
+                  <div class="form-text">Recommended aspect ratio: 1:1</div>
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="postTitle" class="form-label fw-semibold"
+                    >Title</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control mx-auto"
+                    id="postTitle"
+                    placeholder="Enter title here"
+                  />
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="postCaption" class="form-label fw-semibold"
+                    >Caption</label
+                  >
+                  <textarea
+                    class="form-control mx-auto"
+                    id="postCaption"
+                    rows="5"
+                    placeholder="Write a caption..."
+                  ></textarea>
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="continentSelect" class="form-label fw-semibold"
+                    >Continent</label
+                  >
+                  <select class="form-select mx-auto" id="continentSelect">
+                    <option selected>Choose...</option>
+                    <option value="Africa">Africa</option>
+                    <option value="Asia">Asia</option>
+                    <option value="Europe">Europe</option>
+                    <option value="Oceania">Oceania</option>
+                    <option value="North-America">North America</option>
+                    <option value="South-America">South America</option>
+                  </select>
+                </div>
+                <div class="border my-4"></div>
+                <button type="submit" class="btn btn-primary my-2">
+                  Publish
+                </button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+              <!---Navigation--->
+
+      <header>
+        <nav
+          class="navbar navbar-expand-md bg-secondary position-fixed container-xxl py-3 py-md-2"
+        >
+          <div class="container-fluid">
+            <a
+              class="navbar-brand active fs-3 text-white ms-4"
+              aria-current="page"
+              href="#"
+              >Globetrotter</a
+            >
+            <button
+              class="navbar-toggler text-white"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div
+              class="collapse navbar-collapse justify-content-end"
+              id="navbarNavDropdown"
+            >
+              <ul class="navbar-nav d-flex flex-md-row mt-md-1 mt-4">
+                <li class="nav-item mx-3 my-md-0 my-2 text-center">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    aria-current="page"
+                    href="/html/home.html"
+                    ><i class="fa-solid fa-house"></i><span>Home</span></a
+                  >
+                </li>
+                <li class="nav-item mx-3 my-md-0 my-2 text-center">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    aria-current="page"
+                    href="/html/explore.html"
+                    ><i class="fa-solid fa-globe"></i><span>Explore</span></a
+                  >
+                </li>
+                <li class="nav-item mx-3 my-md-0 my-2 text-center">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    aria-current="page"
+                    data-bs-toggle="modal"
+                    data-bs-target="#newPostModal"
+                    ><i class="fa-solid fa-plus"></i><span>New post</span></a
+                  >
+                </li>
+                <li class="nav-item mx-3 my-md-0 my-2 text-center me-md-4">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    aria-current="page"
+                    href="/html/my-profile.html"
+                    ><i class="fa-solid fa-user"></i><span>My Profile</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <main>
+
+                <!--- Section 1: Post section --->
+        <section class="user-post-section container-fluid d-flex justify-content-center pt-5">
+          <div class="row background-grey d-flex">
+            <div class="container-fluid col-6 order-1 p-0">
+              <img class="w-100 h-100" src="/images/post.jpg" alt="">
+            </div>
+
+            <div class="col-6 d-flex flex-column justify-content-center order-2 container-fluid">
+              <div class="container p-5">
+              <div class=" posting-user-details d-flex align-items-center border-bottom pb-3 mt-4">
+               <!--Js injection post profile image-->
+               <div>
+               <img
+               src="/images/profileImage.jpg"
+               class="post-profile-image rounded-circle me-3"
+               alt="Profile image"
+             />
+            </div>
+              <div class="d-flex flex-column">
+                <p class="fw-light mb-2">Posted by <span class="fw-normal ps-1">Mathias T.</span></p>
+                <p class="fw-light mb-2">Continent:<span class="fw-normal ps-1">Europe</span></p>
+                <p class="card-text fw-light">
+                  <i class="fa-solid fa-heart text-primary"></i>
+                  <span class="post-likes mx-1">65</span>|<span
+                    class="post-comments mx-1"
+                    >6</span
+                  >
+                  comments
+                </p>
+              </div>
+            </div>
+            <div class="text-section">
+              <h1 class="post-title pt-3">Hello from the desert</h1>
+              <p class="fw-light">
+                Making new friends in the heart of Egypt! 🇪🇬 Just chilling with my new buddy here in the vast, breathtaking deserts. Who knew camels were such great companions? 🌞✨  
+              </p>
+            </div>
+            <div class="reaction-section">
+              <form class="d-flex flex-column" action="">
+                <textarea class="border p-3 w-100" rows="5" placeholder="Leave a comment..." aria-placeholder="Leave a comment"></textarea>
+                <div class="justify-content-end d-flex gap-3 pt-3">
+                  <button class="rounded px-4 pe-4 pt-1 pb-1 bg-transparent border d-flex gap-2 align-items-center" type="submit"><i class="fa-regular fa-heart"></i>Like</button>
+                  <button class=" send-comment bg-primary rounded px-4 pe-4 pt-1 pb-1">Send</button>
+                </div>
+              </form>
+            </div>
+            </div>
+            </div>
+          </div>
+        </section>
+
+        
+        <!--- Section 2: Comments section --->
+        <section class="container-fluid d-flex justify-content-center pt-5">
+
+        </section>
+
+      </main>
+    </body>
 </html>

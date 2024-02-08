@@ -47,7 +47,7 @@ $secondary: #142f42;
 $font-family-base: "BodyFontName", lato, sans-serif;
 $headings-font-family: "HeaderFontName", hammersmith one, sans-serif;
 
-//import function and varaibles for customization and use
+//import function and variables for customization and use
 @import "../../node_modules/bootstrap/scss/functions";
 @import "../../node_modules/bootstrap/scss/variables";
 
@@ -125,4 +125,8 @@ nav {
 
 
 /* Customized Utility classes */
+
+.background-img{
+  background-image: url(/images/background.jpg);
+}
 
