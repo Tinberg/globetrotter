@@ -20,9 +20,11 @@ export { fetchPostsByUserName };
 export { updateProfileMedia };
 //-- For fetch create post --> new-post.js
 export { createPost };
+//-- For fetch all posts --> explore.js
+export { fetchAllPosts };
 
 /**
- *
+ * register user profile
  * @param {Object} userData
  * @returns {Promise}
  */
@@ -37,7 +39,7 @@ async function registerUser(userData) {
   return await response.json();
 }
 /**
- *
+ * login user profile 
  * @param {string} email
  * @param {string} password
  * @returns {Promise}
@@ -58,7 +60,7 @@ async function loginUser(email, password) {
   return await response.json();
 }
 /**
- *
+ * fetch users profile
  * @param {string} userName
  * @returns {Promise}
  */
@@ -75,7 +77,7 @@ async function fetchUserProfile(userName) {
   return await response.json();
 }
 /**
- *
+ * Fetch post by user
  * @param {string} userName
  * @returns {Promise}
  */
@@ -95,7 +97,7 @@ async function fetchPostsByUserName(userName) {
   return await response.json();
 }
 /**
- *
+ * Update profile media
  * @param {string} userName
  * @param {string} bannerUrl
  * @param {string} avatarUrl
@@ -149,5 +151,22 @@ async function createPost(postData) {
     throw new Error(`Failed to create post: ${errorData.message}`);
   }
 
+  return await response.json();
+}
+
+/**
+ * Fetches all posts.
+ * @returns {Promise}
+ */
+async function fetchAllPosts() {
+  const token = getToken();
+  const response = await fetch(`${API_BASE_URL}/social/posts`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error("Failed to fetch all posts");
+  }
   return await response.json();
 }
