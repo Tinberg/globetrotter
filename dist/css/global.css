@@ -10739,7 +10739,7 @@ body {
   scroll-behavior: smooth;
 }
 
-main {
+.padding-fixed-navbar {
   padding-top: 80px;
 }
 

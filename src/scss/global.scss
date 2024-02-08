@@ -70,9 +70,9 @@ $container-max-widths: map-merge(
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 .card {
-    background-color: #F4F6F8;
-  }
-  
+  background-color: #f4f6f8;
+}
+
 //------- SCSS -------//
 
 /* Global Resets */
@@ -94,8 +94,9 @@ body {
   scroll-behavior: smooth;
 }
 
-main{
-    padding-top: 80px;
+//Added to main element on every page, not index.html and register.html to even out the position fixed on navbar.
+.padding-fixed-navbar {
+  padding-top: 80px;
 }
 
 a {
@@ -114,15 +115,13 @@ a:hover {
 
 /*Header*/
 nav {
-    z-index: 1000;
-   min-height: 79.55px;
+  z-index: 1000;
+  min-height: 79.55px;
 }
 
 .img-icon {
-    width: 200px;
-    height: 200px;
+  width: 200px;
+  height: 200px;
 }
 
-
 /* Customized Utility classes */
-
