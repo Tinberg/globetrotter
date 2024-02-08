@@ -22,3 +22,10 @@ section{
 .comment-section input{
     
 }
+
+@media (max-width: 767px){
+    .posting-user-details img{
+        height: 45px;
+        width: 45px;
+    }
+}
