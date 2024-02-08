@@ -10717,7 +10717,7 @@ textarea.form-control-lg {
 }
 
 .card {
-  background-color: #F4F6F8;
+  background-color: #f4f6f8;
 }
 
 /* Global Resets */
@@ -10739,8 +10739,8 @@ body {
   scroll-behavior: smooth;
 }
 
-main {
-  padding-top: 80px;
+.padding-fixed-navbar {
+  padding-top: 79px;
 }
 
 a {

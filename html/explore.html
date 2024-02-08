@@ -9,7 +9,7 @@
       href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
     />
     <link rel="stylesheet" href="/dist/css/global.css" />
-    <link rel="stylesheet" href="/dist/css/feed.css" />
+    <link rel="stylesheet" href="/dist/css/explore.css" />
     <script type="module" src="/javascript/modules/new-post.js"></script>
     <script type="module" src="/javascript/pages/explore.js"></script>
     <!--Script for bootstrap JS-->
@@ -63,6 +63,7 @@
                   </div>
                   <input
                     type="text"
+                    id="postImage"
                     placeholder="Image URL to a uploaded image "
                     class="form-control mt-2 mx-auto"
                   />
@@ -79,6 +80,7 @@
                     id="postTitle"
                     placeholder="Enter title here"
                   />
+                  <div id="titleFeedback" class="form-text">0/280 characters</div>
                 </div>
                 <div class="border my-4"></div>
                 <div class="mb-3">
@@ -91,6 +93,7 @@
                     rows="5"
                     placeholder="Write a caption..."
                   ></textarea>
+                  <div id="captionFeedback" class="form-text">0/280 characters</div>
                 </div>
                 <div class="border my-4"></div>
                 <div class="mb-3">
@@ -190,7 +193,7 @@
           </div>
         </nav>
       </header>
-      <main>
+      <main class="padding-fixed-navbar">
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-2 mt-5 pt-3">
