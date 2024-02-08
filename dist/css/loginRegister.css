@@ -2,6 +2,7 @@
   background-image: url(/images/skyline.jpg);
   background-size: cover;
   background-position: center;
+  min-height: 100vh;
 }
 .img-container .custom-card {
   width: 40rem;

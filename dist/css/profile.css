@@ -1,3 +1,24 @@
+.heading-section {
+  background-image: url(/images/background.jpg);
+}
 
+.banner-image,
+.banner-div {
+  height: 250px;
+}
+
+.profile-img {
+  width: 150px;
+  height: 150px;
+}
+
+.card-img-top-container {
+  padding-top: 80%;
+}
+
+.card-body img {
+  height: 50px;
+  width: 50px;
+}
 
 /*# sourceMappingURL=profile.css.map */
