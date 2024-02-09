@@ -1,26 +1,32 @@
+section {
+  max-width: 85%;
+}
+
 .background-grey {
   background-color: #F8F9FA;
 }
 
-.posting-user-details img {
-  height: 80px;
-  width: 80px;
+.comment {
+  letter-spacing: 1px;
+  line-height: 30px;
 }
 
-.user-post-section img {
-  object-fit: cover;
+.comments-img {
+  height: 50px;
+  width: 50px;
+}
+
+.post-profile-image {
+  height: 80px;
+  width: 80px;
 }
 
 .post-title {
   font-size: 20px;
 }
 
-section {
-  max-width: 85%;
-}
-
 @media (max-width: 767px) {
-  .posting-user-details img {
+  .post-profile-image {
     height: 45px;
     width: 45px;
   }
