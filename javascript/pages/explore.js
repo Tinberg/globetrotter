@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         displayPosts(posts);
     } catch (error) {
         console.error('Failed to fetch posts:', error);
-        // Optionally, update the UI to show an error message
+       
     }
 });
 
@@ -44,6 +44,6 @@ function displayPosts(posts) {
             </div>
         `;
 
-        postContainer.appendChild(postElement);console.log(posts)
+        postContainer.appendChild(postElement);
     });
 }
