@@ -55,6 +55,9 @@ function displayPosts(posts) {
                 </div>
             </div>
         `;
+        postElement.addEventListener('click', () => {
+            window.location.href = `post.html?id=${post.id}`;
+        });
 
     postContainer.appendChild(postElement);
   });
