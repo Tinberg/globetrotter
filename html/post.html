@@ -25,8 +25,8 @@
   </head>
   <body class="background-img container-xxl p-0">
     <div class="container-xxl p-0">
-      <!-- New Post Modal -->
-      <div
+        <!-- New Post Modal -->
+        <div
         class="modal modal-lg fade"
         id="newPostModal"
         tabindex="-1"
@@ -59,13 +59,24 @@
                       <i class="fas fa-image fa-3x text-white"></i>
                     </div>
                   </div>
+                  <div class="form-text">Recommended aspect ratio: 1:1</div>
                   <input
                     type="text"
+                    id="postImage"
                     placeholder="Image URL to a uploaded image "
                     class="form-control mt-2 mx-auto"
                   />
-                  <div class="form-text">Recommended aspect ratio: 1:1</div>
+                  <div class="mb-3">
+                    <label for="altText" class="form-label fw-semibold d-none">Image Description</label>
+                    <input
+                      type="text"
+                      id="altText"
+                      placeholder="Enter image description"
+                      class="form-control mt-3 mx-auto"
+                    />
+                  </div>
                 </div>
+                
                 <div class="border my-4"></div>
                 <div class="mb-3">
                   <label for="postTitle" class="form-label fw-semibold"
@@ -77,6 +88,9 @@
                     id="postTitle"
                     placeholder="Enter title here"
                   />
+                  <div id="titleFeedback" class="form-text">
+                    0/280 characters
+                  </div>
                 </div>
                 <div class="border my-4"></div>
                 <div class="mb-3">
@@ -89,6 +103,9 @@
                     rows="5"
                     placeholder="Write a caption..."
                   ></textarea>
+                  <div id="captionFeedback" class="form-text">
+                    0/280 characters
+                  </div>
                 </div>
                 <div class="border my-4"></div>
                 <div class="mb-3">
@@ -96,7 +113,7 @@
                     >Continent</label
                   >
                   <select class="form-select mx-auto" id="continentSelect">
-                    <option selected>Choose...</option>
+                    <option selected>Not Specified</option>
                     <option value="Africa">Africa</option>
                     <option value="Asia">Asia</option>
                     <option value="Europe">Europe</option>
