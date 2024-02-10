@@ -2,6 +2,8 @@
 
 //-- Api for fetch all posts--> api.js
 import { fetchAllPosts } from '../modules/api.js';
+//-- Api for fetch username of the post owner --> api.js
+import { fetchUserProfile } from '../modules/api.js';
 
 //-- runs the displaypost in this DOM
 document.addEventListener('DOMContentLoaded', async () => {
@@ -27,7 +29,7 @@ function displayPosts(posts) {
         postElement.innerHTML = `
             <div class="card">
                 <div class="card-img-top-container w-100 position-relative h-0">
-                <img src="${post.media || '/images/no-image.png'}" class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0" alt="Post image">
+                <img src="${post.media?.url || '/images/no-image.png'}" class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0" alt="Post image">
                 </div>
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
