@@ -27,8 +27,8 @@
   </head>
   <body class="background-img container-xxl p-0">
     <div class="container-xxl p-0">
-        <!-- New Post Modal -->
-        <div
+      <!-- New Post Modal -->
+      <div
         class="modal modal-lg fade"
         id="newPostModal"
         tabindex="-1"
@@ -69,7 +69,9 @@
                     class="form-control mt-2 mx-auto"
                   />
                   <div class="mb-3">
-                    <label for="altText" class="form-label fw-semibold d-none">Image Description</label>
+                    <label for="altText" class="form-label fw-semibold d-none"
+                      >Image Description</label
+                    >
                     <input
                       type="text"
                       id="altText"
@@ -78,7 +80,7 @@
                     />
                   </div>
                 </div>
-                
+
                 <div class="border my-4"></div>
                 <div class="mb-3">
                   <label for="postTitle" class="form-label fw-semibold"
@@ -216,87 +218,93 @@
               >
                 <p class="fs-4 mb-2">Filter</p>
                 <p class="lead mb-4">Continents</p>
-                <form
-                  class="gap-3 row d-flex justify-content-center"
-                >
-                  <div class="col-4 col-md-12 d-flex gap-2 align-items-center flex-row-reverse flex-md-row">
+                <form class="gap-3 row d-flex justify-content-center">
+                  <div
+                    class="col-4 col-md-12 d-flex gap-2 align-items-center flex-row-reverse flex-md-row"
+                  >
                     <div>
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id=""
-                      name="Africa"
-                      value=""
-                    />
-                  </div>
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id=""
+                        name="Africa"
+                        value=""
+                      />
+                    </div>
                     <label class="form-check-label" for="Africa">Africa</label>
                   </div>
 
                   <div class="col-4 col-md-12 d-flex gap-2">
                     <div>
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id=""
-                      name="Asia"
-                      value=""
-                    />
-                  </div>
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id=""
+                        name="Asia"
+                        value=""
+                      />
+                    </div>
                     <label class="form-check-label" for="Asia">Asia</label>
                   </div>
 
-                  <div class="col-4 col-md-12 d-flex gap-2 flex-row-reverse flex-md-row">
+                  <div
+                    class="col-4 col-md-12 d-flex gap-2 flex-row-reverse flex-md-row"
+                  >
                     <div>
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id=""
-                      name="Europe"
-                      value=""
-                    />
-                  </div>
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id=""
+                        name="Europe"
+                        value=""
+                      />
+                    </div>
                     <label for="Europe">Europe</label>
                   </div>
                   <div class="col-4 col-md-12 d-flex gap-2">
                     <div>
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id=""
-                      name="Oceania"
-                      value=""
-                    />
-                  </div>
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id=""
+                        name="Oceania"
+                        value=""
+                      />
+                    </div>
                     <label class="form-check-label" for="Oceania"
                       >Oceania</label
                     >
                   </div>
 
-                  <div class="col-4 col-md-12 d-flex gap-2 flex-row-reverse flex-md-row">
+                  <div
+                    class="col-4 col-md-12 d-flex gap-2 flex-row-reverse flex-md-row"
+                  >
                     <div>
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id=""
-                      name="North-America"
-                      value=""
-                    />
-                  </div>
-                    <label class="form-check-label text-end text-md-start" for="North-America"
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id=""
+                        name="North-America"
+                        value=""
+                      />
+                    </div>
+                    <label
+                      class="form-check-label text-end text-md-start"
+                      for="North-America"
                       >North-America</label
                     >
                   </div>
 
                   <div class="col-4 col-md-12 d-flex gap-2">
                     <div>
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id=""
-                      name="South-America"
-                      value=""
-                    />
-                  </div>
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id=""
+                        name="South-America"
+                        value=""
+                      />
+                    </div>
                     <label class="form-check-label" for="South-America"
                       >South-America</label
                     >
@@ -361,387 +369,10 @@
               </div>
               <!--List of cards-->
               <section>
-                <div id="allPosts" class="row justify-content-center mx-3 mx-md-3">
-                  <!--Remove this when done-->
-                  <div class="col-lg-4 col-sm-6 mb-5">
-                    <div class="card">
-                      <div
-                        class="card-img-top-container w-100 position-relative h-0"
-                      >
-                        <!--Js injection post media image-->
-                        <img
-                          src="/images/post.jpg"
-                          class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
-                          alt="Post image"
-                        />
-                      </div>
-                      <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                          <!--Js injection post profile image-->
-                          <img
-                            src="/images/profileImage.jpg"
-                            class="post-profile-image rounded-circle me-3"
-                            alt="Profile image"
-                          />
-                          <div class="d-flex flex-column">
-                            <!--JS injection post user name-->
-                            <p class="mb-0 fs-6 fw-light">
-                              Posted by
-                              <span class="post-user-name fw-normal"
-                                >Tinberg</span
-                              >
-                            </p>
-                            <!--JS injection likes and comments-->
-                            <p class="card-text fw-light">
-                              <i class="fa-solid fa-heart text-primary"></i>
-                              <span class="post-likes mx-1">65</span>|<span
-                                class="post-comments mx-1"
-                                >6</span
-                              >
-                              comments
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6 mb-5">
-                    <div class="card">
-                      <div
-                        class="card-img-top-container w-100 position-relative h-0"
-                      >
-                        <!--Js injection post media image-->
-                        <img
-                          src="/images/post.jpg"
-                          class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
-                          alt="Post image"
-                        />
-                      </div>
-                      <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                          <!--Js injection post profile image-->
-                          <img
-                            src="/images/profileImage.jpg"
-                            class="post-profile-image rounded-circle me-3"
-                            alt="Profile image"
-                          />
-                          <div class="d-flex flex-column">
-                            <!--JS injection post user name-->
-                            <p class="mb-0 fs-6 fw-light">
-                              Posted by
-                              <span class="post-user-name fw-normal"
-                                >Tinberg</span
-                              >
-                            </p>
-                            <!--JS injection likes and comments-->
-                            <p class="card-text fw-light">
-                              <i class="fa-solid fa-heart text-primary"></i>
-                              <span class="post-likes mx-1">65</span>|<span
-                                class="post-comments mx-1"
-                                >6</span
-                              >
-                              comments
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6 mb-5">
-                    <div class="card">
-                      <div
-                        class="card-img-top-container w-100 position-relative h-0"
-                      >
-                        <!--Js injection post media image-->
-                        <img
-                          src="/images/post.jpg"
-                          class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
-                          alt="Post image"
-                        />
-                      </div>
-                      <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                          <!--Js injection post profile image-->
-                          <img
-                            src="/images/profileImage.jpg"
-                            class="post-profile-image rounded-circle me-3"
-                            alt="Profile image"
-                          />
-                          <div class="d-flex flex-column">
-                            <!--JS injection post user name-->
-                            <p class="mb-0 fs-6 fw-light">
-                              Posted by
-                              <span class="post-user-name fw-normal"
-                                >Tinberg</span
-                              >
-                            </p>
-                            <!--JS injection likes and comments-->
-                            <p class="card-text fw-light">
-                              <i class="fa-solid fa-heart text-primary"></i>
-                              <span class="post-likes mx-1">65</span>|<span
-                                class="post-comments mx-1"
-                                >6</span
-                              >
-                              comments
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6 mb-5">
-                    <div class="card">
-                      <div
-                        class="card-img-top-container w-100 position-relative h-0"
-                      >
-                        <!--Js injection post media image-->
-                        <img
-                          src="/images/post.jpg"
-                          class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
-                          alt="Post image"
-                        />
-                      </div>
-                      <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                          <!--Js injection post profile image-->
-                          <img
-                            src="/images/profileImage.jpg"
-                            class="post-profile-image rounded-circle me-3"
-                            alt="Profile image"
-                          />
-                          <div class="d-flex flex-column">
-                            <!--JS injection post user name-->
-                            <p class="mb-0 fs-6 fw-light">
-                              Posted by
-                              <span class="post-user-name fw-normal"
-                                >Tinberg</span
-                              >
-                            </p>
-                            <!--JS injection likes and comments-->
-                            <p class="card-text fw-light">
-                              <i class="fa-solid fa-heart text-primary"></i>
-                              <span class="post-likes mx-1">65</span>|<span
-                                class="post-comments mx-1"
-                                >6</span
-                              >
-                              comments
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6 mb-5">
-                    <div class="card">
-                      <div
-                        class="card-img-top-container w-100 position-relative h-0"
-                      >
-                        <!--Js injection post media image-->
-                        <img
-                          src="/images/post.jpg"
-                          class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
-                          alt="Post image"
-                        />
-                      </div>
-                      <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                          <!--Js injection post profile image-->
-                          <img
-                            src="/images/profileImage.jpg"
-                            class="post-profile-image rounded-circle me-3"
-                            alt="Profile image"
-                          />
-                          <div class="d-flex flex-column">
-                            <!--JS injection post user name-->
-                            <p class="mb-0 fs-6 fw-light">
-                              Posted by
-                              <span class="post-user-name fw-normal"
-                                >Tinberg</span
-                              >
-                            </p>
-                            <!--JS injection likes and comments-->
-                            <p class="card-text fw-light">
-                              <i class="fa-solid fa-heart text-primary"></i>
-                              <span class="post-likes mx-1">65</span>|<span
-                                class="post-comments mx-1"
-                                >6</span
-                              >
-                              comments
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6 mb-5">
-                    <div class="card">
-                      <div
-                        class="card-img-top-container w-100 position-relative h-0"
-                      >
-                        <!--Js injection post media image-->
-                        <img
-                          src="/images/post.jpg"
-                          class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
-                          alt="Post image"
-                        />
-                      </div>
-                      <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                          <!--Js injection post profile image-->
-                          <img
-                            src="/images/profileImage.jpg"
-                            class="post-profile-image rounded-circle me-3"
-                            alt="Profile image"
-                          />
-                          <div class="d-flex flex-column">
-                            <!--JS injection post user name-->
-                            <p class="mb-0 fs-6 fw-light">
-                              Posted by
-                              <span class="post-user-name fw-normal"
-                                >Tinberg</span
-                              >
-                            </p>
-                            <!--JS injection likes and comments-->
-                            <p class="card-text fw-light">
-                              <i class="fa-solid fa-heart text-primary"></i>
-                              <span class="post-likes mx-1">65</span>|<span
-                                class="post-comments mx-1"
-                                >6</span
-                              >
-                              comments
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6 mb-5">
-                    <div class="card">
-                      <div
-                        class="card-img-top-container w-100 position-relative h-0"
-                      >
-                        <!--Js injection post media image-->
-                        <img
-                          src="/images/post.jpg"
-                          class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
-                          alt="Post image"
-                        />
-                      </div>
-                      <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                          <!--Js injection post profile image-->
-                          <img
-                            src="/images/profileImage.jpg"
-                            class="post-profile-image rounded-circle me-3"
-                            alt="Profile image"
-                          />
-                          <div class="d-flex flex-column">
-                            <!--JS injection post user name-->
-                            <p class="mb-0 fs-6 fw-light">
-                              Posted by
-                              <span class="post-user-name fw-normal"
-                                >Tinberg</span
-                              >
-                            </p>
-                            <!--JS injection likes and comments-->
-                            <p class="card-text fw-light">
-                              <i class="fa-solid fa-heart text-primary"></i>
-                              <span class="post-likes mx-1">65</span>|<span
-                                class="post-comments mx-1"
-                                >6</span
-                              >
-                              comments
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6 mb-5">
-                    <div class="card">
-                      <div
-                        class="card-img-top-container w-100 position-relative h-0"
-                      >
-                        <!--Js injection post media image-->
-                        <img
-                          src="/images/post.jpg"
-                          class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
-                          alt="Post image"
-                        />
-                      </div>
-                      <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                          <!--Js injection post profile image-->
-                          <img
-                            src="/images/profileImage.jpg"
-                            class="post-profile-image rounded-circle me-3"
-                            alt="Profile image"
-                          />
-                          <div class="d-flex flex-column">
-                            <!--JS injection post user name-->
-                            <p class="mb-0 fs-6 fw-light">
-                              Posted by
-                              <span class="post-user-name fw-normal"
-                                >Tinberg</span
-                              >
-                            </p>
-                            <!--JS injection likes and comments-->
-                            <p class="card-text fw-light">
-                              <i class="fa-solid fa-heart text-primary"></i>
-                              <span class="post-likes mx-1">65</span>|<span
-                                class="post-comments mx-1"
-                                >6</span
-                              >
-                              comments
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-6 mb-5">
-                    <div class="card">
-                      <div
-                        class="card-img-top-container w-100 position-relative h-0"
-                      >
-                        <!--Js injection post media image-->
-                        <img
-                          src="/images/post.jpg"
-                          class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0"
-                          alt="Post image"
-                        />
-                      </div>
-                      <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                          <!--Js injection post profile image-->
-                          <img
-                            src="/images/profileImage.jpg"
-                            class="post-profile-image rounded-circle me-3"
-                            alt="Profile image"
-                          />
-                          <div class="d-flex flex-column">
-                            <!--JS injection post user name-->
-                            <p class="mb-0 fs-6 fw-light">
-                              Posted by
-                              <span class="post-user-name fw-normal"
-                                >Tinberg</span
-                              >
-                            </p>
-                            <!--JS injection likes and comments-->
-                            <p class="card-text fw-light">
-                              <i class="fa-solid fa-heart text-primary"></i>
-                              <span class="mx-1">65</span>|<span
-                                class="post-comments post-likes mx-1"
-                                >6</span
-                              >
-                              comments
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <div
+                  id="allPosts"
+                  class="row justify-content-center mx-3 mx-md-3"
+                > <!--All posts JS--></div>
               </section>
             </div>
           </div>

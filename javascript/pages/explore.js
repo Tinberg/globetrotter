@@ -36,7 +36,7 @@ function displayPosts(posts) {
                         <img src="${
                           post.author?.avatar?.url || "/images/profileimage.jpg"
                         }" class="post-profile-image rounded-circle me-3" alt="Profile image">
-                        <div class="d-flex flex-column">
+                        <div class="d-flex flex-column  text-truncate">
                             <p class="mb-0 fs-6 fw-light">
                                 Posted by <span class="post-user-name fw-normal">${
                                   post.author?.name || "Unknown"
@@ -56,7 +56,7 @@ function displayPosts(posts) {
             </div>
         `;
         postElement.addEventListener('click', () => {
-            window.location.href = `post.html?id=${post.id}`;
+            window.location.href = `post.html?id=${post.id}`; // Redirect user on click
         });
 
     postContainer.appendChild(postElement);
