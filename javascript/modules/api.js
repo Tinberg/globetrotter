@@ -181,7 +181,7 @@ async function createPost(postData) {
  * @returns {Promise}
  */
 async function fetchAllPosts() {
-  const response = await fetch(`${API_BASE_URL}/social/posts`, {
+  const response = await fetch(`${API_BASE_URL}/social/posts?_author=true`, {
     headers: getHeaders(),
   });
   if (!response.ok) {
