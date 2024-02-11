@@ -36,13 +36,13 @@ function displayPosts(posts) {
                         <img src="${
                           post.author?.avatar?.url || "/images/profileimage.jpg"
                         }" class="post-profile-image rounded-circle me-3" alt="Profile image">
-                        <div class="d-flex flex-column  text-truncate">
+                        <div class="d-flex flex-column text-truncate">
                             <p class="mb-0 fs-6 fw-light">
                                 Posted by <span class="post-user-name fw-normal">${
                                   post.author?.name || "Unknown"
                                 }</span>
                             </p>
-                            <p class="card-text fw-light">
+                            <p class="card-text fw-light text-truncate">
                                 <i class="fa-solid fa-heart text-primary"></i>
                                 <span class="mx-1">${
                                   post._count.reactions || 0
@@ -56,9 +56,11 @@ function displayPosts(posts) {
             </div>
         `;
         postElement.addEventListener('click', () => {
-            window.location.href = `post.html?id=${post.id}`; // Redirect user on click
+            window.location.href = `post.html?id=${post.id}`;
         });
 
     postContainer.appendChild(postElement);
   });
 }
+
+//Text-truncate not wrking on sm screens. max length of username is 20 letters. fix this
