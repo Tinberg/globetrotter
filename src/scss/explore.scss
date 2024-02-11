@@ -11,3 +11,7 @@
     height: 45px;
     width: 45px;
 }
+//max width for post.author.name to make text-truncate work on sm and smaller screens
+.max-width{
+    max-width: 175px; 
+}
