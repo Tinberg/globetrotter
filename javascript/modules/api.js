@@ -21,7 +21,7 @@ export { updateProfileMedia };
 export { createPost };
 //-- For fetch all posts --> explore.js
 export { fetchAllPosts };
-//-- For 
+//-- For
 export { fetchAllProfiles };
 
 //-- This is the Base URL --//
