@@ -21,6 +21,8 @@ export { updateProfileMedia };
 export { createPost };
 //-- For fetch all posts --> explore.js
 export { fetchAllPosts };
+//-- For fetching a single post with comments reactions and author info --> post.js
+export { fetchSinglePost };
 //-- For
 export { fetchAllProfiles };
 
@@ -190,6 +192,21 @@ async function fetchAllPosts() {
   const result = await response.json();
   return result.data;
 }
+/**
+ * Fetch a single post by its id including author, comments, and reactions.
+ * @param {number|string} postId 
+ * @returns {Promise<Object>} 
+ */
+async function fetchSinglePost(postId) {
+  const response = await fetch(`${API_BASE_URL}/social/posts/${postId}?_author=true&_comments=true&_reactions=true`, {
+    headers: getHeaders(),
+  });
+  if (!response.ok) {
+    throw new Error("Failed to fetch the post");
+  }
+  const result = await response.json();
+  return result.data;
+}
 
 /**
  * Fetches all user profiles.
@@ -205,3 +222,5 @@ async function fetchAllProfiles() {
   const result = await response.json();
   return result.data;
 }
+
+

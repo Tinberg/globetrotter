@@ -12,6 +12,7 @@ document
     const mediaUrl = document.getElementById("postImage").value;
     const altText = document.getElementById("altText").value;
     const tags = [document.getElementById("continentSelect").value];
+    const errorFeedback = document.getElementById("postErrorFeedback");
 
     if (title.length > 280) {
       alert("The title cannot be greater than 280 characters.");
@@ -35,10 +36,12 @@ document
       document.getElementById("newPostForm").reset();
       updateCaptionFeedback();
       updateTitleFeedback();
-      alert("Post created successfully!");
+      window.location.href = "my-profile.html";
     } catch (error) {
       console.error("Failed to create post:", error);
-      alert("Failed to create post. Please try again.");
+      errorFeedback.textContent =
+        "Failed to create post. Please ensure your image URL is valid, starts with http or https, and that your title and caption do not exceed 280 characters. Please try again.";
+      errorFeedback.style.display = "block";
     }
   });
 

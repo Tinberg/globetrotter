@@ -10,6 +10,8 @@
     />
     <link rel="stylesheet" href="/dist/css/global.css" />
     <link rel="stylesheet" href="/dist/css/post.css" />
+    <script type="module" src="/javascript/modules/new-post.js"></script>
+    <script type="module" src="/javascript/pages/post.js"></script>
     <!--Script for bootstrap JS-->
     <script
       defer
@@ -123,9 +125,10 @@
                   </select>
                 </div>
                 <div class="border my-4"></div>
-                <button type="submit" class="btn btn-primary my-2">
+                <button type="submit" class="btn btn-primary my-2 px-5">
                   Publish
                 </button>
+                <p id="postErrorFeedback" class="text-danger my-3"></p>
               </form>
             </div>
             <div class="modal-footer">
@@ -216,7 +219,7 @@
         >
           <div class="row background-grey d-flex flex-column flex-md-row">
             <div class="container-fluid col-12 col-md-6 order-1 p-0">
-              <img class="w-100 h-100" src="/images/post.jpg" alt="" />
+              <img class="post-image w-100 h-100" src="/images/post.jpg" alt="" />
             </div>
 
             <div
@@ -238,15 +241,15 @@
                   </div>
                   <div class="d-flex flex-md-column gap-3 gap-md-0 flex-wrap">
                     <p class="fw-light mb-2">
-                      Posted by <span class="fw-normal ps-1">Mathias T.</span>
+                      Posted by <span class="profile-name fw-normal ps-1">Mathias T.</span>
                     </p>
                     <p class="fw-light mb-2">
                       Continent:<span class="fw-normal ps-1">Europe</span>
                     </p>
                     <p class="card-text fw-light">
                       <i class="fa-solid fa-heart text-primary"></i>
-                      <span class="post-likes mx-1">65</span>|<span
-                        class="post-comments mx-1"
+                      <span class="reactions-count mx-1">65</span>|<span
+                        class="comments-count mx-1"
                         >6</span
                       >
                       comments
@@ -255,7 +258,7 @@
                 </div>
                 <div class="text-section">
                   <h1 class="post-title pt-3">Hello from the desert</h1>
-                  <p class="fw-light">
+                  <p class="post-body fw-light">
                     Making new friends in the heart of Egypt! 🇪🇬 Just chilling
                     with my new buddy here in the vast, breathtaking deserts.
                     Who knew camels were such great companions? 🌞✨
@@ -295,7 +298,7 @@
           class="container-fluid d-flex justify-content-center pt-5 px-0"
         >
           <div
-            class="background-grey w-100 p-3 p-sm-5 d-flex flex-column gap-3 mb-5"
+            class="comments-container background-grey w-100 p-3 p-sm-5 d-flex flex-column gap-3 mb-5"
           >
             <div class="container border bg-white">
               <div

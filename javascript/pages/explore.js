@@ -62,4 +62,4 @@ function displayPosts(posts) {
 
     postContainer.appendChild(postElement);
   });
-}
+} 
