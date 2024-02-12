@@ -9,6 +9,8 @@ import { fetchUserProfile } from "../modules/api.js";
 import { fetchPostsByUserName } from "../modules/api.js";
 //-- Api for fetch edit profile media --> api.js
 import { updateProfileMedia } from "../modules/api.js";
+//-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
+import { formatCount, formatWithSuffix } from "../modules/utility.js";
 
 //-- For Displaying user info and posts, changing profile media, and it also calls the display post function--//
 document.addEventListener("DOMContentLoaded", async () => {
@@ -54,6 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     .getElementById("editProfileForm")
     .addEventListener("submit", async (event) => {
       event.preventDefault();
+      const errorFeedback = document.getElementById("profileEditError");
 
       const resetBanner = document.getElementById(
         "resetBannerCheckbox"
@@ -74,7 +77,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         bannerUrl === undefined &&
         avatarUrl === undefined
       ) {
-        alert("Profile unchanged, no new updates submitted");
+        errorFeedback.textContent = "Profile unchanged, no new updates submitted";
+        errorFeedback.style.display = "block";
         return;
       }
 
@@ -86,11 +90,11 @@ document.addEventListener("DOMContentLoaded", async () => {
           resetBanner,
           resetAvatar
         );
-        alert("Profile media updated successfully.");
         window.location.reload();
       } catch (error) {
         console.error("Error updating profile media:", error);
-        alert("Failed to update profile media. Please try again.");
+        errorFeedback.textContent = "Failed to update profile media. Please check your inputs and try again.";
+        errorFeedback.style.display = "block";
       }
     });
 });
@@ -110,6 +114,8 @@ function displayPosts(posts, profile) {
 
     const postMediaUrl = post.media?.url || "/images/defaultPostImage.jpg";
     const postMediaAlt = post.media?.alt || "Post image";
+    const reactionsFormatted = formatCount(post._count.reactions || 0);
+    const commentsFormatted = formatCount(post._count.comments || 0);
 
     postElement.innerHTML = `
       <div class="card">
@@ -117,7 +123,7 @@ function displayPosts(posts, profile) {
               <img src="${postMediaUrl}" class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0" alt="${postMediaAlt}">
           </div>
           <div class="card-body">
-              <div class="d-flex align-items-center mb-3">
+              <div class="d-flex align-items-center mb-3 text-truncate">
                   <img src="${
                     profile.avatar.url || "/images/defaultProfileImage.jpg"
                   }" class="post-profile-image rounded-circle me-3" alt="${
@@ -131,17 +137,18 @@ function displayPosts(posts, profile) {
                       </p>
                       <p class="card-text fw-light">
                           <i class="fa-solid fa-heart text-primary"></i>
+                          <span class="post-reactions mx-1">${reactionsFormatted}</span> 
                           <span class="mx-2">|</span>
-                          <span class="post-likes mx-1">${
-                            post._count.comments || 0
-                          }</span> comments
+                          <span class="post-comments mx-1">${commentsFormatted}</span> comments
                       </p>
                   </div>
               </div>
           </div>
       </div>
     `;
-
+    postElement.addEventListener("click", () => {
+      window.location.href = `post.html?id=${post.id}`;
+    });
     postContainer.appendChild(postElement);
   });
 }
