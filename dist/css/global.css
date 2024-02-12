@@ -10717,7 +10717,7 @@ textarea.form-control-lg {
 }
 
 .card {
-  background-color: #F4F6F8;
+  background-color: #f4f6f8;
 }
 
 /* Global Resets */
@@ -10739,6 +10739,10 @@ body {
   scroll-behavior: smooth;
 }
 
+.padding-fixed-navbar {
+  padding-top: 79px;
+}
+
 a {
   text-decoration: none;
   transition: transform 0.3s ease;
@@ -10754,6 +10758,20 @@ a:hover {
   transform: scale(1.05);
 }
 
+/*Header*/
+nav {
+  z-index: 1000;
+  min-height: 79.55px;
+}
+
+.img-icon {
+  width: 200px;
+  height: 200px;
+}
+
 /* Customized Utility classes */
+.background-img {
+  background-image: url(/images/background.jpg);
+}
 
 /*# sourceMappingURL=global.css.map */

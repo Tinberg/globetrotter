@@ -3,13 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Globetrotter | Feed</title>
     <link
       rel="stylesheet"
       href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
     />
     <link rel="stylesheet" href="/dist/css/global.css" />
-    <link rel="stylesheet" href="/dist/css/post.css" />
+    <link rel="stylesheet" href="/dist/css/explore.css" />
+    <script type="module" src="/javascript/modules/new-post.js"></script>
+    <script type="module" src="/javascript/pages/explore.js"></script>
     <!--Script for bootstrap JS-->
     <script
       defer
@@ -25,8 +27,8 @@
   </head>
   <body class="background-img container-xxl p-0">
     <div class="container-xxl p-0">
-        <!-- New Post Modal -->
-        <div
+      <!-- New Post Modal -->
+      <div
         class="modal modal-lg fade"
         id="newPostModal"
         tabindex="-1"
@@ -67,7 +69,9 @@
                     class="form-control mt-2 mx-auto"
                   />
                   <div class="mb-3">
-                    <label for="altText" class="form-label fw-semibold d-none">Image Description</label>
+                    <label for="altText" class="form-label fw-semibold d-none"
+                      >Image Description</label
+                    >
                     <input
                       type="text"
                       id="altText"
@@ -76,7 +80,7 @@
                     />
                   </div>
                 </div>
-                
+
                 <div class="border my-4"></div>
                 <div class="mb-3">
                   <label for="postTitle" class="form-label fw-semibold"
@@ -140,9 +144,7 @@
           </div>
         </div>
       </div>
-
-      <!---Navigation--->
-
+      <!-- Header -->
       <header>
         <nav
           class="navbar navbar-expand-md bg-secondary position-fixed container-xxl py-3 py-md-2"
@@ -208,163 +210,180 @@
           </div>
         </nav>
       </header>
-
       <main class="padding-fixed-navbar">
-        <!--- Section 1: Post section --->
-        <section
-          class="user-post-section container-fluid d-flex justify-content-center pt-5 pb-5"
-        >
-          <div class="row background-grey d-flex flex-column flex-md-row">
-            <div class="container-fluid col-12 col-md-6 order-1 p-0">
-              <img class="w-100 h-100" src="/images/post.jpg" alt="" />
-            </div>
-
-            <div
-              class="col-12 col-md-6 d-flex flex-column justify-content-center order-2 container-fluid"
-            >
-              <div
-                class="container p-md-5 pb-5 d-flex flex-column align-items-center align-items-md-start"
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-2 mt-5 pt-3">
+              <!-- Aside -->
+              <aside
+                class="container d-flex justify-content-md-start flex-column align-items-center align-items-md-start"
               >
-                <div
-                  class="posting-user-details d-flex align-items-center border-bottom w-100 pb-3 mt-4"
-                >
-                  <!--Js injection post profile image-->
-                  <div>
-                    <img
-                      src="/images/profileImage.jpg"
-                      class="post-profile-image rounded-circle me-3"
-                      alt="Profile image"
-                    />
-                  </div>
-                  <div class="d-flex flex-md-column gap-3 gap-md-0 flex-wrap">
-                    <p class="fw-light mb-2">
-                      Posted by <span class="fw-normal ps-1">Mathias T.</span>
-                    </p>
-                    <p class="fw-light mb-2">
-                      Continent:<span class="fw-normal ps-1">Europe</span>
-                    </p>
-                    <p class="card-text fw-light">
-                      <i class="fa-solid fa-heart text-primary"></i>
-                      <span class="post-likes mx-1">65</span>|<span
-                        class="post-comments mx-1"
-                        >6</span
-                      >
-                      comments
-                    </p>
-                  </div>
-                </div>
-                <div class="text-section">
-                  <h1 class="post-title pt-3">Hello from the desert</h1>
-                  <p class="fw-light">
-                    Making new friends in the heart of Egypt! 🇪🇬 Just chilling
-                    with my new buddy here in the vast, breathtaking deserts.
-                    Who knew camels were such great companions? 🌞✨
-                  </p>
-                </div>
-                <div class="reaction-section w-100">
-                  <form class="d-flex flex-column" action="">
-                    <textarea
-                      class="border p-3"
-                      rows="5"
-                      placeholder="Leave a comment..."
-                      aria-placeholder="Leave a comment"
-                    ></textarea>
-                    <div class="justify-content-end d-flex gap-3 pt-3">
-                      <button
-                        class="rounded px-4 pe-4 pt-1 pb-1 bg-transparent border d-flex gap-2 align-items-center text-dark"
-                        type="submit"
-                      >
-                        <i class="fa-regular fa-heart"></i>Like
-                      </button>
-                      <button
-                        class="send-comment bg-primary rounded px-4 pe-4 pt-1 pb-1 text-dark"
-                      >
-                        Send
-                      </button>
+                <p class="fs-4 mb-2">Filter</p>
+                <p class="lead mb-4">Continents</p>
+                <form class="gap-3 row d-flex justify-content-center">
+                  <div
+                    class="col-4 col-md-12 d-flex gap-2 align-items-center flex-row-reverse flex-md-row"
+                  >
+                    <div>
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id=""
+                        name="Africa"
+                        value=""
+                      />
                     </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+                    <label class="form-check-label" for="Africa">Africa</label>
+                  </div>
 
-        <!--- Section 2: Comments section --->
-        <!--Comment input below must be replaced w/ JS -->
-        <section
-          class="container-fluid d-flex justify-content-center pt-5 px-0"
-        >
-          <div
-            class="background-grey w-100 p-3 p-sm-5 d-flex flex-column gap-3 mb-5"
-          >
-            <div class="container border bg-white">
-              <div
-                class="posting-user-details gap-3 d-flex flex-column flex-wrap px-4 pb-4 pt-4 justify-content-sm-start"
-              >
-                <div class="d-flex align-items-center gap-2 gap-md-0">
-                  <img
-                    src="/images/profileImage.jpg"
-                    class="comments-img rounded-circle me-0 me-md-3"
-                    alt="Profile image"
-                  />
-                  <p class="fw-medium mb-0">Harry</p>
-                </div>
-                <div class="d-flex flex-column text-md-0 comment">
-                  <p class="fw-light">
-                    Wow, what an incredible photo! 🌟 It's not every day you see
-                    such a unique and heartwarming friendship. This image truly
-                    captures the essence of adventure and the unexpected bonds
-                    we can form while exploring the world. The way you're just
-                    chilling with your new camel friend in the vast expanse of
-                    Egypt's landscape is absolutely breathtaking. It reminds us
-                    all that there's so much to discover out there, and
-                    sometimes the most memorable moments come from the
-                    connections we make with the local wildlife. Keep these
-                    amazing updates coming – I’m living vicariously through your
-                    adventures! Stay safe and enjoy every moment of your
-                    journey. 🐪🌍✨ #Wanderlust #NewFriendsInNewPlaces
-                  </p>
-                </div>
-              </div>
+                  <div class="col-4 col-md-12 d-flex gap-2">
+                    <div>
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id=""
+                        name="Asia"
+                        value=""
+                      />
+                    </div>
+                    <label class="form-check-label" for="Asia">Asia</label>
+                  </div>
+
+                  <div
+                    class="col-4 col-md-12 d-flex gap-2 flex-row-reverse flex-md-row"
+                  >
+                    <div>
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id=""
+                        name="Europe"
+                        value=""
+                      />
+                    </div>
+                    <label for="Europe">Europe</label>
+                  </div>
+                  <div class="col-4 col-md-12 d-flex gap-2">
+                    <div>
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id=""
+                        name="Oceania"
+                        value=""
+                      />
+                    </div>
+                    <label class="form-check-label" for="Oceania"
+                      >Oceania</label
+                    >
+                  </div>
+
+                  <div
+                    class="col-4 col-md-12 d-flex gap-2 flex-row-reverse flex-md-row"
+                  >
+                    <div>
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id=""
+                        name="North-America"
+                        value=""
+                      />
+                    </div>
+                    <label
+                      class="form-check-label text-end text-md-start"
+                      for="North-America"
+                      >North-America</label
+                    >
+                  </div>
+
+                  <div class="col-4 col-md-12 d-flex gap-2">
+                    <div>
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id=""
+                        name="South-America"
+                        value=""
+                      />
+                    </div>
+                    <label class="form-check-label" for="South-America"
+                      >South-America</label
+                    >
+                  </div>
+                </form>
+              </aside>
             </div>
-            <!--- Comment input end-->
-            <div class="container border bg-white">
-              <div
-                class="posting-user-details gap-3 d-flex flex-column flex-wrap px-4 pb-4 pt-4 justify-content-sm-start"
+            <div
+              class="col-md-10 border-start border-2 d-flex align-items-center flex-column mt-3 mt-md-0"
+            >
+            <!-- Section 1 heading - h1, search and sort-by -->
+              <section
+                class="container mb-4 gap-3 gap-md-0 d-flex flex-column-reverse flex-md-column mt-5 mt-md-0"
               >
-                <div class="d-flex align-items-center gap-2 gap-md-0">
-                  <img
-                    src="/images/profileImage.jpg"
-                    class="comments-img rounded-circle me-0 me-md-3"
-                    alt="Profile image"
-                  />
-                  <p class="fw-medium mb-0">Harry</p>
+                <h1
+                  class="fs-2 d-flex justify-content-center mb-md-5 mt-3 mt-md-5 pt-md-3 pb-md-3"
+                >
+                  Explore the World
+                </h1>
+                <div
+                  class="mb-3 mb-md-0 mx-3 mx-md-3 flex-column flex-md-row d-flex justify-content-between"
+                >
+                  <form
+                    class="d-flex gap-4 gap-md-2 justify-content-center justify-content-md-start align-items-center flex-column flex-md-row"
+                    action=""
+                  >
+                    <input
+                      class="border border-2 rounded p-2 w-100 form-control"
+                      type="text"
+                      placeholder="Search all posts"
+                      aria-label="search for all posts"
+                    />
+                    <button class="btn btn-primary" type="button">
+                      Search
+                    </button>
+                  </form>
+                  <!--Sort by-->
+                  <div
+                    class="d-flex justify-content-center gap-2 flex-column flex-md-row mt-5 mt-md-0"
+                  >
+                    <label for="sortBy" class="m-0 align-self-center"
+                      >Sort by</label
+                    >
+
+                    <div class="d-line align-self-center">
+                      <select
+                        class="bg-transparent text-center"
+                        name=""
+                        id="sortBy"
+                      >
+                        <option value="" data-sort="asc">Newest</option>
+                        <option value="" data-sort="desc">Oldest</option>
+                        <option value="" data-sort="alpha-asc">
+                          Alphabetical (A-Z)
+                        </option>
+                        <option value="" data-sort="alpha-desc">
+                          Alphabetical (Z-A)
+                        </option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
-                <div class="d-flex flex-column text-md-0 comment">
-                  <p class="fw-light">
-                    Wow, what an incredible photo! 🌟 It's not every day you see
-                    such a unique and heartwarming friendship. This image truly
-                    captures the essence of adventure and the unexpected bonds
-                    we can form while exploring the world. The way you're just
-                    chilling with your new camel friend in the vast expanse of
-                    Egypt's landscape is absolutely breathtaking. It reminds us
-                    all that there's so much to discover out there, and
-                    sometimes the most memorable moments come from the
-                    connections we make with the local wildlife. Keep these
-                    amazing updates coming – I’m living vicariously through your
-                    adventures! Stay safe and enjoy every moment of your
-                    journey. 🐪🌍✨ #Wanderlust #NewFriendsInNewPlaces
-                  </p>
+              </section>
+              <!--Section 2 List of cards all posts-->
+              <section>
+                <div
+                  id="allPosts"
+                  class="row justify-content-center mx-3 mx-md-3"
+                >
+                  <!--All posts JS-->
                 </div>
-              </div>
+              </section>
             </div>
-            <!--- Comment input end-->
           </div>
-        </section>
+        </div>
       </main>
-      <footer
-        class="footer bg-secondary mt-5 pt-4 pb-4 justify-content-center justify-content-sm-start"
-      >
+      <footer class="footer bg-secondary mt-5 pt-4 pb-4">
         <div class="container text-white">
           <p class="px-5 m-0">© Globetrotter 2024</p>
         </div>

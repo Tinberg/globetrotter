@@ -1,0 +1,18 @@
+.card {
+  background-color: #f0f0f0;
+}
+
+.card-img-top-container {
+  padding-top: 80%;
+}
+
+.card-body img {
+  height: 45px;
+  width: 45px;
+}
+
+.max-width {
+  max-width: 175px;
+}
+
+/*# sourceMappingURL=explore.css.map */

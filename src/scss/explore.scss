@@ -1,0 +1,17 @@
+//-- Section 2 list of cards - All posts
+.card {
+    background-color: #f0f0f0; 
+}
+
+.card-img-top-container {
+    padding-top: 80%;
+}
+
+.card-body img {
+    height: 45px;
+    width: 45px;
+}
+//max width for post.author.name to make text-truncate work on sm and smaller screens
+.max-width{
+    max-width: 175px; 
+}

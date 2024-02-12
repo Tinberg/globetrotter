@@ -1,40 +1,36 @@
-.heading-section {
-  background-image: url(/images/background.jpg);
-}
+//----Section 1-----//
 
 .banner-image,
 .banner-div {
   height: 250px;
 }
-
 .profile-img {
   width: 150px;
   height: 150px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
+//Edit Profile Modal for my-profile
 .aspect-circle,
 .aspect-square {
   background-color: #f0f0f0;
-  border: 2px solid #142f42;
+  border: 2px solid #142f42; 
 }
-
 .aspect-circle {
-  width: 100px;
-  height: 100px;
+  width: 100px; 
+  height: 100px; 
+}
+.aspect-square {
+ height: 125px; 
+ width: 90%;
 }
 
-.aspect-square {
-  height: 125px;
-  width: 90%;
-}
+//------Section 2-----//
 
 .card-img-top-container {
   padding-top: 80%;
 }
-
 .card-body img {
   height: 50px;
   width: 50px;
 }
-
-/*# sourceMappingURL=my-profile.css.map */
