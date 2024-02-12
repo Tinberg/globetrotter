@@ -27,8 +27,8 @@
   </head>
   <body class="background-img container-xxl p-0">
     <div class="container-xxl p-0">
-        <!-- New Post Modal -->
-        <div
+      <!-- New Post Modal -->
+      <div
         class="modal modal-lg fade"
         id="newPostModal"
         tabindex="-1"
@@ -69,7 +69,9 @@
                     class="form-control mt-2 mx-auto"
                   />
                   <div class="mb-3">
-                    <label for="altText" class="form-label fw-semibold d-none">Image Description</label>
+                    <label for="altText" class="form-label fw-semibold d-none"
+                      >Image Description</label
+                    >
                     <input
                       type="text"
                       id="altText"
@@ -78,7 +80,7 @@
                     />
                   </div>
                 </div>
-                
+
                 <div class="border my-4"></div>
                 <div class="mb-3">
                   <label for="postTitle" class="form-label fw-semibold"
@@ -217,9 +219,13 @@
         <section
           class="user-post-section container-fluid d-flex justify-content-center pt-5 pb-5"
         >
-          <div class="row background-grey d-flex flex-column flex-md-row">
+          <div class="row background-grey d-flex flex-column flex-md-row w-100">
             <div class="container-fluid col-12 col-md-6 order-1 p-0">
-              <img class="post-image w-100 h-100" src="/images/post.jpg" alt="" />
+              <img
+                class="post-image w-100 h-100"
+                src="/images/post.jpg"
+                alt=""
+              />
             </div>
 
             <div
@@ -241,7 +247,10 @@
                   </div>
                   <div class="d-flex flex-md-column gap-3 gap-md-0 flex-wrap">
                     <p class="fw-light mb-2">
-                      Posted by <span class="profile-name fw-normal ps-1">Mathias T.</span>
+                      Posted by
+                      <span class="profile-name fw-normal ps-1"
+                        >Mathias T.</span
+                      >
                     </p>
                     <p class="fw-light mb-2">
                       Continent:<span class="fw-normal ps-1">Europe</span>
@@ -293,75 +302,13 @@
         </section>
 
         <!--- Section 2: Comments section --->
-        <!--Comment input below must be replaced w/ JS -->
         <section
-          class="container-fluid d-flex justify-content-center pt-5 px-0"
+          class="container-fluid d-flex justify-content-center pt-5"
         >
           <div
             class="comments-container background-grey w-100 p-3 p-sm-5 d-flex flex-column gap-3 mb-5"
           >
-            <div class="container border bg-white">
-              <div
-                class="posting-user-details gap-3 d-flex flex-column flex-wrap px-4 pb-4 pt-4 justify-content-sm-start"
-              >
-                <div class="d-flex align-items-center gap-2 gap-md-0">
-                  <img
-                    src="/images/profileImage.jpg"
-                    class="comments-img rounded-circle me-0 me-md-3"
-                    alt="Profile image"
-                  />
-                  <p class="fw-medium mb-0">Harry</p>
-                </div>
-                <div class="d-flex flex-column text-md-0 comment">
-                  <p class="fw-light">
-                    Wow, what an incredible photo! 🌟 It's not every day you see
-                    such a unique and heartwarming friendship. This image truly
-                    captures the essence of adventure and the unexpected bonds
-                    we can form while exploring the world. The way you're just
-                    chilling with your new camel friend in the vast expanse of
-                    Egypt's landscape is absolutely breathtaking. It reminds us
-                    all that there's so much to discover out there, and
-                    sometimes the most memorable moments come from the
-                    connections we make with the local wildlife. Keep these
-                    amazing updates coming – I’m living vicariously through your
-                    adventures! Stay safe and enjoy every moment of your
-                    journey. 🐪🌍✨ #Wanderlust #NewFriendsInNewPlaces
-                  </p>
-                </div>
-              </div>
-            </div>
-            <!--- Comment input end-->
-            <div class="container border bg-white">
-              <div
-                class="posting-user-details gap-3 d-flex flex-column flex-wrap px-4 pb-4 pt-4 justify-content-sm-start"
-              >
-                <div class="d-flex align-items-center gap-2 gap-md-0">
-                  <img
-                    src="/images/profileImage.jpg"
-                    class="comments-img rounded-circle me-0 me-md-3"
-                    alt="Profile image"
-                  />
-                  <p class="fw-medium mb-0">Harry</p>
-                </div>
-                <div class="d-flex flex-column text-md-0 comment">
-                  <p class="fw-light">
-                    Wow, what an incredible photo! 🌟 It's not every day you see
-                    such a unique and heartwarming friendship. This image truly
-                    captures the essence of adventure and the unexpected bonds
-                    we can form while exploring the world. The way you're just
-                    chilling with your new camel friend in the vast expanse of
-                    Egypt's landscape is absolutely breathtaking. It reminds us
-                    all that there's so much to discover out there, and
-                    sometimes the most memorable moments come from the
-                    connections we make with the local wildlife. Keep these
-                    amazing updates coming – I’m living vicariously through your
-                    adventures! Stay safe and enjoy every moment of your
-                    journey. 🐪🌍✨ #Wanderlust #NewFriendsInNewPlaces
-                  </p>
-                </div>
-              </div>
-            </div>
-            <!--- Comment input end-->
+            <!--Comment is injected wit forEach JS -->
           </div>
         </section>
       </main>
