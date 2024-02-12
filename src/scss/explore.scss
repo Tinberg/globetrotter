@@ -1,3 +1,4 @@
+//-- Section 2 list of cards - All posts
 .card {
     background-color: #f0f0f0; 
 }
@@ -7,10 +8,10 @@
 }
 
 .card-body img {
-    height: 50px;
-    width: 50px;
+    height: 45px;
+    width: 45px;
 }
-
-.background-img{
-    background-image: url(/images/background.jpg);
+//max width for post.author.name to make text-truncate work on sm and smaller screens
+.max-width{
+    max-width: 175px; 
 }

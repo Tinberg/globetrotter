@@ -13,7 +13,7 @@
       href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
     />
     <link rel="stylesheet" href="/dist/css/global.css" />
-    <link rel="stylesheet" href="/dist/css/profile.css" />
+    <link rel="stylesheet" href="/dist/css/profiles.css" />
     <link />
     <script type="module" src="/javascript/modules/new-post.js"></script>
     <script type="module" src="/javascript/pages/my-profile.js"></script>
@@ -66,14 +66,24 @@
                       <i class="fas fa-image fa-3x text-white"></i>
                     </div>
                   </div>
+                  <div class="form-text">Recommended aspect ratio: 1:1</div>
                   <input
                     type="text"
                     id="postImage"
                     placeholder="Image URL to a uploaded image "
                     class="form-control mt-2 mx-auto"
                   />
-                  <div class="form-text">Recommended aspect ratio: 1:1</div>
+                  <div class="mb-3">
+                    <label for="altText" class="form-label fw-semibold d-none">Image Description</label>
+                    <input
+                      type="text"
+                      id="altText"
+                      placeholder="Enter image description"
+                      class="form-control mt-3 mx-auto"
+                    />
+                  </div>
                 </div>
+                
                 <div class="border my-4"></div>
                 <div class="mb-3">
                   <label for="postTitle" class="form-label fw-semibold"
@@ -120,9 +130,10 @@
                   </select>
                 </div>
                 <div class="border my-4"></div>
-                <button type="submit" class="btn btn-primary my-2">
+                <button type="submit" class="btn btn-primary my-2 px-5">
                   Publish
                 </button>
+                <p id="postErrorFeedback" class="text-danger my-3"></p>
               </form>
             </div>
             <div class="modal-footer">
@@ -137,6 +148,7 @@
           </div>
         </div>
       </div>
+       <!-- Header -->
       <header>
         <nav
           class="navbar navbar-expand-md bg-secondary position-fixed container-xxl py-3 py-md-2"
@@ -214,13 +226,13 @@
               <img
                 class="banner-image w-100"
                 id="bannerImage"
-                alt="Personal banner image"
               />
             </div>
             <!--target profileImage in js and set/change the profile avatar-->
             <img
               class="profile-img rounded-circle position-absolute"
               id="profileImage"
+              
             />
           </div>
           <div class="d-flex flex-column align-items-center">
@@ -353,6 +365,7 @@
                         Save Changes
                       </button>
                     </div>
+                    <p id="profileEditError" class="text-danger my-2 text-center"></p>
                   </form>
                 </div>
                 <div class="modal-footer">

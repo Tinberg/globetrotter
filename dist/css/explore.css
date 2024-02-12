@@ -7,12 +7,12 @@
 }
 
 .card-body img {
-  height: 50px;
-  width: 50px;
+  height: 45px;
+  width: 45px;
 }
 
-.background-img {
-  background-image: url(/images/background.jpg);
+.max-width {
+  max-width: 175px;
 }
 
 /*# sourceMappingURL=explore.css.map */

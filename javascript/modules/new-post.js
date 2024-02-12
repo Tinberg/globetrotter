@@ -9,30 +9,39 @@ document
 
     const title = document.getElementById("postTitle").value;
     const body = document.getElementById("postCaption").value;
-    const media = document.getElementById("postImage").value;
+    const mediaUrl = document.getElementById("postImage").value;
+    const altText = document.getElementById("altText").value;
     const tags = [document.getElementById("continentSelect").value];
+    const errorFeedback = document.getElementById("postErrorFeedback");
 
     if (title.length > 280) {
-      alert("The title cannot be greater than 280 characters."); // Change alert to smt else
+      alert("The title cannot be greater than 280 characters.");
       return;
     }
 
     if (body.length > 280) {
-      alert("The post caption cannot be greater than 280 characters."); // Change alert to smt else
+      alert("The post caption cannot be greater than 280 characters.");
       return;
     }
 
     try {
-      const postData = { title, body, tags, media };
+      const postData = {
+        title,
+        body,
+        tags,
+        media: mediaUrl ? { url: mediaUrl, alt: altText } : undefined,
+      };
       const result = await createPost(postData);
       console.log("Post created successfully:", result);
       document.getElementById("newPostForm").reset();
       updateCaptionFeedback();
       updateTitleFeedback();
-      alert("Post created successfully!"); // Change alert to smt else
+      window.location.href = "my-profile.html";
     } catch (error) {
       console.error("Failed to create post:", error);
-      alert("Failed to create post. Please try again."); // Change alert to smt else
+      errorFeedback.textContent =
+        "Failed to create post. Please ensure your image URL is valid, starts with http or https, and that your title and caption do not exceed 280 characters. Please try again.";
+      errorFeedback.style.display = "block";
     }
   });
 
