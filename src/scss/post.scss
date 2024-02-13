@@ -22,6 +22,11 @@ section {
   width: 80px;
 }
 
+.post-image{
+    object-fit: contain;
+    max-height: 612px;
+}
+
 .post-title {
   font-size: 20px;
 }
@@ -41,4 +46,11 @@ section {
     height: 45px;
     width: 45px;
   }
+}
+
+
+@media(min-width: 767px){
+    .inner-div-for-section-1{
+        min-width: 750px;
+    }
 }
