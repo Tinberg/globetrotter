@@ -2,10 +2,10 @@
 //-- Redirect function --> auth.js --//
 import { checkAuthAndRedirect } from "../modules/auth.js";
 checkAuthAndRedirect();
-//-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
-import { formatCount, formatWithSuffix } from "../modules/utility.js";
 //-- Api for fetch all posts--> api.js
 import { fetchAllPosts } from "../modules/api.js";
+//-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
+import { formatCount, formatWithSuffix } from "../modules/utility.js";
 
 //-- Display All post: username, useravatar, comments, and reactions to the post
 document.addEventListener("DOMContentLoaded", async () => {
@@ -25,9 +25,11 @@ function displayPosts(posts) {
     const postImageAltText = post.media?.alt || "Post image";
     const reactionsFormatted = formatCount(post._count.reactions || 0);
     const commentsFormatted = formatCount(post._count.comments || 0);
+    
 
     const postElement = document.createElement("div");
     postElement.className = "col-lg-4 col-sm-6 mb-5";
+    postElement.style.cursor = "pointer";
 
     postElement.innerHTML = `
           <div class="card">
@@ -62,4 +64,4 @@ function displayPosts(posts) {
 
     postContainer.appendChild(postElement);
   });
-} 
+}

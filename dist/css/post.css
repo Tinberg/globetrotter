@@ -2,8 +2,30 @@ section {
   max-width: 85%;
 }
 
+.profile-name,
+.post-profile-image {
+  cursor: pointer;
+}
+
+.profile-name:hover {
+  color: #ffa88f;
+}
+
+.post-profile-image:hover {
+  border: 2px solid #ffa88f;
+}
+
 .background-grey {
-  background-color: #F8F9FA;
+  background-color: #f8f9fa;
+}
+
+.post-profile-image {
+  height: 80px;
+  width: 80px;
+}
+
+.post-title {
+  font-size: 20px;
 }
 
 .comment {
@@ -14,15 +36,6 @@ section {
 .comments-img {
   height: 50px;
   width: 50px;
-}
-
-.post-profile-image {
-  height: 80px;
-  width: 80px;
-}
-
-.post-title {
-  font-size: 20px;
 }
 
 @media (max-width: 767px) {

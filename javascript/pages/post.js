@@ -1,10 +1,10 @@
-
-
 //-- Redirect function --> auth.js --//
 import { checkAuthAndRedirect } from "../modules/auth.js";
 checkAuthAndRedirect();
 //-- Api for fetch single post with comments reactions and author --> api.js
 import { fetchSinglePost } from "../modules/api.js";
+//-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
+import { formatCount, formatWithSuffix } from "../modules/utility.js";
 
 //-- Load the specific post based on the id from the URL --//
 async function loadPostData() {
@@ -30,10 +30,9 @@ function displayPostDetails(postData) {
   //displaying post title, body reactions count and comments count
   document.querySelector(".post-title").textContent = postData.title;
   document.querySelector(".post-body").textContent = postData.body;
-  document.querySelector(".reactions-count").textContent =
-    postData._count.reactions;
-  document.querySelector(".comments-count").textContent =
-    postData._count.comments;
+ // Format and display reaction and comments count
+  document.querySelector(".reactions-count").textContent = formatCount (postData._count.reactions);
+  document.querySelector(".comments-count").textContent = formatCount (postData._count.comments);
   // Set image of the post if available, otherwise to a default image and alt text
   const postImageElement = document.querySelector(".post-image");
   if (postData.media && postData.media.url) {
@@ -47,9 +46,20 @@ function displayPostDetails(postData) {
   }
 
   // Display author name and avatar
-  document.querySelector(".profile-name").textContent = postData.author.name;
-  document.querySelector(".post-profile-image").src =
-    postData.author.avatar.url;
+  const profileNameElement = document.querySelector(".profile-name");
+  const profileAvatarElement = document.querySelector(".post-profile-image");
+
+  profileNameElement.textContent = postData.author.name;
+  profileAvatarElement.src = postData.author.avatar.url;
+
+  // Add event listeners to navigate to profile page on click
+  const navigateToProfile = () => {
+    window.location.href = `profile.html?username=${encodeURIComponent(
+      postData.author.name
+    )}`;
+  };
+  profileNameElement.addEventListener("click", navigateToProfile);
+  profileAvatarElement.addEventListener("click", navigateToProfile);
 
   // Calling function to display comments
   displayComments(postData.comments);
@@ -77,7 +87,8 @@ function displayComments(comments) {
       commentsContainer.innerHTML += commentHtml;
     });
   } else {
-    commentsContainer.innerHTML = '<p class="text-center">Be the first to leave a comment!</p>';
+    commentsContainer.innerHTML =
+      '<p class="text-center">Be the first to leave a comment!</p>';
   }
 }
 // Call loadPostData when the page is loaded

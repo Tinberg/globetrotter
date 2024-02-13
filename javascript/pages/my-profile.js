@@ -116,6 +116,7 @@ function displayPosts(posts, profile) {
     const postMediaAlt = post.media?.alt || "Post image";
     const reactionsFormatted = formatCount(post._count.reactions || 0);
     const commentsFormatted = formatCount(post._count.comments || 0);
+    postElement.style.cursor = "pointer";
 
     postElement.innerHTML = `
       <div class="card">
@@ -152,21 +153,3 @@ function displayPosts(posts, profile) {
     postContainer.appendChild(postElement);
   });
 }
-
-//Try this in profile.js
-
-// document.addEventListener("DOMContentLoaded", async () => {
-//     // Attempt to get a username from the URL parameters
-//     const urlParams = new URLSearchParams(window.location.search);
-//     const userNameFromURL = urlParams.get('username');
-
-//     // Fallback to the logged-in user's username if no URL parameter is provided
-//     const userName = userNameFromURL || localStorage.getItem("userName");
-
-//     if (userName) {
-//       // Existing code to fetch and display the profile and posts...
-//     } else {
-//       console.error("User name not found. Redirecting to login page.");
-//       // Redirect logic here...
-//     }
-//   });
