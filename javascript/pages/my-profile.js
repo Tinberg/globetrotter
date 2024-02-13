@@ -116,6 +116,7 @@ function displayPosts(posts, profile) {
     const postMediaAlt = post.media?.alt || "Post image";
     const reactionsFormatted = formatCount(post._count.reactions || 0);
     const commentsFormatted = formatCount(post._count.comments || 0);
+    postElement.style.cursor = "pointer";
 
     postElement.innerHTML = `
       <div class="card">
