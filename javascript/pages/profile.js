@@ -30,17 +30,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       bannerImageElement.src = profile.banner.url;
       bannerImageElement.alt = profile.banner.alt || "Personal Banner";
     } else {
-      bannerImageElement.src = "/images/defaultBanner.jpg";
-      bannerImageElement.alt = "Personal Banner";
+        bannerImageElement.style.display = "none";
     }
     // Handle profile image
     const profileImageElement = document.getElementById("profileImage");
     if (profile.avatar && profile.avatar.url) {
       profileImageElement.src = profile.avatar.url;
-      profileImageElement.alt = profile.avatar.alt || "Personal profile image";
+      profileImageElement.alt = profile.avatar.alt || "Personal Avatar";
     } else {
-      profileImageElement.src = "/images/defaultAvatar.jpg";
-      profileImageElement.alt = "Default avatar image";
+        profileImageElement.style.display = "none";
     }
     //Set postCount followers and following 
     document.getElementById("allPosts").textContent = profile._count.posts;

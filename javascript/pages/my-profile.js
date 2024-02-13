@@ -24,15 +24,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       const bannerImageElement = document.getElementById("bannerImage");
       if (profile.banner) {
         bannerImageElement.src = profile.banner.url;
-        bannerImageElement.alt = profile.banner?.alt || "Default banner";
+        bannerImageElement.alt = profile.banner?.alt || "Personal Banner";
         bannerImageElement.style.display = "";
       } else {
         bannerImageElement.style.display = "none";
       }
       // Avatar Image
       const avatarImageElement = document.getElementById("profileImage");
-      avatarImageElement.src = profile.avatar.url || "/images/profileImage.jpg";
-      avatarImageElement.alt = profile.avatar?.alt || "Default avatar";
+      avatarImageElement.src = profile.avatar?.url || "/images/no-image.png";
+      avatarImageElement.alt = profile.avatar?.alt || "Personal Avatar";
       //Post Count
       document.getElementById("allPosts").textContent = profile._count.posts;
       //Followers
