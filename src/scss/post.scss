@@ -1,33 +1,44 @@
-section{
-    max-width: 85%;
+section {
+  max-width: 85%;
+}
+//-- Section 1 post section --//
+.profile-name,
+.post-profile-image {
+  cursor: pointer;
+}
+.profile-name:hover {
+  color: #ffa88f;
+}
+.post-profile-image:hover {
+  border: 2px solid #ffa88f;
 }
 
-.background-grey{
-    background-color: #F8F9FA;
+.background-grey {
+  background-color: #f8f9fa;
 }
 
-.comment{
-    letter-spacing: 1px;
-    line-height: 30px;
+.post-profile-image {
+  height: 80px;
+  width: 80px;
 }
 
-.comments-img{
-    height: 50px;
-    width: 50px;
+.post-title {
+  font-size: 20px;
+}
+//-- Section 2 Comments section --//
+.comment {
+  letter-spacing: 1px;
+  line-height: 30px;
 }
 
-.post-profile-image{
-    height: 80px;
-    width: 80px;
+.comments-img {
+  height: 50px;
+  width: 50px;
 }
 
-.post-title{
-    font-size: 20px;
-}
-
-@media (max-width: 767px){
-    .post-profile-image{
-        height: 45px;
-        width: 45px;
-    }
+@media (max-width: 767px) {
+  .post-profile-image {
+    height: 45px;
+    width: 45px;
+  }
 }
