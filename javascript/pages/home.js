@@ -15,10 +15,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       displayPosts(posts);
     } catch (error) {
       console.error("Failed to fetch posts:", error);
-      // Handle error appropriately
     }
   });
-  //-- 
+  //-- Display All post of the users that the logged in user is following: username, useravatar, comments, and reactions to the post --//
   function displayPosts(posts) {
     const postContainer = document.querySelector("#allPosts");
     postContainer.innerHTML = "";

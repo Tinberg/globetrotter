@@ -9,7 +9,7 @@ export { formatCount, formatWithSuffix };
 /**
  * Formats a number into a readable string(For the layout) with a suffix ('K', 'M', 'B') based on its value.
  * For values under 1,000, it returns the number as a string.
- * For values 1,000 and above, it adds the appropriate suffix.
+ * For values 1,000 and above, it adds the right suffix.
  *
  * @param {number} number
  * @returns {string}
