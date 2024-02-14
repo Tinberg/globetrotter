@@ -14,6 +14,7 @@ import { unfollowUser } from "../modules/api.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
 
+//-- Initializes the page by fetching and displaying user profile and posts based on the username from URL, and sets up follow/unfollow functionality --//
 document.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const userName = urlParams.get("username");
@@ -31,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const posts = await fetchPostsByUserName(userName);
     displayPosts(posts, profile);
-    // Attaches event listener for follow/unfollow action.
+    //Event listener for follow/unfollow.
     document
       .getElementById("followOrUnfollow")
       .addEventListener("click", () => toggleFollow(userName));
@@ -39,7 +40,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Failed to load user profile or posts:", error);
   }
 });
-// Updates the UI with user profile information.
+
+//-- Updates the UI with user profile information --//
 function updateProfileUI(profile) {
   // Sets users name
   document.getElementById("userName").textContent = profile.name;
@@ -59,7 +61,7 @@ function updateProfileUI(profile) {
   document.getElementById("following").textContent = profile._count.following;
 }
 
-//-- Display Posts from the profile user
+//-- Display Posts from the profile user --//
 function displayPosts(posts, profile) {
   const postContainer = document.getElementById("postContainer");
   postContainer.innerHTML = "";
@@ -109,7 +111,7 @@ function displayPosts(posts, profile) {
   });
 }
 
-// Toggles the follow/unfollow status of the profile based on the current button text and then performs api call
+// Toggles the follow/unfollow status of the profile based on the current button text and then performs api call --//
 async function toggleFollow(userName) {
   const followButton = document.getElementById("followOrUnfollow");
 
@@ -121,7 +123,7 @@ async function toggleFollow(userName) {
       await unfollowUser(userName);
       followButton.textContent = "Follow";
     }
-   // Refreshes profile data to reflect changes.
+    // Refreshes profile data to reflect changes.
     const updatedProfile = await fetchUserProfile(userName);
     updateProfileUI(updatedProfile);
   } catch (error) {
@@ -129,7 +131,7 @@ async function toggleFollow(userName) {
   }
 }
 
-// Updates the follow/unfollow button based on current user's follow status.
+//-- Updates the follow/unfollow button based on current user's follow status --//
 function updateFollowButton(profile) {
   const currentUser = localStorage.getItem("userName");
   const followButton = document.getElementById("followOrUnfollow");
@@ -140,10 +142,6 @@ function updateFollowButton(profile) {
   );
   followButton.textContent = isFollowing ? "Unfollow" : "Follow";
 }
-
-
-
-
 
 // //------ Import --------/
 

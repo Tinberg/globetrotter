@@ -18,11 +18,9 @@ document.getElementById('registerForm').addEventListener('submit', async (event)
             window.location.href = '/index.html'; 
         } else {
             console.error('Registration failed: ', result.errors);
-            // show error message bad request likt brukernavn epost eller feil epost
         }
 
     } catch (error) {
         console.error('Registration failed:', error);
-        // Show error message to the user networkerror
     }
 });

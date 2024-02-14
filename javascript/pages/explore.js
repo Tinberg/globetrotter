@@ -7,7 +7,7 @@ import { fetchAllPosts } from "../modules/api.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
 
-//-- Display All post: username, useravatar, comments, and reactions to the post
+
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     const posts = await fetchAllPosts();
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Failed to fetch posts:", error);
   }
 });
-
+//-- Display All post: username, useravatar, comments, and reactions to the post --//
 function displayPosts(posts) {
   const postContainer = document.querySelector("#allPosts");
   postContainer.innerHTML = "";
