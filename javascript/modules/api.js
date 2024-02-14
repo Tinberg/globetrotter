@@ -11,9 +11,9 @@ import { apiKey } from "./auth.js";
 export { registerUser };
 //-- For fetch login user --> index.js
 export { loginUser };
-//-- For fetch spesific user info --> my-profile.js MAYBE profile.js as well??????
+//-- For fetch spesific user info --> my-profile.js
 export { fetchUserProfile };
-//-- For fetch posts by spesific user --> my-profile.js MAYBE profile.js as well??????
+//-- For fetch posts by spesific user --> my-profile.js and profile.js
 export { fetchPostsByUserName };
 //-- For fetch edit profile media --> my-profile.js
 export { updateProfileMedia };
@@ -23,6 +23,12 @@ export { createPost };
 export { fetchAllPosts };
 //-- For fetching a single post with comments reactions and author info --> post.js
 export { fetchSinglePost };
+//-- For fetching all post that the user is following --> home.js
+export { fetchPostsFromFollowing };
+//-- For follow a user by their username --> profile.js 
+export { followUser };
+//-- For unfollow a user by their username --> profile.js
+export { unfollowUser };
 //-- For
 export { fetchAllProfiles };
 
@@ -30,14 +36,18 @@ export { fetchAllProfiles };
 const API_BASE_URL = "https://v2.api.noroff.dev";
 
 //-- Utility --//
-//Headers for "Get", "Post", "Put", and "Delete" requests
-function getHeaders() {
-  const token = getToken();
-  return {
-    Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json",
+// Headers and content-type for "Get", "Post", "Put", and "Delete" requests getHeaders(false) will exclude the ContentType
+function getHeaders(includeContentType = true) {
+  const headers = {
+    Authorization: `Bearer ${getToken()}`,
     "X-Noroff-API-Key": apiKey,
   };
+
+  if (includeContentType) {
+    headers["Content-Type"] = "application/json";
+  }
+
+  return headers;
 }
 
 //-- API Calls --//
@@ -85,7 +95,7 @@ async function loginUser(email, password) {
  * @returns {Promise}
  */
 async function fetchUserProfile(userName) {
-  const response = await fetch(`${API_BASE_URL}/social/profiles/${userName}`, {
+  const response = await fetch(`${API_BASE_URL}/social/profiles/${userName}?_followers=true&_following=true&_posts=true`, {
     headers: getHeaders(),
   });
   if (!response.ok) {
@@ -194,18 +204,75 @@ async function fetchAllPosts() {
 }
 /**
  * Fetch a single post by its id including author, comments, and reactions.
- * @param {number|string} postId 
- * @returns {Promise<Object>} 
+ * @param {number|string} postId
+ * @returns {Promise<Object>}
  */
 async function fetchSinglePost(postId) {
-  const response = await fetch(`${API_BASE_URL}/social/posts/${postId}?_author=true&_comments=true&_reactions=true`, {
-    headers: getHeaders(),
-  });
+  const response = await fetch(
+    `${API_BASE_URL}/social/posts/${postId}?_author=true&_comments=true&_reactions=true`,
+    {
+      headers: getHeaders(),
+    }
+  );
   if (!response.ok) {
     throw new Error("Failed to fetch the post");
   }
   const result = await response.json();
   return result.data;
+}
+/**
+ * fetch post all post from the users is following
+ * @returns  {Promise}
+ */
+async function fetchPostsFromFollowing() {
+  const response = await fetch(
+    `${API_BASE_URL}/social/posts/following?_author=true&_comments=true&_reactions=true`,
+    {
+      headers: getHeaders(),
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch posts from following");
+  }
+  const result = await response.json();
+  return result.data;
+}
+/**
+ * Follow a user profile
+ * @param {string} username
+ * @returns {Promise}
+ */
+async function followUser(username) {
+  const response = await fetch(
+    `${API_BASE_URL}/social/profiles/${username}/follow`,
+    {
+      method: "PUT",
+      headers: getHeaders(false),
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to follow the user");
+  }
+  return response.json();
+}
+
+/**
+ * Unfollow a user profile
+ * @param {string} username
+ * @returns {Promise}
+ */
+async function unfollowUser(username) {
+  const response = await fetch(
+    `${API_BASE_URL}/social/profiles/${username}/unfollow`,
+    {
+      method: "PUT",
+      headers: getHeaders(false),
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to unfollow the user");
+  }
+  return response.json();
 }
 
 /**
@@ -222,5 +289,4 @@ async function fetchAllProfiles() {
   const result = await response.json();
   return result.data;
 }
-
 
