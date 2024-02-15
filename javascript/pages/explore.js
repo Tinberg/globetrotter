@@ -7,32 +7,59 @@ import { fetchAllPosts } from "../modules/api.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
 
+// document.addEventListener("DOMContentLoaded", async () => {
+//   try {
+//     const posts = await fetchAllPosts();
+//     displayPosts(posts);
+//   } catch (error) {
+//     console.error("Failed to fetch posts:", error);
+//   }
+// });
 
+//-- Triggers post fetch and display based on continent selection --//
 document.addEventListener("DOMContentLoaded", async () => {
+  //Fetch all post(no filter)
+  fetchAndDisplayPosts();
+
+  // Handles Continent filter form
+  document
+    .getElementById("filterContinent")
+    .addEventListener("change", async () => {
+      const selectedContinent = document.querySelector(
+        'input[name="continent"]:checked'
+      )?.value;
+
+      // Fetch and display posts filtered by the selected continent
+      fetchAndDisplayPosts(selectedContinent);
+    });
+});
+
+//-- Fetches and displays posts, filtered by continent if specified --//
+async function fetchAndDisplayPosts(continentTag = "") {
   try {
-    const posts = await fetchAllPosts();
+    const posts = await fetchAllPosts(continentTag);
     displayPosts(posts);
   } catch (error) {
     console.error("Failed to fetch posts:", error);
   }
-});
+}
 //-- Display All post: username, useravatar, comments, and reactions to the post --//
 function displayPosts(posts) {
   const postContainer = document.querySelector("#allPosts");
   postContainer.innerHTML = "";
 
   posts.forEach((post) => {
+    console.log(post)
     const postImageAltText = post.media?.alt || "Post image";
     const reactionsFormatted = formatCount(post._count.reactions || 0);
     const commentsFormatted = formatCount(post._count.comments || 0);
-    
 
     const postElement = document.createElement("div");
     postElement.className = "col-lg-4 col-sm-6 mb-5";
     postElement.style.cursor = "pointer";
 
     postElement.innerHTML = `
-          <div class="card">
+          <div class="card card-container">
               <div class="card-img-top-container w-100 position-relative h-0">
               <img src="${
                 post.media?.url || "/images/no-image.png"

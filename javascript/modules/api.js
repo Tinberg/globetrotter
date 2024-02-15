@@ -25,7 +25,7 @@ export { fetchAllPosts };
 export { fetchSinglePost };
 //-- For fetching all post that the user is following --> home.js
 export { fetchPostsFromFollowing };
-//-- For follow a user by their username --> profile.js 
+//-- For follow a user by their username --> profile.js
 export { followUser };
 //-- For unfollow a user by their username --> profile.js
 export { unfollowUser };
@@ -95,16 +95,18 @@ async function loginUser(email, password) {
  * @returns {Promise}
  */
 async function fetchUserProfile(userName) {
-  const response = await fetch(`${API_BASE_URL}/social/profiles/${userName}?_followers=true&_following=true&_posts=true`, {
-    headers: getHeaders(),
-  });
+  const response = await fetch(
+    `${API_BASE_URL}/social/profiles/${userName}?_followers=true&_following=true&_posts=true`,
+    {
+      headers: getHeaders(),
+    }
+  );
   if (!response.ok) {
     throw new Error("Failed to fetch profile information");
   }
   const result = await response.json();
   return result.data;
 }
-
 /**
  * Fetch post by user
  * @param {string} userName
@@ -168,7 +170,6 @@ async function updateProfileMedia(
 
   return await response.json();
 }
-
 /**
  * Creates a new post.
  * @param {Object} postData
@@ -187,13 +188,19 @@ async function createPost(postData) {
   const result = await response.json();
   return result.data;
 }
-
 /**
- * Fetches all posts.
+ * Fetches all posts optionally filtered by a tag.
+ * @param {string} [tag] 
  * @returns {Promise}
  */
-async function fetchAllPosts() {
-  const response = await fetch(`${API_BASE_URL}/social/posts?_author=true`, {
+async function fetchAllPosts(tag) {
+  const url = tag
+    ? `${API_BASE_URL}/social/posts?_author=true&_tag=${encodeURIComponent(
+        tag
+      )}`
+    : `${API_BASE_URL}/social/posts?_author=true`;
+
+  const response = await fetch(url, {
     headers: getHeaders(),
   });
   if (!response.ok) {
@@ -255,7 +262,6 @@ async function followUser(username) {
   }
   return response.json();
 }
-
 /**
  * Unfollow a user profile
  * @param {string} username
@@ -274,7 +280,6 @@ async function unfollowUser(username) {
   }
   return response.json();
 }
-
 /**
  * Fetches all user profiles.
  * @returns {Promise}
@@ -289,4 +294,3 @@ async function fetchAllProfiles() {
   const result = await response.json();
   return result.data;
 }
-
