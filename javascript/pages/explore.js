@@ -7,15 +7,6 @@ import { fetchAllPosts } from "../modules/api.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
 
-// document.addEventListener("DOMContentLoaded", async () => {
-//   try {
-//     const posts = await fetchAllPosts();
-//     displayPosts(posts);
-//   } catch (error) {
-//     console.error("Failed to fetch posts:", error);
-//   }
-// });
-
 //-- Triggers post fetch and display based on continent selection --//
 document.addEventListener("DOMContentLoaded", async () => {
   //Fetch all post(no filter)
@@ -60,7 +51,7 @@ function displayPosts(posts) {
 
     postElement.innerHTML = `
           <div class="card card-container">
-              <div class="card-img-top-container w-100 position-relative h-0">
+              <div class="card-img-top-container w-100 position-relative h-0 border-bottom">
               <img src="${
                 post.media?.url || "/images/no-image.png"
               }" class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0" alt="${postImageAltText}">

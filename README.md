@@ -4,7 +4,7 @@ Javascript2 Kopstad and Tinberg
 
 write line where the code for export is! 
 
-add border around profile img on posts,og border fra post image og postbody
+
 
 Alexandra: 
 - ordne layout for post.html (bilde)

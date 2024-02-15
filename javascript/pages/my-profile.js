@@ -84,7 +84,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         errorFeedback.style.display = "block";
         return;
       }
-
       try {
         await updateProfileMedia(
           userName,
@@ -124,7 +123,7 @@ function displayPosts(posts, profile) {
 
     postElement.innerHTML = `
       <div class="card">
-          <div class="card-img-top-container w-100 position-relative h-0">
+          <div class="card-img-top-container w-100 position-relative h-0 border-bottom">
               <img src="${postMediaUrl}" class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0" alt="${postMediaAlt}">
           </div>
           <div class="card-body">
