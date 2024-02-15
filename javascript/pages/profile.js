@@ -56,9 +56,9 @@ function updateProfileUI(profile) {
   profileImageElement.alt = profile.avatar?.alt || "Personal Avatar";
   profileImageElement.style.display = profile.avatar?.url ? "block" : "none";
   // Updates counts for posts, followers, and following.
-  document.getElementById("allPosts").textContent = profile._count.posts;
-  document.getElementById("followers").textContent = profile._count.followers;
-  document.getElementById("following").textContent = profile._count.following;
+  document.getElementById("allPosts").textContent = formatCount(profile._count.posts);
+  document.getElementById("followers").textContent = formatCount (profile._count.followers);
+  document.getElementById("following").textContent = formatCount (profile._count.following);
 }
 
 //-- Display Posts from the profile user --//

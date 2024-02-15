@@ -8,31 +8,30 @@ import { fetchPostsFromFollowing } from "../modules/api.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
 
-//-- 
+//--
 document.addEventListener("DOMContentLoaded", async () => {
-    try {
-      const posts = await fetchPostsFromFollowing();
-      displayPosts(posts);
-    } catch (error) {
-      console.error("Failed to fetch posts:", error);
-    }
-  });
-  //-- Display All post of the users that the logged in user is following: username, useravatar, comments, and reactions to the post --//
-  function displayPosts(posts) {
-    const postContainer = document.querySelector("#allPosts");
-    postContainer.innerHTML = "";
-  
-    posts.forEach((post) => {
-      const postImageAltText = post.media?.alt || "Post image";
-      const reactionsFormatted = formatCount(post._count.reactions || 0);
-      const commentsFormatted = formatCount(post._count.comments || 0);
-      
-  
-      const postElement = document.createElement("div");
-      postElement.className = "col-lg-4 col-sm-6 mb-5";
-      postElement.style.cursor = "pointer";
-  
-      postElement.innerHTML = `
+  try {
+    const posts = await fetchPostsFromFollowing();
+    displayPosts(posts);
+  } catch (error) {
+    console.error("Failed to fetch posts:", error);
+  }
+});
+//-- Display All post of the users that the logged in user is following: username, useravatar, comments, and reactions to the post --//
+function displayPosts(posts) {
+  const postContainer = document.querySelector("#allPosts");
+  postContainer.innerHTML = "";
+
+  posts.forEach((post) => {
+    const postImageAltText = post.media?.alt || "Post image";
+    const reactionsFormatted = formatCount(post._count.reactions || 0);
+    const commentsFormatted = formatCount(post._count.comments || 0);
+
+    const postElement = document.createElement("div");
+    postElement.className = "col-sm-6  col-md-4  mb-5  ";
+    postElement.style.cursor = "pointer";
+
+    postElement.innerHTML = `
             <div class="card">
                 <div class="card-img-top-container w-100 position-relative h-0">
                 <img src="${
@@ -59,10 +58,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                 </div>
             </div>
         `;
-      postElement.addEventListener("click", () => {
-        window.location.href = `post.html?id=${post.id}`;
-      });
-  
-      postContainer.appendChild(postElement);
+    postElement.addEventListener("click", () => {
+      window.location.href = `post.html?id=${post.id}`;
     });
-  }
+
+    postContainer.appendChild(postElement);
+  });
+}

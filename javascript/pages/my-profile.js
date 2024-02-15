@@ -33,15 +33,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       const avatarImageElement = document.getElementById("profileImage");
       avatarImageElement.src = profile.avatar?.url || "/images/no-image.png";
       avatarImageElement.alt = profile.avatar?.alt || "Personal Avatar";
-      //Post Count
-      document.getElementById("allPosts").textContent = profile._count.posts;
-      //Followers
-      document.getElementById("followers").textContent =
-        profile._count.followers;
-      //Following
-      document.getElementById("following").textContent =
-        profile._count.following;
-
+      // Updates counts for posts, followers, and following.
+      document.getElementById("allPosts").textContent = formatCount(
+        profile._count.posts
+      );
+      document.getElementById("followers").textContent = formatCount(
+        profile._count.followers
+      );
+      document.getElementById("following").textContent = formatCount(
+        profile._count.following
+      );
       // Fetch and display posts made by the user and avatar and userName from profile
       const posts = await fetchPostsByUserName(userName);
       displayPosts(posts, profile);
@@ -51,6 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   } else {
     console.error("User name not found. Redirecting to login page.");
   }
+
   //Fetch the profile media for changing banner and avatar
   document
     .getElementById("editProfileForm")
@@ -77,7 +79,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         bannerUrl === undefined &&
         avatarUrl === undefined
       ) {
-        errorFeedback.textContent = "Profile unchanged, no new updates submitted";
+        errorFeedback.textContent =
+          "Profile unchanged, no new updates submitted";
         errorFeedback.style.display = "block";
         return;
       }
@@ -93,7 +96,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.location.reload();
       } catch (error) {
         console.error("Error updating profile media:", error);
-        errorFeedback.textContent = "Failed to update profile media. Please check your inputs and try again.";
+        errorFeedback.textContent =
+          "Failed to update profile media. Please check your inputs and try again.";
         errorFeedback.style.display = "block";
       }
     });
@@ -103,7 +107,7 @@ document.addEventListener("DOMContentLoaded", async () => {
  *
  * @param {Array} posts
  */
-//-- For display users posts function called in DOMContentLoaded!--//
+//-- For display users posts. Function called in DOMContentLoaded!--//
 function displayPosts(posts, profile) {
   const postContainer = document.getElementById("postContainer");
   postContainer.innerHTML = "";
