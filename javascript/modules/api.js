@@ -21,14 +21,16 @@ export { updateProfileMedia };
 export { createPost };
 //-- For fetch all posts --> explore.js
 export { fetchAllPosts };
-//-- For fetching a single post with comments reactions and author info --> post.js
-export { fetchSinglePost };
 //-- For fetching all post that the user is following --> home.js
 export { fetchPostsFromFollowing };
+//-- For fetching a single post with comments reactions and author info --> post.js
+export { fetchSinglePost };
+//Export for comment under fetchsingelpost
 //-- For follow a user by their username --> profile.js
 export { followUser };
 //-- For unfollow a user by their username --> profile.js
 export { unfollowUser };
+
 //-- For
 export { fetchAllProfiles };
 
@@ -190,7 +192,7 @@ async function createPost(postData) {
 }
 /**
  * Fetches all posts optionally filtered by a tag.
- * @param {string} [tag] 
+ * @param {string} [tag]
  * @returns {Promise}
  */
 async function fetchAllPosts(tag) {
@@ -205,6 +207,23 @@ async function fetchAllPosts(tag) {
   });
   if (!response.ok) {
     throw new Error("Failed to fetch all posts");
+  }
+  const result = await response.json();
+  return result.data;
+}
+/**
+ * fetch post all post from the users is following
+ * @returns  {Promise}
+ */
+async function fetchPostsFromFollowing() {
+  const response = await fetch(
+    `${API_BASE_URL}/social/posts/following?_author=true&_comments=true&_reactions=true`,
+    {
+      headers: getHeaders(),
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch posts from following");
   }
   const result = await response.json();
   return result.data;
@@ -227,23 +246,7 @@ async function fetchSinglePost(postId) {
   const result = await response.json();
   return result.data;
 }
-/**
- * fetch post all post from the users is following
- * @returns  {Promise}
- */
-async function fetchPostsFromFollowing() {
-  const response = await fetch(
-    `${API_BASE_URL}/social/posts/following?_author=true&_comments=true&_reactions=true`,
-    {
-      headers: getHeaders(),
-    }
-  );
-  if (!response.ok) {
-    throw new Error("Failed to fetch posts from following");
-  }
-  const result = await response.json();
-  return result.data;
-}
+
 /**
  * Follow a user profile
  * @param {string} username
