@@ -2,11 +2,10 @@
 Javascript2 Kopstad and Tinberg
 
 
-write line where the code for export is! 
+- write line where the code for export is! 
+- implement the pages for posts on explore and home. also for set a max posts for profile and my-profile
 
-implement the pages for posts on explore and home. also for set a max posts for profile and my-profile
 
-slå sammen explore og home scss
 
 Alexandra: 
 - ordne layout for post.html (bilde)
