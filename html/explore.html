@@ -116,10 +116,7 @@
                   <label for="continentSelect" class="form-label fw-semibold"
                     >Continent</label
                   >
-                  <select
-                    class="form-select mx-auto"
-                    id="continentSelect"
-                  >
+                  <select class="form-select mx-auto" id="continentSelect">
                     <option selected>All</option>
                     <option value="africa">Africa</option>
                     <option value="asia">Asia</option>
@@ -228,21 +225,23 @@
                   id="filterContinent"
                   class="gap-3 row d-flex justify-content-center"
                 >
-                <div
-                class="col-4 col-md-12 d-flex gap-2 align-items-center flex-row flex-md-row"
-              >
-                <div>
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    id="all"
-                    name="continent"
-                    value=""
-                    checked
-                  />
-                </div>
-                <label class="form-check-label" for="notSpecified">All</label>
-              </div>
+                  <div
+                    class="col-4 col-md-12 d-flex gap-2 align-items-center flex-row flex-md-row"
+                  >
+                    <div>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        id="all"
+                        name="continent"
+                        value=""
+                        checked
+                      />
+                    </div>
+                    <label class="form-check-label" for="notSpecified"
+                      >All</label
+                    >
+                  </div>
                   <div
                     class="col-4 col-md-12 d-flex gap-2 align-items-center flex-row-reverse flex-md-row"
                   >
@@ -374,19 +373,11 @@
                     >
 
                     <div class="d-line align-self-center">
-                      <select
-                        class="bg-transparent text-center"
-                        name=""
-                        id="sortBy"
-                      >
-                        <option value="" data-sort="asc">Newest</option>
-                        <option value="" data-sort="desc">Oldest</option>
-                        <option value="" data-sort="alpha-asc">
-                          Alphabetical (A-Z)
-                        </option>
-                        <option value="" data-sort="alpha-desc">
-                          Alphabetical (Z-A)
-                        </option>
+                      <select class="bg-transparent text-center" id="sortBy">
+                        <option value="desc">Newest</option>
+                        <option value="asc">Oldest</option>
+                        <option value="alpha-asc">Title (A-Z)</option>
+                        <option value="alpha-desc">Title (Z-A)</option>
                       </select>
                     </div>
                   </div>
