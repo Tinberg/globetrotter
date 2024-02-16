@@ -15,7 +15,7 @@ document
 
     // Check if "All" is selected, and if so, set tags as an empty array
     const selectedContinent = document.getElementById("continentSelect").value;
-    const tags = selectedContinent !== "All" ? [selectedContinent] : [];
+    const tags = selectedContinent !== "Not Specified" ? [selectedContinent] : [];
 
     if (title.length > 280) {
       alert("The title cannot be greater than 280 characters.");

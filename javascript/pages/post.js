@@ -10,7 +10,6 @@ import { formatCount, formatWithSuffix } from "../modules/utility.js";
 async function loadPostData() {
   const urlParams = new URLSearchParams(window.location.search);
   const postId = urlParams.get("id");
-
   if (!postId) {
     console.error("Post ID not found.");
     return;
@@ -46,6 +45,12 @@ function displayPostDetails(postData) {
     // Default img and alt if no image is present
     postImageElement.src = "/images/no-image.png";
     postImageElement.alt = "Post image";
+  }
+  //Display the tag/Continent
+  if (postData.tags && postData.tags.length > 0) {
+    document.querySelector(".tags-container").textContent = postData.tags[0];
+  } else {
+    document.querySelector(".tags-container").textContent = "Not Specified";
   }
   // Display author name and avatar
   const profileNameElement = document.querySelector(".profile-name");
@@ -95,7 +100,7 @@ function displayComments(comments) {
 // Call loadPostData when the page is loaded
 document.addEventListener("DOMContentLoaded", loadPostData);
 
-// Function directs to my-profile.html for the logged in user's own post, else directs to profile.html for other users' posts
+// Function when authorname or avatar is clicked directs to my-profile.html for the logged in user's own post, else directs to profile.html for other users' posts
 function navigateToUserProfile(userName) {
   const loggedInUser = localStorage.getItem("userName");
   const profileUrl =
