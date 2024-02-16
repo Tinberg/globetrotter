@@ -11,6 +11,8 @@ import { fetchPostsByUserName } from "../modules/api.js";
 import { followUser } from "../modules/api.js";
 //-- Api for to set status for unfollow -- api.js
 import { unfollowUser } from "../modules/api.js";
+//-- Trim the text for overlay text title and body text for post --> utility.js --//
+import { trimText } from "../modules/utility.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
 
@@ -56,9 +58,15 @@ function updateProfileUI(profile) {
   profileImageElement.alt = profile.avatar?.alt || "Personal Avatar";
   profileImageElement.style.display = profile.avatar?.url ? "block" : "none";
   // Updates counts for posts, followers, and following.
-  document.getElementById("allPosts").textContent = formatCount(profile._count.posts);
-  document.getElementById("followers").textContent = formatCount (profile._count.followers);
-  document.getElementById("following").textContent = formatCount (profile._count.following);
+  document.getElementById("allPosts").textContent = formatCount(
+    profile._count.posts
+  );
+  document.getElementById("followers").textContent = formatCount(
+    profile._count.followers
+  );
+  document.getElementById("following").textContent = formatCount(
+    profile._count.following
+  );
 }
 
 //-- Display Posts from the profile user --//
@@ -76,10 +84,21 @@ function displayPosts(posts, profile) {
     const reactionsFormatted = formatCount(post._count.reactions || 0);
     const commentsFormatted = formatCount(post._count.comments || 0);
 
+    // Trim title and body with imported function from trimText utility.js
+    const trimmedTitle = trimText(post.title, 25);
+    const trimmedBody = trimText(post.body, 50);
+
     postElement.innerHTML = `
-        <div class="card">
+        <div class="card card-container">
             <div class="card-img-top-container w-100 position-relative h-0 border-bottom">
                 <img src="${postMediaUrl}" class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0" alt="${postMediaAlt}">
+                <div class="overlay-content position-absolute top-0 start-0 end-0 bottom-0 overflow-hidden w-100 h-100 d-flex justify-content-center align-items-center p-2">
+              <div class="text-white text-center">
+                  <p class="fs-5 fw-bolder">${trimmedTitle}</p>
+                  <p>${trimmedBody}</p>
+                  <p class="fw-bold">Read more</p>
+              </div>
+          </div>
             </div>
             <div class="card-body">
                 <div class="d-flex align-items-center mb-3 text-truncate">

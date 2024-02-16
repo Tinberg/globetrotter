@@ -15,4 +15,15 @@
   max-width: 175px;
 }
 
+.overlay-content {
+  background: rgba(0, 0, 0, 0.5);
+  transition: all 0.5s ease;
+  opacity: 0;
+}
+
+.card-container:hover .overlay-content {
+  opacity: 1;
+  display: flex;
+}
+
 /*# sourceMappingURL=home.css.map */
