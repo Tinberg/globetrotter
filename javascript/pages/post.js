@@ -10,7 +10,6 @@ import { formatCount, formatWithSuffix } from "../modules/utility.js";
 async function loadPostData() {
   const urlParams = new URLSearchParams(window.location.search);
   const postId = urlParams.get("id");
-
   if (!postId) {
     console.error("Post ID not found.");
     return;
@@ -21,18 +20,21 @@ async function loadPostData() {
     displayPostDetails(postData);
   } catch (error) {
     console.error("Error fetching post details:", error);
-    // Make error message here!!
   }
 }
 
-//-- Displays post details including title, body, author, and media --//
+//-- Displays post details: Title, body, author info, media image, tag, comment and reaction count --//
 function displayPostDetails(postData) {
   //displaying post title, body reactions count and comments count
   document.querySelector(".post-title").textContent = postData.title;
   document.querySelector(".post-body").textContent = postData.body;
- // Format and display reaction and comments count
-  document.querySelector(".reactions-count").textContent = formatCount (postData._count.reactions);
-  document.querySelector(".comments-count").textContent = formatCount (postData._count.comments);
+  // Format and display reaction and comments count
+  document.querySelector(".reactions-count").textContent = formatCount(
+    postData._count.reactions
+  );
+  document.querySelector(".comments-count").textContent = formatCount(
+    postData._count.comments
+  );
   // Set image of the post if available, otherwise to a default image and alt text
   const postImageElement = document.querySelector(".post-image");
   if (postData.media && postData.media.url) {
@@ -44,26 +46,30 @@ function displayPostDetails(postData) {
     postImageElement.src = "/images/no-image.png";
     postImageElement.alt = "Post image";
   }
+  //Display the tag/Continent
+  if (postData.tags && postData.tags.length > 0) {
+    document.querySelector(".tags-container").textContent = postData.tags[0];
+  } else {
+    document.querySelector(".tags-container").textContent = "Not Specified";
+  }
 
   // Display author name and avatar
   const profileNameElement = document.querySelector(".profile-name");
   const profileAvatarElement = document.querySelector(".post-profile-image");
-
   profileNameElement.textContent = postData.author.name;
   profileAvatarElement.src = postData.author.avatar.url;
-
-  // Add event listeners to navigate to profile page on click
-  const navigateToProfile = () => {
-    window.location.href = `profile.html?username=${encodeURIComponent(
-      postData.author.name
-    )}`;
-  };
-  profileNameElement.addEventListener("click", navigateToProfile);
-  profileAvatarElement.addEventListener("click", navigateToProfile);
+  // Click event listeners to author name and avatar for navigating to user's profile
+  profileNameElement.addEventListener("click", () =>
+    navigateToUserProfile(postData.author.name)
+  );
+  profileAvatarElement.addEventListener("click", () =>
+    navigateToUserProfile(postData.author.name)
+  );
 
   // Calling function to display comments
   displayComments(postData.comments);
 }
+
 //-- Function to display comments for the post --//
 function displayComments(comments) {
   const commentsContainer = document.querySelector(".comments-container");
@@ -75,7 +81,7 @@ function displayComments(comments) {
                 <div class="container border bg-white my-3">
                     <div class="posting-user-details gap-3 d-flex flex-column flex-wrap px-4 pb-4 pt-4 justify-content-sm-start">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="${comment.author.avatar.url}" alt="${comment.author.avatar.alt}" class="comments-img rounded-circle" style="width: 50px; height: 50px;">
+                            <img src="${comment.author.avatar.url}" alt="${comment.author.avatar.alt}" class="comments-img rounded-circle">
                             <p class="fw-medium mb-0">${comment.author.name}</p>
                         </div>
                         <div class="d-flex flex-column text-md-0 comment">
@@ -93,3 +99,14 @@ function displayComments(comments) {
 }
 // Call loadPostData when the page is loaded
 document.addEventListener("DOMContentLoaded", loadPostData);
+
+// Function when authorname or avatar is clicked directs to my-profile.html for the logged in user's own post, else directs to profile.html for other users' posts
+//Used in DisplayPostDetails function
+function navigateToUserProfile(userName) {
+  const loggedInUser = localStorage.getItem("userName");
+  const profileUrl =
+    userName === loggedInUser
+      ? "my-profile.html"
+      : `profile.html?username=${encodeURIComponent(userName)}`;
+  window.location.href = profileUrl;
+}

@@ -220,7 +220,7 @@
           class="user-post-section container-fluid d-flex justify-content-center pt-5 pb-5"
         >
           <div class="inner-div-for-section-1 row background-grey d-flex flex-column flex-md-row w-100">
-            <div class="container-fluid col-12 col-md-6 order-1 p-0">
+            <div class="post-image-container container-fluid col-12 col-md-6 order-1 p-0">
               <img
                 class="post-image w-100 h-100"
                 src="/images/no-image.png"
@@ -241,7 +241,7 @@
                     <!--Js injection post profile image-->
                     <img
                       src="/images/profileImage.jpg"
-                      class="post-profile-image rounded-circle me-3"
+                      class="post-profile-image rounded-circle me-3 post-avatar-border"
                       alt="Profile image"
                     />
                   </div>
@@ -253,8 +253,8 @@
                     </p>
                     <p class="fw-light mb-2">
                       Continent:
-                      <!--Js injection continent--><span class="fw-normal ps-1"
-                        >Europe</span
+                      <!--Js injection continent--><span class="tags-container fw-normal ps-1"
+                        ></span
                       >
                     </p>
                     <p class="card-text fw-light">
@@ -275,7 +275,7 @@
                   <p class="post-body fw-light"></p>
                 </div>
                 <div class="reaction-section w-100">
-                  <form class="d-flex flex-column" action="">
+                  <form class="d-flex flex-column">
                     <textarea
                       class="border p-3"
                       rows="5"
@@ -285,12 +285,12 @@
                     <div class="justify-content-end d-flex gap-3 pt-3">
                       <button
                         class="like-button rounded px-4 pe-4 pt-1 pb-1 bg-transparent border d-flex gap-2 align-items-center text-dark"
-                        type="submit"
+                        type="button"
                       >
                         <i class="fa-regular fa-heart"></i>Like
                       </button>
                       <button
-                        class="send-comment bg-primary rounded px-4 pe-4 pt-1 pb-1 text-dark"
+                        class="send-comment bg-primary rounded px-4 pe-4 pt-1 pb-1 text-dark" type="button"
                       >
                         Send
                       </button>

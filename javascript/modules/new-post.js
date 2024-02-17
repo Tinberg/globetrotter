@@ -6,13 +6,16 @@ document
   .getElementById("newPostForm")
   .addEventListener("submit", async (event) => {
     event.preventDefault();
-
+    // values from the form
     const title = document.getElementById("postTitle").value;
     const body = document.getElementById("postCaption").value;
     const mediaUrl = document.getElementById("postImage").value;
     const altText = document.getElementById("altText").value;
-    const tags = [document.getElementById("continentSelect").value];
     const errorFeedback = document.getElementById("postErrorFeedback");
+
+    // Check if "All" is selected, and if so, set tags as an empty array
+    const selectedContinent = document.getElementById("continentSelect").value;
+    const tags = selectedContinent !== "Not Specified" ? [selectedContinent] : [];
 
     if (title.length > 280) {
       alert("The title cannot be greater than 280 characters.");

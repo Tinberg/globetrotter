@@ -9,6 +9,8 @@ import { fetchUserProfile } from "../modules/api.js";
 import { fetchPostsByUserName } from "../modules/api.js";
 //-- Api for fetch edit profile media --> api.js
 import { updateProfileMedia } from "../modules/api.js";
+//-- Trim the text for overlay text title and body text for post --> utility.js --//
+import { trimText } from "../modules/utility.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
 
@@ -24,24 +26,25 @@ document.addEventListener("DOMContentLoaded", async () => {
       const bannerImageElement = document.getElementById("bannerImage");
       if (profile.banner) {
         bannerImageElement.src = profile.banner.url;
-        bannerImageElement.alt = profile.banner?.alt || "Default banner";
+        bannerImageElement.alt = profile.banner?.alt || "Personal Banner";
         bannerImageElement.style.display = "";
       } else {
         bannerImageElement.style.display = "none";
       }
       // Avatar Image
       const avatarImageElement = document.getElementById("profileImage");
-      avatarImageElement.src = profile.avatar.url || "/images/profileImage.jpg";
-      avatarImageElement.alt = profile.avatar?.alt || "Default avatar";
-      //Post Count
-      document.getElementById("allPosts").textContent = profile._count.posts;
-      //Followers
-      document.getElementById("followers").textContent =
-        profile._count.followers;
-      //Following
-      document.getElementById("following").textContent =
-        profile._count.following;
-
+      avatarImageElement.src = profile.avatar?.url || "/images/no-image.png";
+      avatarImageElement.alt = profile.avatar?.alt || "Personal Avatar";
+      // Updates counts for posts, followers, and following.
+      document.getElementById("allPosts").textContent = formatCount(
+        profile._count.posts
+      );
+      document.getElementById("followers").textContent = formatCount(
+        profile._count.followers
+      );
+      document.getElementById("following").textContent = formatCount(
+        profile._count.following
+      );
       // Fetch and display posts made by the user and avatar and userName from profile
       const posts = await fetchPostsByUserName(userName);
       displayPosts(posts, profile);
@@ -51,6 +54,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   } else {
     console.error("User name not found. Redirecting to login page.");
   }
+
   //Fetch the profile media for changing banner and avatar
   document
     .getElementById("editProfileForm")
@@ -77,11 +81,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         bannerUrl === undefined &&
         avatarUrl === undefined
       ) {
-        errorFeedback.textContent = "Profile unchanged, no new updates submitted";
+        errorFeedback.textContent =
+          "Profile unchanged, no new updates submitted";
         errorFeedback.style.display = "block";
         return;
       }
-
       try {
         await updateProfileMedia(
           userName,
@@ -93,7 +97,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.location.reload();
       } catch (error) {
         console.error("Error updating profile media:", error);
-        errorFeedback.textContent = "Failed to update profile media. Please check your inputs and try again.";
+        errorFeedback.textContent =
+          "Failed to update profile media. Please check your inputs and try again.";
         errorFeedback.style.display = "block";
       }
     });
@@ -103,7 +108,7 @@ document.addEventListener("DOMContentLoaded", async () => {
  *
  * @param {Array} posts
  */
-//-- For display users posts function called in DOMContentLoaded!--//
+//-- For display users posts. Function called in DOMContentLoaded!--//
 function displayPosts(posts, profile) {
   const postContainer = document.getElementById("postContainer");
   postContainer.innerHTML = "";
@@ -118,10 +123,20 @@ function displayPosts(posts, profile) {
     const commentsFormatted = formatCount(post._count.comments || 0);
     postElement.style.cursor = "pointer";
 
+    // Trim title and body with imported function from trimText utility.js
+    const trimmedTitle = trimText(post.title, 25);
+    const trimmedBody = trimText(post.body, 50);
+
     postElement.innerHTML = `
-      <div class="card">
-          <div class="card-img-top-container w-100 position-relative h-0">
-              <img src="${postMediaUrl}" class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0" alt="${postMediaAlt}">
+      <div class="card card-container">
+          <div class="card-img-top-container w-100 position-relative h-0 border-bottom">
+              <img src="${postMediaUrl}" class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0" alt="${postMediaAlt}"><div class="overlay-content position-absolute top-0 start-0 end-0 bottom-0 overflow-hidden w-100 h-100 d-flex justify-content-center align-items-center p-2">
+              <div class="text-white text-center">
+                  <p class="fs-5 fw-bolder">${trimmedTitle}</p>
+                  <p>${trimmedBody}</p>
+                  <p class="fw-bold">Read more</p>
+              </div>
+          </div>
           </div>
           <div class="card-body">
               <div class="d-flex align-items-center mb-3 text-truncate">

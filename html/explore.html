@@ -9,7 +9,7 @@
       href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
     />
     <link rel="stylesheet" href="/dist/css/global.css" />
-    <link rel="stylesheet" href="/dist/css/explore.css" />
+    <link rel="stylesheet" href="/dist/css/feed.css" />
     <script type="module" src="/javascript/modules/new-post.js"></script>
     <script type="module" src="/javascript/pages/explore.js"></script>
     <!--Script for bootstrap JS-->
@@ -122,8 +122,8 @@
                     <option value="Asia">Asia</option>
                     <option value="Europe">Europe</option>
                     <option value="Oceania">Oceania</option>
-                    <option value="North-America">North America</option>
-                    <option value="South-America">South America</option>
+                    <option value="North-america">North America</option>
+                    <option value="South-america">South America</option>
                   </select>
                 </div>
                 <div class="border my-4"></div>
@@ -221,33 +221,53 @@
               >
                 <p class="fs-4 mb-2">Filter</p>
                 <p class="lead mb-4">Continents</p>
-                <form class="gap-3 row d-flex justify-content-center">
+                <form
+                  id="filterContinent"
+                  class="gap-3 row d-flex justify-content-center"
+                >
+                  <div
+                    class="col-4 col-md-12 d-flex gap-2 align-items-center flex-row flex-md-row"
+                  >
+                    <div>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        id="Not Specified"
+                        name="continent"
+                        value=""
+                        checked
+                      />
+                    </div>
+                    <label class="form-check-label" for="notSpecified"
+                      >Not Specified</label
+                    >
+                  </div>
                   <div
                     class="col-4 col-md-12 d-flex gap-2 align-items-center flex-row-reverse flex-md-row"
                   >
                     <div>
                       <input
                         class="form-check-input"
-                        type="checkbox"
-                        id=""
-                        name="Africa"
-                        value=""
+                        type="radio"
+                        id="africa"
+                        name="continent"
+                        value="Africa"
                       />
                     </div>
-                    <label class="form-check-label" for="Africa">Africa</label>
+                    <label class="form-check-label" for="africa">Africa</label>
                   </div>
 
                   <div class="col-4 col-md-12 d-flex gap-2">
                     <div>
                       <input
                         class="form-check-input"
-                        type="checkbox"
-                        id=""
-                        name="Asia"
-                        value=""
+                        type="radio"
+                        id="asia"
+                        name="continent"
+                        value="Asia"
                       />
                     </div>
-                    <label class="form-check-label" for="Asia">Asia</label>
+                    <label class="form-check-label" for="asia">Asia</label>
                   </div>
 
                   <div
@@ -256,25 +276,25 @@
                     <div>
                       <input
                         class="form-check-input"
-                        type="checkbox"
-                        id=""
-                        name="Europe"
-                        value=""
+                        type="radio"
+                        id="europe"
+                        name="continent"
+                        value="Europe"
                       />
                     </div>
-                    <label for="Europe">Europe</label>
+                    <label for="europe">Europe</label>
                   </div>
                   <div class="col-4 col-md-12 d-flex gap-2">
                     <div>
                       <input
                         class="form-check-input"
-                        type="checkbox"
-                        id=""
-                        name="Oceania"
-                        value=""
+                        type="radio"
+                        id="oceania"
+                        name="continent"
+                        value="Oceania"
                       />
                     </div>
-                    <label class="form-check-label" for="Oceania"
+                    <label class="form-check-label" for="oceania"
                       >Oceania</label
                     >
                   </div>
@@ -285,10 +305,10 @@
                     <div>
                       <input
                         class="form-check-input"
-                        type="checkbox"
-                        id=""
-                        name="North-America"
-                        value=""
+                        type="radio"
+                        id="north-america"
+                        name="continent"
+                        value="North-America"
                       />
                     </div>
                     <label
@@ -302,13 +322,13 @@
                     <div>
                       <input
                         class="form-check-input"
-                        type="checkbox"
-                        id=""
-                        name="South-America"
-                        value=""
+                        type="radio"
+                        id="south-america"
+                        name="continent"
+                        value="South-America"
                       />
                     </div>
-                    <label class="form-check-label" for="South-America"
+                    <label class="form-check-label" for="south-america"
                       >South-America</label
                     >
                   </div>
@@ -318,7 +338,7 @@
             <div
               class="col-md-10 border-start border-2 d-flex align-items-center flex-column mt-3 mt-md-0"
             >
-            <!-- Section 1 heading - h1, search and sort-by -->
+              <!-- Section 1 heading - h1, search and sort-by -->
               <section
                 class="container mb-4 gap-3 gap-md-0 d-flex flex-column-reverse flex-md-column mt-5 mt-md-0"
               >
@@ -353,26 +373,18 @@
                     >
 
                     <div class="d-line align-self-center">
-                      <select
-                        class="bg-transparent text-center"
-                        name=""
-                        id="sortBy"
-                      >
-                        <option value="" data-sort="asc">Newest</option>
-                        <option value="" data-sort="desc">Oldest</option>
-                        <option value="" data-sort="alpha-asc">
-                          Alphabetical (A-Z)
-                        </option>
-                        <option value="" data-sort="alpha-desc">
-                          Alphabetical (Z-A)
-                        </option>
+                      <select class="bg-transparent text-center" id="sortBy">
+                        <option value="desc">Newest</option>
+                        <option value="asc">Oldest</option>
+                        <option value="alpha-asc">Title (A-Z)</option>
+                        <option value="alpha-desc">Title (Z-A)</option>
                       </select>
                     </div>
                   </div>
                 </div>
               </section>
               <!--Section 2 List of cards all posts-->
-              <section>
+              <section class="w-100">
                 <div
                   id="allPosts"
                   class="row justify-content-center mx-3 mx-md-3"

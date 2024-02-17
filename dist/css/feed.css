@@ -1,0 +1,29 @@
+.card {
+  background-color: #f0f0f0;
+}
+
+.card-img-top-container {
+  padding-top: 80%;
+}
+
+.card-body img {
+  height: 45px;
+  width: 45px;
+}
+
+.max-width {
+  max-width: 175px;
+}
+
+.overlay-content {
+  background: rgba(0, 0, 0, 0.5);
+  transition: all 0.5s ease;
+  opacity: 0;
+}
+
+.card-container:hover .overlay-content {
+  opacity: 1;
+  display: flex;
+}
+
+/*# sourceMappingURL=feed.css.map */

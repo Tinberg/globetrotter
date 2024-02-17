@@ -4,19 +4,68 @@ import { checkAuthAndRedirect } from "../modules/auth.js";
 checkAuthAndRedirect();
 //-- Api for fetch all posts--> api.js
 import { fetchAllPosts } from "../modules/api.js";
+//-- Trim the text for overlay text title and body text for post --> utility.js --//
+import { trimText } from "../modules/utility.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
 
-//-- Display All post: username, useravatar, comments, and reactions to the post
+// Global state for filters and sorting
+let globalFilter = {
+  continentTag: "",
+  sortOption: "",
+};
+//-- Sets up event listeners for post filtering and sorting, then fetches and displays posts --//
 document.addEventListener("DOMContentLoaded", async () => {
+  fetchAndDisplayPosts();
+
+  // Continent filter change event listener
+  document
+    .getElementById("filterContinent")
+    .addEventListener("change", async () => {
+      const selectedContinent = document.querySelector(
+        'input[name="continent"]:checked'
+      )?.value;
+      globalFilter.continentTag = selectedContinent;
+      fetchAndDisplayPosts(globalFilter.continentTag, globalFilter.sortOption);
+    });
+
+  // Sort by change event listener
+  document
+    .getElementById("sortBy")
+    .addEventListener("change", async (event) => {
+      const sortOption = event.target.value;
+      globalFilter.sortOption = sortOption;
+      fetchAndDisplayPosts(globalFilter.continentTag, globalFilter.sortOption);
+    });
+});
+
+//-- Function to sort posts --//
+function sortPosts(posts, sortOption) {
+  switch (sortOption) {
+    case "desc":
+      return posts.sort((a, b) => new Date(b.created) - new Date(a.created));
+    case "asc":
+      return posts.sort((a, b) => new Date(a.created) - new Date(b.created));
+    case "alpha-asc":
+      return posts.sort((a, b) => a.title.localeCompare(b.title));
+    case "alpha-desc":
+      return posts.sort((a, b) => b.title.localeCompare(a.title));
+    default:
+      return posts;
+  }
+}
+//-- Call the fetchAllPosts and use the displayPosts to render the fetched posts. Sorts, and displays posts based on the specified filters --//
+async function fetchAndDisplayPosts(continentTag = "", sortOption = "") {
   try {
-    const posts = await fetchAllPosts();
+    let posts = await fetchAllPosts(continentTag);
+    posts = sortPosts(posts, sortOption);
     displayPosts(posts);
   } catch (error) {
     console.error("Failed to fetch posts:", error);
   }
-});
+}
 
+//-- Render the posts: Create and add post elements including Post image, username, useravatar, comments, and reactions to the post  --//
 function displayPosts(posts) {
   const postContainer = document.querySelector("#allPosts");
   postContainer.innerHTML = "";
@@ -25,18 +74,28 @@ function displayPosts(posts) {
     const postImageAltText = post.media?.alt || "Post image";
     const reactionsFormatted = formatCount(post._count.reactions || 0);
     const commentsFormatted = formatCount(post._count.comments || 0);
-    
+
+    // Trim title and body with imported function from trimText utility.js
+    const trimmedTitle = trimText(post.title, 25);
+    const trimmedBody = trimText(post.body, 50);
 
     const postElement = document.createElement("div");
     postElement.className = "col-lg-4 col-sm-6 mb-5";
     postElement.style.cursor = "pointer";
 
     postElement.innerHTML = `
-          <div class="card">
-              <div class="card-img-top-container w-100 position-relative h-0">
+          <div class="card card-container">
+              <div class="card-img-top-container w-100 position-relative h-0 border-bottom">
               <img src="${
                 post.media?.url || "/images/no-image.png"
               }" class="post-image card-img-top position-absolute w-100 h-100 top-0 start-0" alt="${postImageAltText}">
+              <div class="overlay-content position-absolute top-0 start-0 end-0 bottom-0 overflow-hidden w-100 h-100 d-flex justify-content-center align-items-center p-2">
+              <div class="text-white text-center">
+                  <p class="fs-5 fw-bolder">${trimmedTitle}</p>
+                  <p>${trimmedBody}</p>
+                  <p class="fw-bold">Read more</p>
+              </div>
+          </div>
               </div>
               <div class="card-body">
                   <div class="d-flex align-items-center mb-3">
