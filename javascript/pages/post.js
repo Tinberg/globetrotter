@@ -23,7 +23,7 @@ async function loadPostData() {
   }
 }
 
-//-- Displays post details including title, body, author, and media --//
+//-- Displays post details: Title, body, author info, media image, tag, comment and reaction count --//
 function displayPostDetails(postData) {
   //displaying post title, body reactions count and comments count
   document.querySelector(".post-title").textContent = postData.title;
@@ -52,12 +52,12 @@ function displayPostDetails(postData) {
   } else {
     document.querySelector(".tags-container").textContent = "Not Specified";
   }
+
   // Display author name and avatar
   const profileNameElement = document.querySelector(".profile-name");
   const profileAvatarElement = document.querySelector(".post-profile-image");
   profileNameElement.textContent = postData.author.name;
   profileAvatarElement.src = postData.author.avatar.url;
-
   // Click event listeners to author name and avatar for navigating to user's profile
   profileNameElement.addEventListener("click", () =>
     navigateToUserProfile(postData.author.name)
@@ -101,6 +101,7 @@ function displayComments(comments) {
 document.addEventListener("DOMContentLoaded", loadPostData);
 
 // Function when authorname or avatar is clicked directs to my-profile.html for the logged in user's own post, else directs to profile.html for other users' posts
+//Used in DisplayPostDetails function
 function navigateToUserProfile(userName) {
   const loggedInUser = localStorage.getItem("userName");
   const profileUrl =
