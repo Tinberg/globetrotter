@@ -25,7 +25,8 @@ export { fetchAllPosts };
 export { fetchPostsFromFollowing };
 //-- For fetching a single post with comments reactions and author info --> post.js
 export { fetchSinglePost };
-//Export for comment under fetchsingelpost
+//-- For fetch comment --> post.js
+export { postComment };
 //-- For follow a user by their username --> profile.js
 export { followUser };
 //-- For unfollow a user by their username --> profile.js
@@ -245,6 +246,30 @@ async function fetchSinglePost(postId) {
   }
   const result = await response.json();
   return result.data;
+}
+/**
+ * Posts a comment on a specific post.
+ * @param {number|string} postId 
+ * @param {string} body 
+ * @param {number|string|null} replyToId 
+ * @returns {Promise<Object>} 
+ */
+async function postComment(postId, body, replyToId = null) {
+  const payload = { body };
+  if (replyToId) payload.replyToId = replyToId;
+
+  const response = await fetch(`${API_BASE_URL}/social/posts/${postId}/comment`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Failed to post comment: ${errorData.message}`);
+  }
+
+  return await response.json();
 }
 
 /**

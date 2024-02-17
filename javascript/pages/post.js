@@ -3,6 +3,8 @@ import { checkAuthAndRedirect } from "../modules/auth.js";
 checkAuthAndRedirect();
 //-- Api for fetch single post with comments reactions and author --> api.js
 import { fetchSinglePost } from "../modules/api.js";
+//-- Api for comment on post --> api.js
+import { postComment } from "../modules/api.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
 
@@ -18,17 +20,20 @@ async function loadPostData() {
   try {
     const postData = await fetchSinglePost(postId);
     displayPostDetails(postData);
+    attachCommentListener(postId);
   } catch (error) {
     console.error("Error fetching post details:", error);
   }
 }
+// LoadPostData in DOM
+document.addEventListener("DOMContentLoaded", loadPostData);
 
+//-------------------------Display-------------------------//
 //-- Displays post details: Title, body, author info, media image, tag, comment and reaction count --//
 function displayPostDetails(postData) {
   //displaying post title, body reactions count and comments count
   document.querySelector(".post-title").textContent = postData.title;
   document.querySelector(".post-body").textContent = postData.body;
-  // Format and display reaction and comments count
   document.querySelector(".reactions-count").textContent = formatCount(
     postData._count.reactions
   );
@@ -42,7 +47,6 @@ function displayPostDetails(postData) {
     postImageElement.alt = postData.media.alt || "Post image";
     postImageElement.style.display = "";
   } else {
-    // Default img and alt if no image is present
     postImageElement.src = "/images/no-image.png";
     postImageElement.alt = "Post image";
   }
@@ -97,9 +101,37 @@ function displayComments(comments) {
       '<p class="text-center">Be the first to leave a comment!</p>';
   }
 }
-// Call loadPostData when the page is loaded
-document.addEventListener("DOMContentLoaded", loadPostData);
+//-------------------------Add Comment-------------------------//
+//--  This function is for comment on the post it takes the postId  --//
+function attachCommentListener(postId) {
+  document
+    .getElementById("sendComment")
+    .addEventListener("click", async (event) => {
+      event.preventDefault();
 
+      const commentTextElement = document.getElementById("commentText");
+      if (!commentTextElement) {
+        console.error("Comment text area not found");
+        return;
+      }
+
+      const commentText = commentTextElement.value.trim();
+      if (!commentText) {
+        return;
+      }
+
+      try {
+        await postComment(postId, commentText);
+        commentTextElement.value = "";
+
+        window.location.reload();
+      } catch (error) {
+        console.error("Error posting comment:", error);
+        alert("Failed to post comment.");
+      }
+    });
+}
+//-------------------------Redirect-------------------------//
 // Function when authorname or avatar is clicked directs to my-profile.html for the logged in user's own post, else directs to profile.html for other users' posts
 //Used in DisplayPostDetails function
 function navigateToUserProfile(userName) {
