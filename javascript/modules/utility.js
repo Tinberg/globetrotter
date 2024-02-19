@@ -4,6 +4,8 @@
 export { formatCount, formatWithSuffix };
 //-- For shorten the text on overlay text for posts --> explore.js, home.js, profile.js, and my-profile.js
 export { trimText };
+//-- For redirect to right profile page --> post.js and profile.js
+export { navigateToUserProfile };
 
 //------ Format number function for comments and reactions to fit the layout --------/
 
@@ -46,15 +48,28 @@ function formatWithSuffix(number, divisor, suffix) {
 //------ Trim text on overlay for posts to fit layout --------/
 
 /**
- *
+ * Function to trim text to show only the first maxChars characters followed by '...' in post body overylay
  * @param {string} text
  * @param {number} maxChars
  * @returns {string} Trimmed text
  */
-//Function to trim text to show only the first maxChars characters followed by '...' in post body overylay
 function trimText(text, maxChars) {
   if (text.length > maxChars) {
     return text.substring(0, maxChars) + "...";
   }
   return text;
+}
+/**
+ * Function when authorname or avatar is clicked directs to my-profile.html for the logged in user's own post, else directs to profile.html for other users' posts
+ * @param {string} userName
+ */
+//-------------------------Redirect-------------------------//
+
+function navigateToUserProfile(userName) {
+  const currentUser = localStorage.getItem("userName");
+  const profileUrl =
+    userName === currentUser
+      ? "my-profile.html"
+      : `profile.html?username=${encodeURIComponent(userName)}`;
+  window.location.href = profileUrl;
 }

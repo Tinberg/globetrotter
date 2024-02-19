@@ -13,6 +13,8 @@ import { followUser } from "../modules/api.js";
 import { unfollowUser } from "../modules/api.js";
 //-- Trim the text for overlay text title and body text for post --> utility.js --//
 import { trimText } from "../modules/utility.js";
+//- Function when authorname or avatar is clicked directs to my-profile.html for the logged in user's own post, else directs to profile.html --> utility.js
+import { navigateToUserProfile } from "../modules/utility.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
 
@@ -29,6 +31,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     // Fetches and displays the user profile and posts.
     const profile = await fetchUserProfile(userName);
+    displayFollowers(profile);
+    displayFollowing(profile);
     updateProfileUI(profile);
     updateFollowButton(profile);
 
@@ -76,8 +80,8 @@ function displayPosts(posts, profile) {
 
   posts.forEach((post) => {
     const postElement = document.createElement("div");
-    postElement.className = "col-lg-4 col-sm-6 mb-5";
-    postElement.style.cursor = "pointer";
+    postElement.className = "col-lg-4 col-sm-6 mb-5 cursor-pointer";
+    
 
     const postMediaUrl = post.media?.url || "/images/no-image.png";
     const postMediaAlt = post.media?.alt || "Post image";
@@ -104,7 +108,7 @@ function displayPosts(posts, profile) {
                 <div class="d-flex align-items-center mb-3 text-truncate">
                     <img src="${
                       profile.avatar.url || "/images/defaultProfileImage.jpg"
-                    }" class="post-profile-image rounded-circle me-3" alt="${
+                    }" class="small-profile-image rounded-circle me-3" alt="${
       profile.avatar?.alt || "Profile avatar"
     }">
                     <div class="d-flex flex-column">
@@ -130,6 +134,7 @@ function displayPosts(posts, profile) {
   });
 }
 
+//-- Follow/Following button --//
 // Toggles the follow/unfollow status of the profile based on the current button text and then performs api call --//
 async function toggleFollow(userName) {
   const followButton = document.getElementById("followOrUnfollow");
@@ -142,7 +147,6 @@ async function toggleFollow(userName) {
       await unfollowUser(userName);
       followButton.textContent = "Follow";
     }
-    // Refreshes profile data to reflect changes.
     const updatedProfile = await fetchUserProfile(userName);
     updateProfileUI(updatedProfile);
   } catch (error) {
@@ -155,9 +159,52 @@ function updateFollowButton(profile) {
   const currentUser = localStorage.getItem("userName");
   const followButton = document.getElementById("followOrUnfollow");
 
-  // Checks if current user is following the profile and updates button text.
   const isFollowing = profile.followers.some(
     (follower) => follower.name === currentUser
   );
   followButton.textContent = isFollowing ? "Unfollow" : "Follow";
+}
+
+//-- Follow/Following display --//
+//-- Function to display followers --//
+function displayFollowers(profile) {
+  const followersList = document.getElementById("followersList");
+  followersList.innerHTML = "";
+
+  profile.followers.forEach((follower) => {
+    const listItem = document.createElement("li");
+    listItem.className = "list-group-item follow-container cursor-pointer";
+    listItem.innerHTML = `
+      <div class="d-flex align-items-center my-2">
+        <img src="${follower.avatar.url}" alt="${follower.avatar.alt}" class="small-profile-image rounded-circle me-2">
+        <strong>${follower.name}</strong>
+      </div>
+    `;
+    followersList.appendChild(listItem);
+
+    listItem.addEventListener("click", () =>
+      navigateToUserProfile(follower.name)
+    );
+  });
+}
+//-- Function to display following --//
+function displayFollowing(profile) {
+  const followingList = document.getElementById("followingList");
+  followingList.innerHTML = "";
+
+  profile.following.forEach((following) => {
+    const listItem = document.createElement("li");
+    listItem.className = "list-group-item follow-container cursor-pointer";
+    listItem.innerHTML = `
+      <div class="d-flex align-items-center my-2">
+        <img src="${following.avatar.url}" alt="${following.avatar.alt}" class="small-profile-image rounded-circle me-2">
+        <strong>${following.name}</strong>
+      </div>
+    `;
+    followingList.appendChild(listItem);
+
+    listItem.addEventListener("click", () =>
+      navigateToUserProfile(following.name)
+    );
+  });
 }

@@ -3,8 +3,17 @@ import { checkAuthAndRedirect } from "../modules/auth.js";
 checkAuthAndRedirect();
 //-- Api for fetch single post with comments reactions and author --> api.js
 import { fetchSinglePost } from "../modules/api.js";
+//-- Api for comment on post --> api.js
+import { postComment } from "../modules/api.js";
+//-- API for reaction on post --> api.js
+import { reactToPost } from "../modules/api.js";
+//- Function when authorname or avatar is clicked directs to my-profile.html for the logged in user's own post, else directs to profile.html
+import { navigateToUserProfile } from "../modules/utility.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
+
+//userName from local storage used to check if user has liked a post(change color of the heart), and nav to my-profile if its in the local storage
+const currentUser = localStorage.getItem("userName");
 
 //-- Load the specific post based on the id from the URL --//
 async function loadPostData() {
@@ -18,17 +27,21 @@ async function loadPostData() {
   try {
     const postData = await fetchSinglePost(postId);
     displayPostDetails(postData);
+    attachCommentListener(postId);
+    attachReactionListener(postId);
   } catch (error) {
     console.error("Error fetching post details:", error);
   }
 }
+// LoadPostData in DOM
+document.addEventListener("DOMContentLoaded", loadPostData);
 
+//-------------------------Display-------------------------//
 //-- Displays post details: Title, body, author info, media image, tag, comment and reaction count --//
 function displayPostDetails(postData) {
   //displaying post title, body reactions count and comments count
   document.querySelector(".post-title").textContent = postData.title;
   document.querySelector(".post-body").textContent = postData.body;
-  // Format and display reaction and comments count
   document.querySelector(".reactions-count").textContent = formatCount(
     postData._count.reactions
   );
@@ -42,7 +55,6 @@ function displayPostDetails(postData) {
     postImageElement.alt = postData.media.alt || "Post image";
     postImageElement.style.display = "";
   } else {
-    // Default img and alt if no image is present
     postImageElement.src = "/images/no-image.png";
     postImageElement.alt = "Post image";
   }
@@ -52,12 +64,25 @@ function displayPostDetails(postData) {
   } else {
     document.querySelector(".tags-container").textContent = "Not Specified";
   }
-
   // Display author name and avatar
   const profileNameElement = document.querySelector(".profile-name");
   const profileAvatarElement = document.querySelector(".post-profile-image");
   profileNameElement.textContent = postData.author.name;
   profileAvatarElement.src = postData.author.avatar.url;
+
+
+  // Check if the userName has liked the post and change heart on btn if userName has liked the post
+  const userHasLiked = postData.reactions.some((reaction) =>
+    reaction.reactors.includes(currentUser)
+  );
+  const likeButtonIcon = document.querySelector(".like-button i");
+
+  if (userHasLiked) {
+    likeButtonIcon.classList.add("fa-solid", "text-danger");
+  } else {
+    likeButtonIcon.classList.remove("fa-solid", "text-danger");
+  }
+
   // Click event listeners to author name and avatar for navigating to user's profile
   profileNameElement.addEventListener("click", () =>
     navigateToUserProfile(postData.author.name)
@@ -97,16 +122,54 @@ function displayComments(comments) {
       '<p class="text-center">Be the first to leave a comment!</p>';
   }
 }
-// Call loadPostData when the page is loaded
-document.addEventListener("DOMContentLoaded", loadPostData);
+//-------------------------Add Comment-------------------------//
+//--  This function is for comment on the post it takes the postId  --//
+function attachCommentListener(postId) {
+  document
+    .getElementById("sendComment")
+    .addEventListener("click", async (event) => {
+      event.preventDefault();
 
-// Function when authorname or avatar is clicked directs to my-profile.html for the logged in user's own post, else directs to profile.html for other users' posts
-//Used in DisplayPostDetails function
-function navigateToUserProfile(userName) {
-  const loggedInUser = localStorage.getItem("userName");
-  const profileUrl =
-    userName === loggedInUser
-      ? "my-profile.html"
-      : `profile.html?username=${encodeURIComponent(userName)}`;
-  window.location.href = profileUrl;
+      const commentTextElement = document.getElementById("commentText");
+      if (!commentTextElement) {
+        console.error("Comment text area not found");
+        return;
+      }
+
+      const commentText = commentTextElement.value.trim();
+      if (!commentText) {
+        return;
+      }
+
+      try {
+        await postComment(postId, commentText);
+        commentTextElement.value = "";
+
+        window.location.reload();
+      } catch (error) {
+        console.error("Error posting comment:", error);
+        alert("Failed to post comment.");
+        //Fix error message
+      }
+    });
 }
+//-------------------------Add Reaction-------------------------//
+//--  This function is for Reaction on the post it takes the postId  --//
+function attachReactionListener(postId) {
+  const likeButton = document.querySelector(".like-button");
+
+  likeButton.addEventListener("click", async (event) => {
+    event.preventDefault();
+
+    try {
+      await reactToPost(postId, "👍");
+
+      window.location.reload();
+    } catch (error) {
+      console.error("Error reacting to post:", error);
+      alert("Failed to react to the post.");
+      //Fix error message
+    }
+  });
+}
+

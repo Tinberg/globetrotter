@@ -24,13 +24,17 @@
  height: 125px; 
  width: 90%;
 }
+//hover for follow and following
+.follow-container:hover {
+  background-color: #f5f5f5;
+}
 
 //------Section 2 Posts from user-----//
 
 .card-img-top-container {
   padding-top: 80%;
 }
-.card-body img {
+.small-profile-image {
   height: 50px;
   width: 50px;
 }

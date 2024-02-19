@@ -67,6 +67,7 @@ async function fetchAndDisplayPosts(continentTag = "", sortOption = "") {
 
 //-- Render the posts: Create and add post elements including Post image, username, useravatar, comments, and reactions to the post  --//
 function displayPosts(posts) {
+  console.log(posts)
   const postContainer = document.querySelector("#allPosts");
   postContainer.innerHTML = "";
 

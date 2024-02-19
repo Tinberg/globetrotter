@@ -145,6 +145,78 @@
           </div>
         </div>
       </div>
+      <!-- Followers Modal -->
+      <div
+        class="modal fade"
+        id="followersModal"
+        tabindex="-1"
+        aria-labelledby="followersModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <p class="modal-title fs-5" id="followersModalLabel">Followers</p>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <ul class="list-group" id="followersList">
+                <!-- Followers will be added here dynamically -->
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Following Modal -->
+      <div
+        class="modal fade"
+        id="followingModal"
+        tabindex="-1"
+        aria-labelledby="followingModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="followingModalLabel">Following</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <ul class="list-group" id="followingList">
+                <!-- Following will be added here dynamically -->
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- Header -->
       <header>
         <nav
@@ -237,12 +309,23 @@
                 <!--js inject number Posts-->
                 <p id="allPosts"></p>
               </div>
-              <div class="d-flex flex-column align-items-center mx-4">
+              <!--Trigger followers modal-->
+              <div
+                id="followersTrigger"
+                class="d-flex flex-column align-items-center mx-4 cursor-pointer"
+                data-bs-toggle="modal"
+                data-bs-target="#followersModal"
+              >
                 <p>Followers</p>
-                <!--js inject number Followers-->
+                <!-- JS inject number of Followers -->
                 <p id="followers"></p>
               </div>
-              <div class="d-flex flex-column align-items-center mx-4">
+              <!--Trigger following modal-->
+              <div
+                class="d-flex flex-column align-items-center mx-4 cursor-pointer"
+                data-bs-toggle="modal"
+                data-bs-target="#followingModal"
+              >
                 <p>Following</p>
                 <!--js inject number Following-->
                 <p id="following"></p>
@@ -253,8 +336,7 @@
             type="button"
             class="btn btn-primary mt-4 px-5"
             id="followOrUnfollow"
-          >
-          </button>
+          ></button>
         </section>
         <!--Section 2 Posts from user-->
         <section>

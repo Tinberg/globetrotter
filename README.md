@@ -14,4 +14,6 @@ Alexandra:
 - explore sort by små skjerm. få all til å være på bunnen også footer på alle sider
 - background color on post.scss se det som er kommentert ut på post.scss
 - på post.html kan title være 280 characters og body text 280 characters, skriv inn 280 inn manuelt i konsollen og finn en måte å få layouten til å passe. 
+- post.html title body og comments blir veldig nærme den grå backgrunnen. vurder å sett mindre margin på "user-post-section" på små skjerm (bare litt mindre)
 - HTML på alle sider med meta description.
+- 
