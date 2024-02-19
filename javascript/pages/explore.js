@@ -95,20 +95,22 @@ function displaySearchResults(profiles, posts) {
   profilesContainer.innerHTML = "";
   postsContainer.innerHTML = "";
 
-  // Display profiles 
+  // Display profiles
   if (profiles.length) {
     profiles.forEach((profile) => {
       const profileDiv = document.createElement("div");
       profileDiv.textContent = profile.name;
       profileDiv.className = "search-result-item cursor-pointer my-1";
       profileDiv.addEventListener("click", () => {
-        window.location.href = `profile.html?username=${encodeURIComponent(profile.name)}`;
+        window.location.href = `profile.html?username=${encodeURIComponent(
+          profile.name
+        )}`;
       });
       profilesContainer.appendChild(profileDiv);
     });
   }
 
-  // Display posts 
+  // Display posts
   if (posts.length) {
     posts.forEach((post) => {
       const postDiv = document.createElement("div");
@@ -122,10 +124,11 @@ function displaySearchResults(profiles, posts) {
   }
 
   // Show the modal
-  const searchModal = new bootstrap.Modal(document.getElementById("searchResultsModal"));
+  const searchModal = new bootstrap.Modal(
+    document.getElementById("searchResultsModal")
+  );
   searchModal.show();
 }
-
 
 //-- Render the posts: Create and add post elements including Post image, username, useravatar, comments, and reactions to the post  --//
 function displayPosts(posts) {
@@ -138,8 +141,8 @@ function displayPosts(posts) {
     const commentsFormatted = formatCount(post._count.comments || 0);
 
     // Trim title and body with imported function from trimText utility.js
-    const trimmedTitle = trimText(post.title || '', 25);
-    const trimmedBody = trimText(post.body || '', 50);
+    const trimmedTitle = trimText(post.title, 25);
+    const trimmedBody = trimText(post.body, 50);
 
     const postElement = document.createElement("div");
     postElement.className = "col-lg-4 col-sm-6 mb-5";

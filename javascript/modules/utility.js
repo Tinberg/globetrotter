@@ -54,8 +54,11 @@ function formatWithSuffix(number, divisor, suffix) {
  * @returns {string} Trimmed text
  */
 function trimText(text, maxChars) {
-  if (text.length > maxChars) {
-    return text.substring(0, maxChars) + "...";
+  if (!text || text.length > maxChars) {
+    return (
+      (text || "").substring(0, maxChars) +
+      (text && text.length > maxChars ? "..." : "")
+    );
   }
   return text;
 }
