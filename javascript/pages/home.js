@@ -30,8 +30,8 @@ function displayPosts(posts) {
     const commentsFormatted = formatCount(post._count.comments || 0);
 
     // Trim title and body with imported function from trimText utility.js
-    const trimmedTitle = trimText(post.title || "", 25);
-    const trimmedBody = trimText(post.body || "", 50);
+    const trimmedTitle = trimText(post.title, 25);
+    const trimmedBody = trimText(post.body, 50);
 
     const postElement = document.createElement("div");
     postElement.className = "col-md-5 col-lg-4  mb-5  ";
