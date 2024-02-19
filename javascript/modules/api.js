@@ -27,6 +27,8 @@ export { fetchPostsFromFollowing };
 export { fetchSinglePost };
 //-- For fetch comment --> post.js
 export { postComment };
+//-- For fetch reaction -->post.js
+export { reactToPost };
 //-- For follow a user by their username --> profile.js
 export { followUser };
 //-- For unfollow a user by their username --> profile.js
@@ -249,27 +251,49 @@ async function fetchSinglePost(postId) {
 }
 /**
  * Posts a comment on a specific post.
- * @param {number|string} postId 
- * @param {string} body 
- * @param {number|string|null} replyToId 
- * @returns {Promise<Object>} 
+ * @param {number|string} postId
+ * @param {string} body
+ * @param {number|string|null} replyToId
+ * @returns {Promise<Object>}
  */
 async function postComment(postId, body, replyToId = null) {
   const payload = { body };
   if (replyToId) payload.replyToId = replyToId;
 
-  const response = await fetch(`${API_BASE_URL}/social/posts/${postId}/comment`, {
-      method: 'POST',
+  const response = await fetch(
+    `${API_BASE_URL}/social/posts/${postId}/comment`,
+    {
+      method: "POST",
       headers: getHeaders(),
       body: JSON.stringify(payload),
-  });
+    }
+  );
 
   if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`Failed to post comment: ${errorData.message}`);
+    const errorData = await response.json();
+    throw new Error(`Failed to post comment: ${errorData.message}`);
   }
 
   return await response.json();
+}
+/**
+ * React to a post
+ * @param {number|string} postId
+ * @param {string} symbol
+ */
+async function reactToPost(postId, symbol) {
+  const response = await fetch(
+    `${API_BASE_URL}/social/posts/${postId}/react/${encodeURIComponent(symbol)}`,
+    {
+      method: "PUT",
+      headers: getHeaders(false),
+    }
+  );
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(`Failed to react to post: ${errorData.message}`);
+  }
+  return await response.json(); 
 }
 
 /**
