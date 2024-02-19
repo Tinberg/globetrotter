@@ -76,6 +76,7 @@ async function fetchAndDisplayPosts(continentTag = "", sortOption = "") {
   }
 }
 //-- For Searchbar --//
+// Initiates a search based on user input, fetching matching profiles and posts
 async function handleSearch() {
   const query = document.getElementById("searchInput").value.trim();
   if (!query) return;
@@ -88,7 +89,7 @@ async function handleSearch() {
     console.error("Error during search:", error);
   }
 }
-
+//Displays the search results for profiles and posts within the modal.
 function displaySearchResults(profiles, posts) {
   const profilesContainer = document.getElementById("profiles");
   const postsContainer = document.getElementById("posts");
