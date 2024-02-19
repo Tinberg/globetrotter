@@ -2,6 +2,10 @@ section {
   max-width: 85%;
 }
 //-- Section 1 post section --//
+.post-image{
+    min-height: 300px;
+}
+
 .profile-name,
 .post-profile-image {
   cursor: pointer;
@@ -38,14 +42,6 @@ section {
   height: 50px;
   width: 50px;
 }
-
-@media (max-width: 767px) {
-  .post-profile-image {
-    height: 45px;
-    width: 45px;
-  }
-}
-
 
 @media(min-width: 991px){
     .inner-div-for-section-1{
