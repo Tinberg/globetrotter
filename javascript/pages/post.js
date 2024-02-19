@@ -7,6 +7,8 @@ import { fetchSinglePost } from "../modules/api.js";
 import { postComment } from "../modules/api.js";
 //-- API for reaction on post --> api.js
 import { reactToPost } from "../modules/api.js";
+//- Function when authorname or avatar is clicked directs to my-profile.html for the logged in user's own post, else directs to profile.html
+import { navigateToUserProfile } from "../modules/utility.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
 
@@ -171,13 +173,3 @@ function attachReactionListener(postId) {
   });
 }
 
-//-------------------------Redirect-------------------------//
-// Function when authorname or avatar is clicked directs to my-profile.html for the logged in user's own post, else directs to profile.html for other users' posts
-//Used in DisplayPostDetails function
-function navigateToUserProfile(userName) {
-  const profileUrl =
-    userName === currentUser
-      ? "my-profile.html"
-      : `profile.html?username=${encodeURIComponent(userName)}`;
-  window.location.href = profileUrl;
-}

@@ -34,7 +34,7 @@ export { followUser };
 //-- For unfollow a user by their username --> profile.js
 export { unfollowUser };
 
-//-- For
+//-- For fetch all profiles --> explore.js
 export { fetchAllProfiles };
 
 //-- This is the Base URL --//
