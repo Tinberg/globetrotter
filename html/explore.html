@@ -145,6 +145,57 @@
           </div>
         </div>
       </div>
+      <!-- Search Results Modal -->
+      <div
+        class="modal fade"
+        id="searchResultsModal"
+        tabindex="-1"
+        aria-labelledby="searchResultsModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <p class="modal-title fs-5 fw-bold" id="searchResultsModalLabel">
+                Search Results
+              </p>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body" id="searchResults">
+              <ul class="nav nav-tabs" id="searchTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="profiles-tab" data-bs-toggle="tab" data-bs-target="#profiles" type="button" role="tab" aria-controls="profiles" aria-selected="true">Profiles</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="posts-tab" data-bs-toggle="tab" data-bs-target="#posts" type="button" role="tab" aria-controls="posts" aria-selected="false">Posts</button>
+                </li>
+              </ul>
+              <div class="tab-content" id="searchTabsContent">
+                <div class="tab-pane fade " id="profiles" role="tabpanel" aria-labelledby="profiles-tab">
+                  <!-- Profiles results go here -->
+                </div>
+                <div class="tab-pane fade" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                  <!-- Posts results go here -->
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- Header -->
       <header>
         <nav
@@ -350,17 +401,20 @@
                 <div
                   class="mb-3 mb-md-0 mx-3 mx-md-3 flex-column flex-md-row d-flex justify-content-between"
                 >
+                  <!--Search posts or profiles-->
                   <form
+                    id="searchForm"
                     class="d-flex gap-4 gap-md-2 justify-content-center justify-content-md-start align-items-center flex-column flex-md-row"
                     action=""
                   >
                     <input
+                      id="searchInput"
                       class="border border-2 rounded p-2 w-100 form-control"
                       type="text"
                       placeholder="Search for posts or profiles..."
-                      aria-label="search for all posts"
+                      aria-label="search for all posts and all profiles"
                     />
-                    <button class="btn btn-primary" type="button">
+                    <button id="searchButton" class="btn btn-primary" type="submit">
                       Search
                     </button>
                   </form>

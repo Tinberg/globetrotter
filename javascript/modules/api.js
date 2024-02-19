@@ -33,9 +33,10 @@ export { reactToPost };
 export { followUser };
 //-- For unfollow a user by their username --> profile.js
 export { unfollowUser };
-
-//-- For fetch all profiles --> explore.js
-export { fetchAllProfiles };
+//-- For fetch all profiles search --> explore.js
+export { fetchProfilesSearch };
+//-- For fetch all posts search --> explore.js
+export { fetchPostsSearch };
 
 //-- This is the Base URL --//
 const API_BASE_URL = "https://v2.api.noroff.dev";
@@ -333,16 +334,33 @@ async function unfollowUser(username) {
   return response.json();
 }
 /**
- * Fetches all user profiles.
- * @returns {Promise}
+ * Searches for profiles based on a query.
+ * @param {string} query - The search query for profiles.
+ * @returns {Promise<Array>} - A promise that resolves with the search results.
  */
-async function fetchAllProfiles() {
-  const response = await fetch(`${API_BASE_URL}/social/profiles`, {
+async function fetchProfilesSearch(query) {
+  const response = await fetch(`${API_BASE_URL}/social/profiles/search?q=${encodeURIComponent(query)}`, {
     headers: getHeaders(),
   });
   if (!response.ok) {
-    throw new Error("Failed to fetch profiles");
+    throw new Error("Failed to search profiles");
   }
   const result = await response.json();
   return result.data;
 }
+/**
+ * Searches for posts based on a query.
+ * @param {string} query - The search query for posts.
+ * @returns {Promise<Array>} - A promise that resolves with the search results.
+ */
+async function fetchPostsSearch(query) {
+  const response = await fetch(`${API_BASE_URL}/social/posts/search?q=${encodeURIComponent(query)}`, {
+    headers: getHeaders(),
+  });
+  if (!response.ok) {
+    throw new Error("Failed to search posts");
+  }
+  const result = await response.json();
+  return result.data;
+}
+

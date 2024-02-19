@@ -4,6 +4,10 @@ import { checkAuthAndRedirect } from "../modules/auth.js";
 checkAuthAndRedirect();
 //-- Api for fetch all posts--> api.js
 import { fetchAllPosts } from "../modules/api.js";
+//-- Api for fetch all profiels for search --> api.js
+import { fetchProfilesSearch } from "../modules/api.js";
+//-- Api for fetch all posts for search --> api.js
+import { fetchPostsSearch } from "../modules/api.js";
 //-- Trim the text for overlay text title and body text for post --> utility.js --//
 import { trimText } from "../modules/utility.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
@@ -37,6 +41,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       globalFilter.sortOption = sortOption;
       fetchAndDisplayPosts(globalFilter.continentTag, globalFilter.sortOption);
     });
+  // Search button event listner
+  document
+    .getElementById("searchForm")
+    .addEventListener("submit", async (event) => {
+      event.preventDefault(); // Prevent form submission
+      handleSearch();
+    });
 });
 
 //-- Function to sort posts --//
@@ -64,10 +75,60 @@ async function fetchAndDisplayPosts(continentTag = "", sortOption = "") {
     console.error("Failed to fetch posts:", error);
   }
 }
+//-- For Searchbar --//
+async function handleSearch() {
+  const query = document.getElementById("searchInput").value.trim();
+  if (!query) return;
+
+  try {
+    const profiles = await fetchProfilesSearch(query);
+    const posts = await fetchPostsSearch(query);
+    displaySearchResults(profiles, posts);
+  } catch (error) {
+    console.error("Error during search:", error);
+  }
+}
+
+function displaySearchResults(profiles, posts) {
+  const profilesContainer = document.getElementById("profiles");
+  const postsContainer = document.getElementById("posts");
+  profilesContainer.innerHTML = "";
+  postsContainer.innerHTML = "";
+
+  // Display profiles 
+  if (profiles.length) {
+    profiles.forEach((profile) => {
+      const profileDiv = document.createElement("div");
+      profileDiv.textContent = profile.name;
+      profileDiv.className = "search-result-item cursor-pointer my-1";
+      profileDiv.addEventListener("click", () => {
+        window.location.href = `profile.html?username=${encodeURIComponent(profile.name)}`;
+      });
+      profilesContainer.appendChild(profileDiv);
+    });
+  }
+
+  // Display posts 
+  if (posts.length) {
+    posts.forEach((post) => {
+      const postDiv = document.createElement("div");
+      postDiv.textContent = post.title;
+      postDiv.className = "search-result-item cursor-pointer my-1";
+      postDiv.addEventListener("click", () => {
+        window.location.href = `post.html?id=${encodeURIComponent(post.id)}`;
+      });
+      postsContainer.appendChild(postDiv);
+    });
+  }
+
+  // Show the modal
+  const searchModal = new bootstrap.Modal(document.getElementById("searchResultsModal"));
+  searchModal.show();
+}
+
 
 //-- Render the posts: Create and add post elements including Post image, username, useravatar, comments, and reactions to the post  --//
 function displayPosts(posts) {
-  console.log(posts)
   const postContainer = document.querySelector("#allPosts");
   postContainer.innerHTML = "";
 
@@ -77,8 +138,8 @@ function displayPosts(posts) {
     const commentsFormatted = formatCount(post._count.comments || 0);
 
     // Trim title and body with imported function from trimText utility.js
-    const trimmedTitle = trimText(post.title, 25);
-    const trimmedBody = trimText(post.body, 50);
+    const trimmedTitle = trimText(post.title || '', 25);
+    const trimmedBody = trimText(post.body || '', 50);
 
     const postElement = document.createElement("div");
     postElement.className = "col-lg-4 col-sm-6 mb-5";
