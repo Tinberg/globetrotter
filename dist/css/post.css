@@ -44,7 +44,7 @@ section {
     width: 45px;
   }
 }
-@media (min-width: 767px) {
+@media (min-width: 991px) {
   .inner-div-for-section-1 {
     min-width: 750px;
   }
