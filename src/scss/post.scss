@@ -1,0 +1,58 @@
+section {
+  max-width: 85%;
+}
+//-- Section 1 post section --//
+.post-image{
+    min-height: 300px;
+}
+
+.profile-name,
+.post-profile-image {
+  cursor: pointer;
+}
+.profile-name:hover {
+  color: #ffa88f;
+}
+.post-profile-image:hover {
+  border: 2px solid #ffa88f;
+}
+
+.background-grey {
+  background-color: #f8f9fa;
+}
+
+.post-profile-image {
+  height: 80px;
+  width: 80px;
+}
+// .post-image-container {
+//   background-color: #e0e0e0;
+// }
+
+.post-title {
+  font-size: 20px;
+}
+//-- Section 2 Comments section --//
+.comment {
+  letter-spacing: 1px;
+  line-height: 30px;
+}
+
+.comments-img {
+  height: 50px;
+  width: 50px;
+}
+
+@media(min-width: 991px){
+    .inner-div-for-section-1{
+        min-width: 750px;
+    }
+
+    .post-image{
+        min-width: 400px;
+    }
+}
+
+
+
+

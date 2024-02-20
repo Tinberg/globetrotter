@@ -1,44 +1,3 @@
-// /* Bootstrap variables*/
-// $primary: #ffa88f;
-// $secondary: #142f42;
-// $font-family-base: 'BodyFontName', lato, sans-serif;
-// $headings-font-family: 'HeaderFontName', hammersmith one, sans-serif;
-
-// //Bootstrap modified styles
-
-// @import url("https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Lato:wght@300;400;700&display=swap");
-// @import "../../node_modules/bootstrap/scss/bootstrap";
-
-// /*  Bootstrap modified styles */
-
-// /* Global Resets */
-// * {
-//   margin: 0;
-//   padding: 0;
-//   box-sizing: border-box;
-//   border-style: none;
-//   list-style-type: none;
-// }
-
-// html {
-//     font-size: 16px;
-// }
-// html,
-// body {
-//   scroll-behavior: smooth;
-// }
-
-// a {
-//     text-decoration: none;
-//     transition: transform 0.3s ease;
-//     display: inline-block;
-// }
-// a:hover {
-//     transform: scale(1.05);
-// }
-
-// /* Customized Utility classes */
-
 //-------  Bootstrap Customizations-------//
 
 /* Sets custom values for Bootstrap's Variables */
@@ -47,7 +6,7 @@ $secondary: #142f42;
 $font-family-base: "BodyFontName", lato, sans-serif;
 $headings-font-family: "HeaderFontName", hammersmith one, sans-serif;
 
-//import function and varaibles for customization and use
+//import function and variables for customization and use
 @import "../../node_modules/bootstrap/scss/functions";
 @import "../../node_modules/bootstrap/scss/variables";
 
@@ -70,9 +29,9 @@ $container-max-widths: map-merge(
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 .card {
-    background-color: #F4F6F8;
-  }
-  
+  background-color: #f4f6f8;
+}
+
 //------- SCSS -------//
 
 /* Global Resets */
@@ -94,8 +53,9 @@ body {
   scroll-behavior: smooth;
 }
 
-main{
-    padding-top: 80px;
+//Added to main element on every page, not index.html and register.html to even out the position fixed on navbar.
+.padding-fixed-navbar {
+  padding-top: 79px;
 }
 
 a {
@@ -114,15 +74,21 @@ a:hover {
 
 /*Header*/
 nav {
-    z-index: 1000;
-   min-height: 79.55px;
+  z-index: 1000;
+  min-height: 79.55px;
 }
 
 .img-icon {
-    width: 200px;
-    height: 200px;
+  width: 200px;
+  height: 200px;
 }
 
-
 /* Customized Utility classes */
-
+//Background image
+.background-img{
+  background-image: url(/images/background.jpg);
+}
+//pointer class
+.cursor-pointer {
+  cursor: pointer;
+}

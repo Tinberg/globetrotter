@@ -2,12 +2,16 @@
     background-image: url(/images/skyline.jpg);
     background-size: cover;
     background-position: center;
+    min-height: 100vh;
     
     .custom-card {
         width: 40rem;
         background-color: rgba(26, 93, 111, 0.4);
-        backdrop-filter: blur(120px); 
+        //For Safari
+        -webkit-backdrop-filter: blur(25px);
+        backdrop-filter: blur(25px); 
         border-radius: 25px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     .small-text {
     font-size: .85rem;

@@ -8,6 +8,9 @@ export { clearToken };
 //Redirect function - If user is not logged in
 export { checkAuthAndRedirect };
 
+//API Key
+export const apiKey = "8cbb77a9-bf83-4c1a-a541-1e3936c3abd0";
+
 //-------- JWT Token --------//
 
 function storeToken(token) {
