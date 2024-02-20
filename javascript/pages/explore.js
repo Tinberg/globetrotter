@@ -123,7 +123,6 @@ function createSearchListItem({
   if (secondaryText) {
     contentDiv.appendChild(secondaryContent);
   }
-
   listItem.appendChild(image);
   listItem.appendChild(contentDiv);
   listItem.addEventListener("click", onClick);
@@ -140,36 +139,50 @@ function displaySearchResults(profiles, posts) {
   // Create and append profiles list
   const profilesList = document.createElement("ul");
   profilesList.className = "list-group";
-  profiles.forEach((profile) => {
-    const listItem = createSearchListItem({
-      imageUrl: profile.avatar?.url || "/images/profileImage.jpg",
-      imageAlt: profile.avatar?.alt || "Profile avatar",
-      primaryText: profile.name,
-      onClick: () =>
-        (window.location.href = `profile.html?username=${encodeURIComponent(
-          profile.name
-        )}`),
-      isProfile: true,
+  if (profiles.length === 0) {
+    const noProfilesMsg = document.createElement("li");
+    noProfilesMsg.className = "list-group-item";
+    noProfilesMsg.textContent = "No profiles found";
+    profilesList.appendChild(noProfilesMsg);
+  } else {
+    profiles.forEach((profile) => {
+      const listItem = createSearchListItem({
+        imageUrl: profile.avatar?.url || "/images/profileImage.jpg",
+        imageAlt: profile.avatar?.alt || "Profile avatar",
+        primaryText: profile.name,
+        onClick: () =>
+          (window.location.href = `profile.html?username=${encodeURIComponent(
+            profile.name
+          )}`),
+        isProfile: true,
+      });
+      profilesList.appendChild(listItem);
     });
-    profilesList.appendChild(listItem);
-  });
+  }
 
   // Create and append posts list
   const postsList = document.createElement("ul");
   postsList.className = "list-group";
-  posts.forEach((post) => {
-    const listItem = createSearchListItem({
-      imageUrl: post.media?.url || "/images/no-image.png",
-      imageAlt: post.media?.alt || "Post image",
-      primaryText: post.title,
-      secondaryText: `- By: ${
-        post.author && post.author.name ? post.author.name : "Unknown"
-      }`,
-      onClick: () =>
-        (window.location.href = `post.html?id=${encodeURIComponent(post.id)}`),
+  if (posts.length === 0) {
+    const noPostsMsg = document.createElement("li");
+    noPostsMsg.className = "list-group-item";
+    noPostsMsg.textContent = "No posts found";
+    postsList.appendChild(noPostsMsg);
+  } else {
+    posts.forEach((post) => {
+      const listItem = createSearchListItem({
+        imageUrl: post.media?.url || "/images/no-image.png",
+        imageAlt: post.media?.alt || "Post image",
+        primaryText: post.title,
+        secondaryText: `- By: ${
+          post.author && post.author.name ? post.author.name : "Unknown"
+        }`,
+        onClick: () =>
+          (window.location.href = `post.html?id=${encodeURIComponent(post.id)}`),
+      });
+      postsList.appendChild(listItem);
     });
-    postsList.appendChild(listItem);
-  });
+  }
 
   profilesContainer.appendChild(profilesList);
   postsContainer.appendChild(postsList);
