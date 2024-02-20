@@ -354,7 +354,7 @@ async function fetchProfilesSearch(query) {
  * @returns {Promise<Array>} - A promise that resolves with the search results.
  */
 async function fetchPostsSearch(query) {
-  const response = await fetch(`${API_BASE_URL}/social/posts/search?q=${encodeURIComponent(query)}`, {
+  const response = await fetch(`${API_BASE_URL}/social/posts/search?q=${encodeURIComponent(query)}&_author=true`, {
     headers: getHeaders(),
   });
   if (!response.ok) {
