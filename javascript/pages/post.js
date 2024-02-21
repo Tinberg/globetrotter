@@ -3,6 +3,10 @@ import { checkAuthAndRedirect } from "../modules/auth.js";
 checkAuthAndRedirect();
 //-- Api for fetch single post with comments reactions and author --> api.js
 import { fetchSinglePost } from "../modules/api.js";
+//-- Api for fetch to update a post --> api.js
+import { updatePost } from "../modules/api.js";
+//-- Api for fetch to delete a post --> api.js
+import { deletePost } from "../modules/api.js";
 //-- Api for comment on post --> api.js
 import { postComment } from "../modules/api.js";
 //-- API for reaction on post --> api.js
