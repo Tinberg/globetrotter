@@ -223,7 +223,7 @@ function displayPosts(posts) {
                   <p class="fs-5 fw-bolder">${trimmedTitle}</p>
                   <p>${trimmedBody}</p>
                   <p class="fw-bold">Read more</p>
-              </div>
+              </div> 
           </div>
               </div>
               <div class="card-body">

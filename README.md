@@ -4,8 +4,8 @@ Javascript2 Kopstad and Tinberg
 --Om vi vil ha bare egene poster bytt value på explore på i filter aside og alle andre sider der man lager post til value "Not Specefied" og fiks funskjonen på new-post.js--
 
 - write line where the code for export is! 
-- implement the pages for posts on explore and home. also for set a max posts for profile and my-profile
-- on profile.html make it redirect if there is nothing to display(if anyone type in a random username in the url)
+
+
 
 
 Alexandra: 
@@ -17,3 +17,7 @@ Alexandra:
 - post.html title body og comments blir veldig nærme den grå backgrunnen. vurder å sett mindre margin på "user-post-section" på små skjerm (bare litt mindre)
 - HTML på alle sider med meta description.
 - 
+
+ 
+
+

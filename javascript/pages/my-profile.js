@@ -168,7 +168,7 @@ function displayPosts(posts, profile) {
     const postElement = document.createElement("div");
     postElement.className = "col-lg-4 col-sm-6 mb-5 cursor-pointer";
 
-    const postMediaUrl = post.media?.url || "/images/defaultPostImage.jpg";
+    const postMediaUrl = post.media?.url || "/images/no-image.png";
     const postMediaAlt = post.media?.alt || "Post image";
     const reactionsFormatted = formatCount(post._count.reactions || 0);
     const commentsFormatted = formatCount(post._count.comments || 0);

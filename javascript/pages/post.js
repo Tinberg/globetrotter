@@ -3,6 +3,10 @@ import { checkAuthAndRedirect } from "../modules/auth.js";
 checkAuthAndRedirect();
 //-- Api for fetch single post with comments reactions and author --> api.js
 import { fetchSinglePost } from "../modules/api.js";
+//-- Api for fetch to update a post --> api.js
+import { updatePost } from "../modules/api.js";
+//-- Api for fetch to delete a post --> api.js
+import { deletePost } from "../modules/api.js";
 //-- Api for comment on post --> api.js
 import { postComment } from "../modules/api.js";
 //-- API for reaction on post --> api.js
@@ -13,6 +17,7 @@ import { navigateToUserProfile } from "../modules/utility.js";
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
 
 //userName from local storage used to check if user has liked a post(change color of the heart), and nav to my-profile if its in the local storage
+//and for edit and delete post.
 const currentUser = localStorage.getItem("userName");
 
 //-- Load the specific post based on the id from the URL --//
@@ -29,6 +34,7 @@ async function loadPostData() {
     displayPostDetails(postData);
     attachCommentListener(postId);
     attachReactionListener(postId);
+    setupPostOptions(postData);
   } catch (error) {
     console.error("Error fetching post details:", error);
   }
@@ -69,7 +75,6 @@ function displayPostDetails(postData) {
   const profileAvatarElement = document.querySelector(".post-profile-image");
   profileNameElement.textContent = postData.author.name;
   profileAvatarElement.src = postData.author.avatar.url;
-
 
   // Check if the userName has liked the post and change heart on btn if userName has liked the post
   const userHasLiked = postData.reactions.some((reaction) =>
@@ -172,4 +177,128 @@ function attachReactionListener(postId) {
     }
   });
 }
+//-------------------------Edit post-------------------------//
+//target and eventlister click to edit post button, save post button, and delete post button
+//Called in loadPostData at the top
+function setupPostOptions(postData) {
+  const isCurrentUserPost = postData.author.name === currentUser;
+  
+  // Select your elements
+  const optionsButton = document.querySelector("#postOptionsBtn");
+  const deleteButton = document.querySelector("#deletePostButton");
 
+  if (isCurrentUserPost) {
+    // Remove 'd-none' to make the buttons visible for the current user's posts
+    optionsButton.classList.remove('d-none');
+    deleteButton.classList.remove('d-none');
+
+    // Attach event listeners
+    optionsButton.addEventListener("click", () => populateEditModal(postData));
+    document.querySelector("#savePostChanges").addEventListener("click", () => savePostChanges(postData.id));
+    deleteButton.addEventListener("click", () => attemptDeletePost(postData.id));
+  } else {
+    // Ensure buttons remain hidden for other users' posts
+    optionsButton.classList.add('d-none');
+    deleteButton.classList.add('d-none');
+  }
+}
+
+//Set the value that is allready on the post in editPost modal and set character count. function for character at the bottom of this file
+function populateEditModal(postData) {
+  document.querySelector("#editPostTitle").value = postData.title;
+  document.querySelector("#editPostBody").value = postData.body;
+  document.querySelector("#editPostTags").value = postData.tags
+    ? postData.tags.join(", ")
+    : "";
+  document.querySelector("#editPostMediaUrl").value =
+    postData.media && postData.media.url ? postData.media.url : "";
+  document.querySelector("#editPostMediaAlt").value =
+    postData.media && postData.media.alt ? postData.media.alt : "";
+
+  // Attaches input event listeners to title and body fields for real-time character count
+  document
+    .querySelector("#editPostTitle")
+    .addEventListener("input", updateTitleCharacterCount);
+  document
+    .querySelector("#editPostBody")
+    .addEventListener("input", updateCaptionCharacterCount);
+  updateTitleCharacterCount();
+  updateCaptionCharacterCount();
+
+  const editModal = new bootstrap.Modal(
+    document.getElementById("editPostModal")
+  );
+  editModal.show();
+}
+//take the value from each input in editPost modal and store it in updateData and then updatePost sets the new values to the post(id)
+function savePostChanges(postId) {
+  const title = document.querySelector("#editPostTitle").value;
+  const body = document.querySelector("#editPostBody").value;
+  const tags = document
+    .querySelector("#editPostTags")
+    .value.split(",")
+    .map((tag) => tag.trim());
+  const mediaUrl = document.querySelector("#editPostMediaUrl").value;
+  const mediaAlt = document.querySelector("#editPostMediaAlt").value;
+
+  //Stores the new data for updatePost under
+  const updatedData = {
+    title,
+    body,
+    tags,
+    media: mediaUrl ? { url: mediaUrl, alt: mediaAlt } : undefined,
+  };
+  updatePost(postId, updatedData)
+    .then((response) => {
+      alert("Post updated successfully.");
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.error("Failed to update post:", error);
+      alert("Failed to update the post.");
+    });
+}
+
+//Delete a post
+function attemptDeletePost(postId) {
+  if (confirm("Are you sure you want to delete this post?")) {
+    deletePost(postId)
+      .then(() => {
+        alert("Post deleted successfully.");
+        window.location.href = "my-profile.html";
+      })
+      .catch((error) => {
+        console.error("Failed to delete post:", error);
+        alert("Failed to delete the post.");
+      });
+  }
+}
+
+//--Functions to updates and displays character counts for title and body, highlighting over-limit text with a warning
+// called in populateEditModal
+//Title
+function updateTitleCharacterCount() {
+  const title = document.getElementById("editPostTitle").value;
+  const feedback = document.getElementById("editTitleFeedback");
+  feedback.textContent = `${title.length}/280 characters`;
+
+  if (title.length > 280) {
+    feedback.classList.add("text-danger");
+    feedback.textContent += " - The title cannot exceed 280 characters.";
+  } else {
+    feedback.classList.remove("text-danger");
+  }
+}
+// Caption
+function updateCaptionCharacterCount() {
+  const caption = document.getElementById("editPostBody").value;
+  const feedback = document.getElementById("editCaptionFeedback");
+  feedback.textContent = `${caption.length}/280 characters`;
+
+  if (caption.length > 280) {
+    feedback.classList.add("text-danger");
+    feedback.textContent += " - The caption cannot exceed 280 characters.";
+  } else {
+    feedback.classList.remove("text-danger");
+  }
+}
