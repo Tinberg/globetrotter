@@ -3,9 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Explore breathtaking destinations, insider tips, and wanderlust-worthy experiences on our travel-focused platform. From hidden gems to iconic landmarks, embark on your next adventure with us. Join a community of fellow travelers sharing stories, recommendations, and memories. Let's journey together and discover the world anew. Start your exploration now!">
+    <meta
+      name="description"
+      content="Explore breathtaking destinations, insider tips, and wanderlust-worthy experiences on our travel-focused platform. From hidden gems to iconic landmarks, embark on your next adventure with us. Join a community of fellow travelers sharing stories, recommendations, and memories. Let's journey together and discover the world anew. Start your exploration now!"
+    />
     <title>Globetrotter | Post</title>
-    <link rel="icon" type="image/png" href="/images/map-meta-img.png">
+    <link rel="icon" type="image/png" href="/images/map-meta-img.png" />
     <link
       rel="stylesheet"
       href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
@@ -147,7 +150,136 @@
           </div>
         </div>
       </div>
-      
+      <!-- Modal for editing a post -->
+      <div
+        class="modal fade"
+        id="editPostModal"
+        tabindex="-1"
+        aria-labelledby="editPostModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header text-start">
+              <h5 class="modal-title fs-5 w-100" id="editPostModalLabel">
+                Edit Post
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="editPostForm" class="text-center">
+                <div class="mb-3">
+                  <label for="editPostMediaUrl" class="form-label fw-semibold"
+                    >Post Image</label
+                  >
+                  <div class="d-flex justify-content-center">
+                    <div
+                      class="img-icon bg-secondary d-inline-flex justify-content-center align-items-center mb-2 rounded"
+                    >
+                      <i class="fas fa-image fa-3x text-white"></i>
+                    </div>
+                  </div>
+                  <div class="form-text">Recommended aspect ratio: 1:1</div>
+                  <input
+                    type="url"
+                    id="editPostMediaUrl"
+                    placeholder="Image URL to an uploaded image"
+                    class="form-control mt-2 mx-auto"
+                  />
+                  <div class="my-3">
+                    <label for="editPostMediaAlt" class="form-label fw-semibold"
+                      >Image Description</label
+                    >
+                    <input
+                      type="text"
+                      id="editPostMediaAlt"
+                      placeholder="Enter image description"
+                      class="form-control mt-3 mx-auto"
+                    />
+                  </div>
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="editPostTitle" class="form-label fw-semibold"
+                    >Title</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control mx-auto"
+                    id="editPostTitle"
+                    placeholder="Enter title here"
+                  />
+                  <div id="editTitleFeedback" class="form-text">
+                    0/280 characters
+                  </div>
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="editPostBody" class="form-label fw-semibold"
+                    >Caption</label
+                  >
+                  <textarea
+                    class="form-control mx-auto"
+                    id="editPostBody"
+                    rows="5"
+                    placeholder="Write a caption..."
+                  ></textarea>
+                  <div id="editCaptionFeedback" class="form-text">
+                    0/280 characters
+                  </div>
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="editPostTags" class="form-label fw-semibold"
+                    >Continent</label
+                  >
+                  <select class="form-select mx-auto" id="editPostTags">
+                    <option selected>Not Specified</option>
+                    <option value="Africa">Africa</option>
+                    <option value="Asia">Asia</option>
+                    <option value="Europe">Europe</option>
+                    <option value="Oceania">Oceania</option>
+                    <option value="North-America">North America</option>
+                    <option value="South-America">South America</option>
+                  </select>
+                </div>
+                <div class="border my-4"></div>
+                <div class="d-flex flex-column align-items-center">
+                  <button
+                    type="button"
+                    class="btn btn-primary mb-3 px-5"
+                    id="savePostChanges"
+                  >
+                    Save Changes
+                  </button>
+                  
+                  <button
+                    type="button"
+                    class="btn btn-danger mb-3"
+                    id="deletePostButton"
+                  >
+                    Delete Post
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <!---Navigation--->
       <header>
         <nav
@@ -226,7 +358,6 @@
             <div
               class="post-image-container container-fluid col-12 col-lg-6 order-1 p-0"
             >
-
               <img
                 class="post-image w-100 h-100"
                 src="/images/no-image.png"
@@ -235,8 +366,16 @@
             </div>
 
             <div
-              class="col-12 col-lg-6 d-flex flex-column justify-content-center justify-content-lg-start order-2 container-fluid"
+              class="col-12 col-lg-6 d-flex flex-column justify-content-center justify-content-lg-start order-2 container-fluid position-relative"
             >
+            <!--Button to update post-->
+              <button
+                class="post-options-btn btn btn-sm position-absolute top-0 end-0 m-3 d-none"
+                type="button"
+                id="postOptionsBtn"
+              >
+                <i class="fas fa-ellipsis-v fa-2x"></i>
+              </button>
               <div
                 class="container gap-5 gap-lg-0 p-lg-5 pb-5 d-flex flex-column align-items-center align-items-lg-start"
               >
@@ -289,7 +428,9 @@
                       placeholder="Leave a comment..."
                       aria-placeholder="Leave a comment"
                     ></textarea>
-                    <div class="justify-content-center justify-content-sm-end d-flex gap-3 pt-3">
+                    <div
+                      class="justify-content-center justify-content-sm-end d-flex gap-3 pt-3"
+                    >
                       <button
                         class="like-button rounded px-3 pe-3 pt-1 pb-1 bg-transparent border d-flex gap-2 align-items-center text-dark"
                         type="submit"
@@ -312,8 +453,10 @@
         </section>
 
         <!--- Section 2: Comments section --->
-        <section class="container-fluid d-flex justify-content-center pt-5 pb-5 mt-3 flex-column">
-         <h2 class="align-self-center mb-3">Comments</h2>
+        <section
+          class="container-fluid d-flex justify-content-center pt-5 pb-5 mt-3 flex-column"
+        >
+          <h2 class="align-self-center mb-3">Comments</h2>
           <div
             class="comments-container container background-grey w-100 p-3 p-sm-5 d-flex flex-column mb-3"
           >
