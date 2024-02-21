@@ -42,10 +42,10 @@ export { fetchProfilesSearch };
 //-- For fetch all posts search --> explore.js
 export { fetchPostsSearch };
 
+//---------- Utility ----------//
 //-- This is the Base URL --//
 const API_BASE_URL = "https://v2.api.noroff.dev";
 
-//-- Utility --//
 // Headers and content-type for "Get", "Post", "Put", and "Delete" requests getHeaders(false) will exclude the ContentType
 function getHeaders(includeContentType = true) {
   const headers = {
@@ -60,7 +60,7 @@ function getHeaders(includeContentType = true) {
   return headers;
 }
 
-//-- API Calls --//
+//---------- API Calls ----------//
 /**
  * register user profile
  * @param {Object} userData
