@@ -31,6 +31,8 @@ export { updatePost };
 export { deletePost };
 //-- For fetch comment --> post.js
 export { postComment };
+//-- For delete comment --> post.js
+export { deleteComment};
 //-- For fetch reaction -->post.js
 export { reactToPost };
 //-- For follow a user by their username --> profile.js
@@ -316,6 +318,24 @@ async function postComment(postId, body, replyToId = null) {
   }
 
   return await response.json();
+}
+/**
+ * Deletes a comment from a post.
+ * @param {number|string} postId 
+ * @param {number|string} commentId 
+ * @returns {Promise}
+ */
+async function deleteComment(postId, commentId) {
+  const response = await fetch(`${API_BASE_URL}/social/posts/${postId}/comment/${commentId}`, {
+    method: "DELETE",
+    headers: getHeaders(false),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(`Failed to delete comment: ${errorData.message}`);
+  }
+
 }
 /**
  * React to a post

@@ -4,6 +4,8 @@ Javascript2 Kopstad and Tinberg
 --Om vi vil ha bare egene poster bytt value på explore på i filter aside og alle andre sider der man lager post til value "Not Specefied" og fiks funskjonen på new-post.js--
 
 - write line where the code for export is! 
+-can click user in comments to get to the user
+- error messages finsihed: post.js
 
 
 

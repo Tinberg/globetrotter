@@ -24,8 +24,11 @@ const currentUser = localStorage.getItem("userName");
 async function loadPostData() {
   const urlParams = new URLSearchParams(window.location.search);
   const postId = urlParams.get("id");
+  const errorContainer = document.querySelector(".loadPostData-error");
   if (!postId) {
     console.error("Post ID not found.");
+    errorContainer.textContent =
+      "We are unable to find the requested post. Please check the URL or go back to the homepage to continue browsing.";
     return;
   }
 
@@ -37,6 +40,8 @@ async function loadPostData() {
     setupPostOptions(postData);
   } catch (error) {
     console.error("Error fetching post details:", error);
+    errorContainer.textContent =
+      "There seems to be an issue loading the post details at this moment. This may affect your ability to comment on or react to the post. Please try reloading the page to see if this resolves the issue.";
   }
 }
 // LoadPostData in DOM
