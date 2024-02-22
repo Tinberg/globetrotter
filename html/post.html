@@ -257,7 +257,7 @@
                   >
                     Save Changes
                   </button>
-                  
+                  <p id="editErrorFeedback" class="text-danger my-2"></p>
                   <button
                     type="button"
                     class="btn btn-danger mb-3"
@@ -266,6 +266,7 @@
                     Delete Post
                   </button>
                 </div>
+                <p id="deleteErrorFeedback" class="text-danger my-2"></p>
               </form>
             </div>
             <div class="modal-footer">
@@ -368,7 +369,7 @@
             <div
               class="col-12 col-lg-6 d-flex flex-column justify-content-center justify-content-lg-start order-2 container-fluid position-relative"
             >
-            <!--Button to update post-->
+              <!--Button to update post-->
               <button
                 class="post-options-btn btn btn-sm position-absolute top-0 end-0 m-3 d-none"
                 type="button"
@@ -445,6 +446,7 @@
                         Send
                       </button>
                     </div>
+                    <p id="reactionCommentError" class="text-danger ms-sm-auto text-center pt-2 d-none"></p>
                   </form>
                 </div>
               </div>

@@ -128,6 +128,9 @@ function displayComments(comments) {
   }
 }
 //-------------------------Add Comment-------------------------//
+//Error p for reaction and comment
+const reactionCommentError = document.getElementById("reactionCommentError");
+
 //--  This function is for comment on the post it takes the postId  --//
 function attachCommentListener(postId) {
   document
@@ -143,18 +146,21 @@ function attachCommentListener(postId) {
 
       const commentText = commentTextElement.value.trim();
       if (!commentText) {
+        reactionCommentError.textContent = "Comment cannot be empty.";
+        reactionCommentError.classList.remove("d-none");
         return;
       }
 
       try {
         await postComment(postId, commentText);
         commentTextElement.value = "";
-
+        reactionCommentError.classList.add("d-none");
         window.location.reload();
       } catch (error) {
         console.error("Error posting comment:", error);
-        alert("Failed to post comment.");
-        //Fix error message
+        reactionCommentError.textContent =
+          "Failed to post comment. Please try again later.";
+        reactionCommentError.classList.remove("d-none");
       }
     });
 }
@@ -168,42 +174,43 @@ function attachReactionListener(postId) {
 
     try {
       await reactToPost(postId, "👍");
-
+      reactionCommentError.classList.add("d-none");
       window.location.reload();
     } catch (error) {
       console.error("Error reacting to post:", error);
-      alert("Failed to react to the post.");
-      //Fix error message
+      reactionCommentError.textContent =
+        "Failed to react to the post. Please try again later.";
+      reactionCommentError.classList.remove("d-none");
     }
   });
 }
 //-------------------------Edit post-------------------------//
-//target and eventlister click to edit post button, save post button, and delete post button
+//Target and eventlister click to edit post button, save post button, and delete post button. if and else statments will make the edit post only if its the users post
 //Called in loadPostData at the top
 function setupPostOptions(postData) {
   const isCurrentUserPost = postData.author.name === currentUser;
-  
-  // Select your elements
+
   const optionsButton = document.querySelector("#postOptionsBtn");
   const deleteButton = document.querySelector("#deletePostButton");
 
   if (isCurrentUserPost) {
-    // Remove 'd-none' to make the buttons visible for the current user's posts
-    optionsButton.classList.remove('d-none');
-    deleteButton.classList.remove('d-none');
+    optionsButton.classList.remove("d-none");
+    deleteButton.classList.remove("d-none");
 
-    // Attach event listeners
     optionsButton.addEventListener("click", () => populateEditModal(postData));
-    document.querySelector("#savePostChanges").addEventListener("click", () => savePostChanges(postData.id));
-    deleteButton.addEventListener("click", () => attemptDeletePost(postData.id));
+    document
+      .querySelector("#savePostChanges")
+      .addEventListener("click", () => savePostChanges(postData.id));
+    deleteButton.addEventListener("click", () =>
+      attemptDeletePost(postData.id)
+    );
   } else {
-    // Ensure buttons remain hidden for other users' posts
-    optionsButton.classList.add('d-none');
-    deleteButton.classList.add('d-none');
+    optionsButton.classList.add("d-none");
+    deleteButton.classList.add("d-none");
   }
 }
 
-//Set the value that is allready on the post in editPost modal and set character count. function for character at the bottom of this file
+//-- Set the value that is allready on the post in editPost modal and set character count. function for character at the bottom of this file --//
 function populateEditModal(postData) {
   document.querySelector("#editPostTitle").value = postData.title;
   document.querySelector("#editPostBody").value = postData.body;
@@ -215,7 +222,6 @@ function populateEditModal(postData) {
   document.querySelector("#editPostMediaAlt").value =
     postData.media && postData.media.alt ? postData.media.alt : "";
 
-  // Attaches input event listeners to title and body fields for real-time character count
   document
     .querySelector("#editPostTitle")
     .addEventListener("input", updateTitleCharacterCount);
@@ -230,7 +236,7 @@ function populateEditModal(postData) {
   );
   editModal.show();
 }
-//take the value from each input in editPost modal and store it in updateData and then updatePost sets the new values to the post(id)
+//-- Take the value from each input in editPost modal and store it in updateData and then updatePost sets the new values to the post(id) --//
 function savePostChanges(postId) {
   const title = document.querySelector("#editPostTitle").value;
   const body = document.querySelector("#editPostBody").value;
@@ -250,26 +256,30 @@ function savePostChanges(postId) {
   };
   updatePost(postId, updatedData)
     .then((response) => {
-      alert("Post updated successfully.");
       window.location.reload();
     })
     .catch((error) => {
       console.error("Failed to update post:", error);
-      alert("Failed to update the post.");
+      const editErrorFeedback = document.getElementById("editErrorFeedback");
+      editErrorFeedback.textContent =
+        "Failed to edit post. Please ensure a valid title is provided. If including an image, ensure the URL starts with 'http://' or 'https://'. Captions, if added, must be under 280 characters. Please try again.";
     });
 }
 
-//Delete a post
+//-- Delete a post --//
 function attemptDeletePost(postId) {
   if (confirm("Are you sure you want to delete this post?")) {
     deletePost(postId)
       .then(() => {
-        alert("Post deleted successfully.");
         window.location.href = "my-profile.html";
       })
       .catch((error) => {
         console.error("Failed to delete post:", error);
-        alert("Failed to delete the post.");
+        const deleteErrorFeedback = document.getElementById(
+          "deleteErrorFeedback"
+        );
+        deleteErrorFeedback.textContent =
+          "Failed to delete post. Please check your internet connection and try again";
       });
   }
 }
