@@ -34,7 +34,7 @@ document
     } catch (error) {
       console.error("Failed to create post:", error);
       errorFeedback.textContent =
-        "Failed to create post. Please ensure your image URL is valid, starts with http or https, and that your title is present and do not exceed 280 characters. Please try again.";
+        "Failed to create post. Please ensure a valid title is provided. If including an image, ensure the URL starts with 'http://' or 'https://'. Captions, if added, must be under 280 characters. Please try again.";
       errorFeedback.style.display = "block";
     }
   });
