@@ -3,22 +3,32 @@ import { checkAuthAndRedirect } from "../modules/auth.js";
 checkAuthAndRedirect();
 //-- Api for fetch single post with comments reactions and author --> api.js
 import { fetchSinglePost } from "../modules/api.js";
+//-- Api for fetch to update a post --> api.js
+import { updatePost } from "../modules/api.js";
+//-- Api for fetch to delete a post --> api.js
+import { deletePost } from "../modules/api.js";
 //-- Api for comment on post --> api.js
 import { postComment } from "../modules/api.js";
 //-- API for reaction on post --> api.js
 import { reactToPost } from "../modules/api.js";
+//- Function when authorname or avatar is clicked directs to my-profile.html for the logged in user's own post, else directs to profile.html
+import { navigateToUserProfile } from "../modules/utility.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
 
 //userName from local storage used to check if user has liked a post(change color of the heart), and nav to my-profile if its in the local storage
+//and for edit and delete post.
 const currentUser = localStorage.getItem("userName");
 
 //-- Load the specific post based on the id from the URL --//
 async function loadPostData() {
   const urlParams = new URLSearchParams(window.location.search);
   const postId = urlParams.get("id");
+  const errorContainer = document.querySelector(".loadPostData-error");
   if (!postId) {
     console.error("Post ID not found.");
+    errorContainer.textContent =
+      "We are unable to find the requested post. Please check the URL or go back to the homepage to continue browsing.";
     return;
   }
 
@@ -27,8 +37,11 @@ async function loadPostData() {
     displayPostDetails(postData);
     attachCommentListener(postId);
     attachReactionListener(postId);
+    setupPostOptions(postData);
   } catch (error) {
     console.error("Error fetching post details:", error);
+    errorContainer.textContent =
+      "There seems to be an issue loading the post details at this moment. This may affect your ability to comment on or react to the post. Please try reloading the page to see if this resolves the issue.";
   }
 }
 // LoadPostData in DOM
@@ -67,7 +80,6 @@ function displayPostDetails(postData) {
   const profileAvatarElement = document.querySelector(".post-profile-image");
   profileNameElement.textContent = postData.author.name;
   profileAvatarElement.src = postData.author.avatar.url;
-
 
   // Check if the userName has liked the post and change heart on btn if userName has liked the post
   const userHasLiked = postData.reactions.some((reaction) =>
@@ -121,6 +133,9 @@ function displayComments(comments) {
   }
 }
 //-------------------------Add Comment-------------------------//
+//Error p for reaction and comment
+const reactionCommentError = document.getElementById("reactionCommentError");
+
 //--  This function is for comment on the post it takes the postId  --//
 function attachCommentListener(postId) {
   document
@@ -136,18 +151,21 @@ function attachCommentListener(postId) {
 
       const commentText = commentTextElement.value.trim();
       if (!commentText) {
+        reactionCommentError.textContent = "Comment cannot be empty.";
+        reactionCommentError.classList.remove("d-none");
         return;
       }
 
       try {
         await postComment(postId, commentText);
         commentTextElement.value = "";
-
+        reactionCommentError.classList.add("d-none");
         window.location.reload();
       } catch (error) {
         console.error("Error posting comment:", error);
-        alert("Failed to post comment.");
-        //Fix error message
+        reactionCommentError.textContent =
+          "Failed to post comment. Please try again later.";
+        reactionCommentError.classList.remove("d-none");
       }
     });
 }
@@ -161,23 +179,141 @@ function attachReactionListener(postId) {
 
     try {
       await reactToPost(postId, "👍");
-
+      reactionCommentError.classList.add("d-none");
       window.location.reload();
     } catch (error) {
       console.error("Error reacting to post:", error);
-      alert("Failed to react to the post.");
-      //Fix error message
+      reactionCommentError.textContent =
+        "Failed to react to the post. Please try again later.";
+      reactionCommentError.classList.remove("d-none");
     }
   });
 }
+//-------------------------Edit post-------------------------//
+//Target and eventlister click to edit post button, save post button, and delete post button. if and else statments will make the edit post only if its the users post
+//Called in loadPostData at the top
+function setupPostOptions(postData) {
+  const isCurrentUserPost = postData.author.name === currentUser;
 
-//-------------------------Redirect-------------------------//
-// Function when authorname or avatar is clicked directs to my-profile.html for the logged in user's own post, else directs to profile.html for other users' posts
-//Used in DisplayPostDetails function
-function navigateToUserProfile(userName) {
-  const profileUrl =
-    userName === currentUser
-      ? "my-profile.html"
-      : `profile.html?username=${encodeURIComponent(userName)}`;
-  window.location.href = profileUrl;
+  const optionsButton = document.querySelector("#postOptionsBtn");
+  const deleteButton = document.querySelector("#deletePostButton");
+
+  if (isCurrentUserPost) {
+    optionsButton.classList.remove("d-none");
+    deleteButton.classList.remove("d-none");
+
+    optionsButton.addEventListener("click", () => populateEditModal(postData));
+    document
+      .querySelector("#savePostChanges")
+      .addEventListener("click", () => savePostChanges(postData.id));
+    deleteButton.addEventListener("click", () =>
+      attemptDeletePost(postData.id)
+    );
+  } else {
+    optionsButton.classList.add("d-none");
+    deleteButton.classList.add("d-none");
+  }
+}
+
+//-- Set the value that is allready on the post in editPost modal and set character count. function for character at the bottom of this file --//
+function populateEditModal(postData) {
+  document.querySelector("#editPostTitle").value = postData.title;
+  document.querySelector("#editPostBody").value = postData.body;
+  document.querySelector("#editPostTags").value = postData.tags
+    ? postData.tags.join(", ")
+    : "";
+  document.querySelector("#editPostMediaUrl").value =
+    postData.media && postData.media.url ? postData.media.url : "";
+  document.querySelector("#editPostMediaAlt").value =
+    postData.media && postData.media.alt ? postData.media.alt : "";
+
+  document
+    .querySelector("#editPostTitle")
+    .addEventListener("input", updateTitleCharacterCount);
+  document
+    .querySelector("#editPostBody")
+    .addEventListener("input", updateCaptionCharacterCount);
+  updateTitleCharacterCount();
+  updateCaptionCharacterCount();
+
+  const editModal = new bootstrap.Modal(
+    document.getElementById("editPostModal")
+  );
+  editModal.show();
+}
+//-- Take the value from each input in editPost modal and store it in updateData and then updatePost sets the new values to the post(id) --//
+function savePostChanges(postId) {
+  const title = document.querySelector("#editPostTitle").value;
+  const body = document.querySelector("#editPostBody").value;
+  const tags = document
+    .querySelector("#editPostTags")
+    .value.split(",")
+    .map((tag) => tag.trim());
+  const mediaUrl = document.querySelector("#editPostMediaUrl").value;
+  const mediaAlt = document.querySelector("#editPostMediaAlt").value;
+
+  //Stores the new data for updatePost under
+  const updatedData = {
+    title,
+    body,
+    tags,
+    media: mediaUrl ? { url: mediaUrl, alt: mediaAlt } : undefined,
+  };
+  updatePost(postId, updatedData)
+    .then((response) => {
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.error("Failed to update post:", error);
+      const editErrorFeedback = document.getElementById("editErrorFeedback");
+      editErrorFeedback.textContent =
+        "Failed to edit post. Please ensure a valid title is provided. If including an image, ensure the URL starts with 'http://' or 'https://'. Captions, if added, must be under 280 characters. Please try again.";
+    });
+}
+
+//-- Delete a post --//
+function attemptDeletePost(postId) {
+  if (confirm("Are you sure you want to delete this post?")) {
+    deletePost(postId)
+      .then(() => {
+        window.location.href = "my-profile.html";
+      })
+      .catch((error) => {
+        console.error("Failed to delete post:", error);
+        const deleteErrorFeedback = document.getElementById(
+          "deleteErrorFeedback"
+        );
+        deleteErrorFeedback.textContent =
+          "Failed to delete post. Please check your internet connection and try again";
+      });
+  }
+}
+
+//--Functions to updates and displays character counts for title and body, highlighting over-limit text with a warning
+// called in populateEditModal
+//Title
+function updateTitleCharacterCount() {
+  const title = document.getElementById("editPostTitle").value;
+  const feedback = document.getElementById("editTitleFeedback");
+  feedback.textContent = `${title.length}/280 characters`;
+
+  if (title.length > 280) {
+    feedback.classList.add("text-danger");
+    feedback.textContent += " - The title cannot exceed 280 characters.";
+  } else {
+    feedback.classList.remove("text-danger");
+  }
+}
+// Caption
+function updateCaptionCharacterCount() {
+  const caption = document.getElementById("editPostBody").value;
+  const feedback = document.getElementById("editCaptionFeedback");
+  feedback.textContent = `${caption.length}/280 characters`;
+
+  if (caption.length > 280) {
+    feedback.classList.add("text-danger");
+    feedback.textContent += " - The caption cannot exceed 280 characters.";
+  } else {
+    feedback.classList.remove("text-danger");
+  }
 }

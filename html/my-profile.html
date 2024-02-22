@@ -74,7 +74,9 @@
                     class="form-control mt-2 mx-auto"
                   />
                   <div class="mb-3">
-                    <label for="altText" class="form-label fw-semibold d-none">Image Description</label>
+                    <label for="altText" class="form-label fw-semibold d-none"
+                      >Image Description</label
+                    >
                     <input
                       type="text"
                       id="altText"
@@ -83,7 +85,7 @@
                     />
                   </div>
                 </div>
-                
+
                 <div class="border my-4"></div>
                 <div class="mb-3">
                   <label for="postTitle" class="form-label fw-semibold"
@@ -148,7 +150,79 @@
           </div>
         </div>
       </div>
-       <!-- Header -->
+      <!-- Followers Modal -->
+      <div
+        class="modal fade"
+        id="followersModal"
+        tabindex="-1"
+        aria-labelledby="followersModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <p class="modal-title fs-5" id="followersModalLabel">Followers</p>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <ul class="list-group" id="followersList">
+                <!-- Followers will be added here dynamically -->
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Following Modal -->
+      <div
+        class="modal fade"
+        id="followingModal"
+        tabindex="-1"
+        aria-labelledby="followingModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="followingModalLabel">Following</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <ul class="list-group" id="followingList">
+                <!-- Following will be added here dynamically -->
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Header -->
       <header>
         <nav
           class="navbar navbar-expand-md bg-secondary position-fixed container-xxl py-3 py-md-2"
@@ -223,16 +297,12 @@
           >
             <div class="banner-div w-100">
               <!-- target bannerImage in js and set/change the profile banner-->
-              <img
-                class="banner-image w-100"
-                id="bannerImage"
-              />
+              <img class="banner-image w-100" id="bannerImage" />
             </div>
             <!--target profileImage in js and set/change the profile avatar-->
             <img
               class="profile-img rounded-circle position-absolute"
               id="profileImage"
-              
             />
           </div>
           <div class="d-flex flex-column align-items-center">
@@ -244,12 +314,23 @@
                 <!--js inject number Posts-->
                 <p id="allPosts"></p>
               </div>
-              <div class="d-flex flex-column align-items-center mx-4">
+              <!--Trigger followers modal-->
+              <div
+                id="followersTrigger"
+                class="d-flex flex-column align-items-center mx-4 cursor-pointer"
+                data-bs-toggle="modal"
+                data-bs-target="#followersModal"
+              >
                 <p>Followers</p>
-                <!--js inject number Followers-->
+                <!-- JS inject number of Followers -->
                 <p id="followers"></p>
               </div>
-              <div class="d-flex flex-column align-items-center mx-4">
+              <!--Trigger following modal-->
+              <div
+                class="d-flex flex-column align-items-center mx-4 cursor-pointer"
+                data-bs-toggle="modal"
+                data-bs-target="#followingModal"
+              >
                 <p>Following</p>
                 <!--js inject number Following-->
                 <p id="following"></p>
@@ -365,7 +446,10 @@
                         Save Changes
                       </button>
                     </div>
-                    <p id="profileEditError" class="text-danger my-2 text-center"></p>
+                    <p
+                      id="profileEditError"
+                      class="text-danger my-2 text-center"
+                    ></p>
                   </form>
                 </div>
                 <div class="modal-footer">

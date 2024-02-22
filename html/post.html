@@ -3,7 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <meta
+      name="description"
+      content="Explore breathtaking destinations, insider tips, and wanderlust-worthy experiences on our travel-focused platform. From hidden gems to iconic landmarks, embark on your next adventure with us. Join a community of fellow travelers sharing stories, recommendations, and memories. Let's journey together and discover the world anew. Start your exploration now!"
+    />
+    <title>Globetrotter | Post</title>
+    <link rel="icon" type="image/png" href="/images/map-meta-img.png" />
     <link
       rel="stylesheet"
       href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
@@ -145,9 +150,138 @@
           </div>
         </div>
       </div>
-
+      <!-- Modal for editing a post -->
+      <div
+        class="modal fade"
+        id="editPostModal"
+        tabindex="-1"
+        aria-labelledby="editPostModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header text-start">
+              <h5 class="modal-title fs-5 w-100" id="editPostModalLabel">
+                Edit Post
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="editPostForm" class="text-center">
+                <div class="mb-3">
+                  <label for="editPostMediaUrl" class="form-label fw-semibold"
+                    >Post Image</label
+                  >
+                  <div class="d-flex justify-content-center">
+                    <div
+                      class="img-icon bg-secondary d-inline-flex justify-content-center align-items-center mb-2 rounded"
+                    >
+                      <i class="fas fa-image fa-3x text-white"></i>
+                    </div>
+                  </div>
+                  <div class="form-text">Recommended aspect ratio: 1:1</div>
+                  <input
+                    type="url"
+                    id="editPostMediaUrl"
+                    placeholder="Image URL to an uploaded image"
+                    class="form-control mt-2 mx-auto"
+                  />
+                  <div class="my-3">
+                    <label for="editPostMediaAlt" class="form-label fw-semibold"
+                      >Image Description</label
+                    >
+                    <input
+                      type="text"
+                      id="editPostMediaAlt"
+                      placeholder="Enter image description"
+                      class="form-control mt-3 mx-auto"
+                    />
+                  </div>
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="editPostTitle" class="form-label fw-semibold"
+                    >Title</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control mx-auto"
+                    id="editPostTitle"
+                    placeholder="Enter title here"
+                  />
+                  <div id="editTitleFeedback" class="form-text">
+                    0/280 characters
+                  </div>
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="editPostBody" class="form-label fw-semibold"
+                    >Caption</label
+                  >
+                  <textarea
+                    class="form-control mx-auto"
+                    id="editPostBody"
+                    rows="5"
+                    placeholder="Write a caption..."
+                  ></textarea>
+                  <div id="editCaptionFeedback" class="form-text">
+                    0/280 characters
+                  </div>
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="editPostTags" class="form-label fw-semibold"
+                    >Continent</label
+                  >
+                  <select class="form-select mx-auto" id="editPostTags">
+                    <option selected>Not Specified</option>
+                    <option value="Africa">Africa</option>
+                    <option value="Asia">Asia</option>
+                    <option value="Europe">Europe</option>
+                    <option value="Oceania">Oceania</option>
+                    <option value="North-America">North America</option>
+                    <option value="South-America">South America</option>
+                  </select>
+                </div>
+                <div class="border my-4"></div>
+                <div class="d-flex flex-column align-items-center">
+                  <button
+                    type="button"
+                    class="btn btn-primary mb-3 px-5"
+                    id="savePostChanges"
+                  >
+                    Save Changes
+                  </button>
+                  <p id="editErrorFeedback" class="text-danger my-2"></p>
+                  <button
+                    type="button"
+                    class="btn btn-danger mb-3"
+                    id="deletePostButton"
+                  >
+                    Delete Post
+                  </button>
+                </div>
+                <p id="deleteErrorFeedback" class="text-danger my-2"></p>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <!---Navigation--->
-
       <header>
         <nav
           class="navbar navbar-expand-md bg-secondary position-fixed container-xxl py-3 py-md-2"
@@ -217,13 +351,13 @@
       <main class="padding-fixed-navbar">
         <!--- Section 1: Post section --->
         <section
-          class="user-post-section container-fluid d-flex justify-content-center pt-5 pb-5"
+          class="user-post-section container-fluid d-flex justify-content-center pt-3 pb-3 mt-5"
         >
           <div
-            class="inner-div-for-section-1 row background-grey d-flex flex-column flex-md-row w-100"
+            class="inner-div-for-section-1 p-0 container row background-grey d-flex flex-column flex-lg-row w-100"
           >
             <div
-              class="post-image-container container-fluid col-12 col-md-6 order-1 p-0"
+              class="post-image-container container-fluid col-12 col-lg-6 order-1 p-0"
             >
               <img
                 class="post-image w-100 h-100"
@@ -233,15 +367,23 @@
             </div>
 
             <div
-              class="col-12 col-md-6 d-flex flex-column justify-content-center order-2 container-fluid"
+              class="col-12 col-lg-6 d-flex flex-column justify-content-center justify-content-lg-start order-2 container-fluid position-relative"
             >
+              <!--Button to update post-->
+              <button
+                class="post-options-btn btn btn-sm position-absolute top-0 end-0 m-3 d-none"
+                type="button"
+                id="postOptionsBtn"
+              >
+                <i class="fas fa-ellipsis-v fa-2x"></i>
+              </button>
               <div
-                class="container p-md-5 pb-5 d-flex flex-column align-items-center align-items-md-start"
+                class="container gap-5 gap-lg-0 p-lg-5 pb-5 d-flex flex-column align-items-center align-items-lg-start"
               >
                 <div
-                  class="posting-user-details d-flex align-items-center border-bottom w-100 pb-3 mt-4 justify-content-center justify-content-md-start"
+                  class="posting-user-details d-flex align-items-center border-bottom w-100 pb-3 mt-4 flex-column flex-lg-row"
                 >
-                  <div>
+                  <div class="pb-4 pb-lg-0">
                     <!--Js injection post profile image-->
                     <img
                       src="/images/profileImage.jpg"
@@ -249,7 +391,7 @@
                       alt="Profile image"
                     />
                   </div>
-                  <div class="d-flex flex-column text-md-truncate flex-wrap">
+                  <div class="d-flex flex-column text-lg-truncate flex-wrap">
                     <p class="fw-light mb-2">
                       Posted by
                       <!--Js injection profile name-->
@@ -272,9 +414,9 @@
                     </p>
                   </div>
                 </div>
-                <div class="text-section">
+                <div class="text-section container text-break">
                   <!--Js injection post Title-->
-                  <h1 class="post-title pt-3"></h1>
+                  <h1 class="post-title pt-0 pt-lg-3"></h1>
                   <!--Js injection post body text-->
                   <p class="post-body fw-light"></p>
                 </div>
@@ -287,32 +429,42 @@
                       placeholder="Leave a comment..."
                       aria-placeholder="Leave a comment"
                     ></textarea>
-                    <div class="justify-content-end d-flex gap-3 pt-3">
+                    <div
+                      class="justify-content-center justify-content-sm-end d-flex gap-3 pt-3"
+                    >
                       <button
-                        class="like-button rounded px-4 pe-4 pt-1 pb-1 bg-transparent border d-flex gap-2 align-items-center text-dark"
+                        class="like-button rounded px-3 pe-3 pt-1 pb-1 bg-transparent border d-flex gap-2 align-items-center text-dark"
                         type="submit"
                       >
                         <i class="fa-regular fa-heart"></i>Like
                       </button>
                       <button
                         id="sendComment"
-                        class="send-comment bg-primary rounded px-4 pe-4 pt-1 pb-1 text-dark"
+                        class="send-comment bg-primary rounded px-3 pe-3 pt-1 pb-1 text-dark"
                         type="submit"
                       >
                         Send
                       </button>
                     </div>
+                    <p
+                      id="reactionCommentError"
+                      class="text-danger ms-sm-auto text-center pt-2 d-none"
+                    ></p>
                   </form>
                 </div>
               </div>
             </div>
           </div>
         </section>
-
+        <!-- Error Message Container -->
+        <p class="loadPostData-error text-center text-danger"></p>
         <!--- Section 2: Comments section --->
-        <section class="container-fluid d-flex justify-content-center pt-5">
+        <section
+          class="container-fluid d-flex justify-content-center pt-5 pb-5 mt-3 flex-column"
+        >
+          <h2 class="align-self-center mb-3">Comments</h2>
           <div
-            class="comments-container background-grey w-100 p-3 p-sm-5 d-flex flex-column gap-3 mb-5"
+            class="comments-container container background-grey w-100 p-3 p-sm-5 d-flex flex-column mb-3"
           >
             <!--Comment is injected wit forEach JS -->
           </div>

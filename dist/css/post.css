@@ -2,6 +2,10 @@ section {
   max-width: 85%;
 }
 
+.post-image {
+  min-height: 300px;
+}
+
 .profile-name,
 .post-profile-image {
   cursor: pointer;
@@ -24,11 +28,6 @@ section {
   width: 80px;
 }
 
-.post-image {
-  object-fit: contain;
-  max-height: 612px;
-}
-
 .post-title {
   font-size: 20px;
 }
@@ -43,15 +42,12 @@ section {
   width: 50px;
 }
 
-@media (max-width: 767px) {
-  .post-profile-image {
-    height: 45px;
-    width: 45px;
-  }
-}
-@media (min-width: 767px) {
+@media (min-width: 991px) {
   .inner-div-for-section-1 {
     min-width: 750px;
+  }
+  .post-image {
+    min-width: 400px;
   }
 }
 

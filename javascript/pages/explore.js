@@ -4,6 +4,10 @@ import { checkAuthAndRedirect } from "../modules/auth.js";
 checkAuthAndRedirect();
 //-- Api for fetch all posts--> api.js
 import { fetchAllPosts } from "../modules/api.js";
+//-- Api for fetch all profiels for search --> api.js
+import { fetchProfilesSearch } from "../modules/api.js";
+//-- Api for fetch all posts for search --> api.js
+import { fetchPostsSearch } from "../modules/api.js";
 //-- Trim the text for overlay text title and body text for post --> utility.js --//
 import { trimText } from "../modules/utility.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
@@ -37,6 +41,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       globalFilter.sortOption = sortOption;
       fetchAndDisplayPosts(globalFilter.continentTag, globalFilter.sortOption);
     });
+  // Search button event listner
+  document
+    .getElementById("searchForm")
+    .addEventListener("submit", async (event) => {
+      event.preventDefault(); // Prevent form submission
+      handleSearch();
+    });
 });
 
 //-- Function to sort posts --//
@@ -64,10 +75,127 @@ async function fetchAndDisplayPosts(continentTag = "", sortOption = "") {
     console.error("Failed to fetch posts:", error);
   }
 }
+//-- For Searchbar --//
+
+// Initiates a search based on user input, fetching matching profiles and posts
+async function handleSearch() {
+  const query = document.getElementById("searchInput").value.trim();
+  if (!query) return;
+
+  try {
+    const profiles = await fetchProfilesSearch(query);
+    const posts = await fetchPostsSearch(query);
+    displaySearchResults(profiles, posts);
+  } catch (error) {
+    console.error("Error during search:", error);
+  }
+}
+
+// Utility function to create list items for search results
+function createSearchListItem({
+  imageUrl,
+  imageAlt,
+  primaryText,
+  secondaryText,
+  onClick,
+  isProfile = false,
+}) {
+  const listItem = document.createElement("li");
+  listItem.className =
+    "py-2 d-flex align-items-center cursor-pointer search-item list-group-item";
+
+  const image = document.createElement("img");
+  image.src = imageUrl;
+  image.alt = imageAlt;
+  image.className = isProfile
+    ? "rounded-circle search-image me-2"
+    : "rounded search-image me-2";
+
+  const contentDiv = document.createElement("div");
+  const primaryContent = document.createElement("strong");
+  primaryContent.textContent = primaryText;
+
+  const secondaryContent = document.createElement("p");
+  secondaryContent.className = "text-muted mb-0";
+  secondaryContent.textContent = secondaryText;
+
+  contentDiv.appendChild(primaryContent);
+  if (secondaryText) {
+    contentDiv.appendChild(secondaryContent);
+  }
+  listItem.appendChild(image);
+  listItem.appendChild(contentDiv);
+  listItem.addEventListener("click", onClick);
+
+  return listItem;
+}
+// Function to display search results
+function displaySearchResults(profiles, posts) {
+  const profilesContainer = document.getElementById("profiles");
+  const postsContainer = document.getElementById("posts");
+  profilesContainer.innerHTML = "";
+  postsContainer.innerHTML = "";
+
+  // Create and append profiles list
+  const profilesList = document.createElement("ul");
+  profilesList.className = "list-group";
+  if (profiles.length === 0) {
+    const noProfilesMsg = document.createElement("li");
+    noProfilesMsg.className = "list-group-item";
+    noProfilesMsg.textContent = "No profiles found";
+    profilesList.appendChild(noProfilesMsg);
+  } else {
+    profiles.forEach((profile) => {
+      const listItem = createSearchListItem({
+        imageUrl: profile.avatar?.url || "/images/profileImage.jpg",
+        imageAlt: profile.avatar?.alt || "Profile avatar",
+        primaryText: profile.name,
+        onClick: () =>
+          (window.location.href = `profile.html?username=${encodeURIComponent(
+            profile.name
+          )}`),
+        isProfile: true,
+      });
+      profilesList.appendChild(listItem);
+    });
+  }
+
+  // Create and append posts list
+  const postsList = document.createElement("ul");
+  postsList.className = "list-group";
+  if (posts.length === 0) {
+    const noPostsMsg = document.createElement("li");
+    noPostsMsg.className = "list-group-item";
+    noPostsMsg.textContent = "No posts found";
+    postsList.appendChild(noPostsMsg);
+  } else {
+    posts.forEach((post) => {
+      const listItem = createSearchListItem({
+        imageUrl: post.media?.url || "/images/no-image.png",
+        imageAlt: post.media?.alt || "Post image",
+        primaryText: post.title,
+        secondaryText: `- By: ${
+          post.author && post.author.name ? post.author.name : "Unknown"
+        }`,
+        onClick: () =>
+          (window.location.href = `post.html?id=${encodeURIComponent(post.id)}`),
+      });
+      postsList.appendChild(listItem);
+    });
+  }
+
+  profilesContainer.appendChild(profilesList);
+  postsContainer.appendChild(postsList);
+
+  // Show the search results modal
+  const searchModal = new bootstrap.Modal(
+    document.getElementById("searchResultsModal")
+  );
+  searchModal.show();
+}
 
 //-- Render the posts: Create and add post elements including Post image, username, useravatar, comments, and reactions to the post  --//
 function displayPosts(posts) {
-  console.log(posts)
   const postContainer = document.querySelector("#allPosts");
   postContainer.innerHTML = "";
 
@@ -95,7 +223,7 @@ function displayPosts(posts) {
                   <p class="fs-5 fw-bolder">${trimmedTitle}</p>
                   <p>${trimmedBody}</p>
                   <p class="fw-bold">Read more</p>
-              </div>
+              </div> 
           </div>
               </div>
               <div class="card-body">
