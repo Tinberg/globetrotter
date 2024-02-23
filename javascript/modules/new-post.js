@@ -13,19 +13,10 @@ document
     const altText = document.getElementById("altText").value;
     const errorFeedback = document.getElementById("postErrorFeedback");
 
-    // Check if "All" is selected, and if so, set tags as an empty array
+    // Check if "Not Specified" is selected, and if so, set tags as an empty array(no tag)
     const selectedContinent = document.getElementById("continentSelect").value;
-    const tags = selectedContinent !== "Not Specified" ? [selectedContinent] : [];
-
-    if (title.length > 280) {
-      alert("The title cannot be greater than 280 characters.");
-      return;
-    }
-
-    if (body.length > 280) {
-      alert("The post caption cannot be greater than 280 characters.");
-      return;
-    }
+    const tags =
+      selectedContinent !== "Not Specified" ? [selectedContinent] : [];
 
     try {
       const postData = {
@@ -43,7 +34,7 @@ document
     } catch (error) {
       console.error("Failed to create post:", error);
       errorFeedback.textContent =
-        "Failed to create post. Please ensure your image URL is valid, starts with http or https, and that your title and caption do not exceed 280 characters. Please try again.";
+        "Failed to create post. Please ensure a valid title is provided. If including an image, ensure the URL starts with 'http://' or 'https://'. Captions, if added, must be under 280 characters. Please try again.";
       errorFeedback.style.display = "block";
     }
   });

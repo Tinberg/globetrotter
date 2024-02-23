@@ -25,8 +25,14 @@ export { fetchAllPosts };
 export { fetchPostsFromFollowing };
 //-- For fetching a single post with comments reactions and author info --> post.js
 export { fetchSinglePost };
+//-- For fetching to edit a post --> post.js
+export { updatePost };
+//-- For fetching to delete a post --> post.js
+export { deletePost };
 //-- For fetch comment --> post.js
 export { postComment };
+//-- For delete comment --> post.js
+export { deleteComment};
 //-- For fetch reaction -->post.js
 export { reactToPost };
 //-- For follow a user by their username --> profile.js
@@ -38,10 +44,10 @@ export { fetchProfilesSearch };
 //-- For fetch all posts search --> explore.js
 export { fetchPostsSearch };
 
+//---------- Utility ----------//
 //-- This is the Base URL --//
 const API_BASE_URL = "https://v2.api.noroff.dev";
 
-//-- Utility --//
 // Headers and content-type for "Get", "Post", "Put", and "Delete" requests getHeaders(false) will exclude the ContentType
 function getHeaders(includeContentType = true) {
   const headers = {
@@ -56,7 +62,7 @@ function getHeaders(includeContentType = true) {
   return headers;
 }
 
-//-- API Calls --//
+//---------- API Calls ----------//
 /**
  * register user profile
  * @param {Object} userData
@@ -153,13 +159,13 @@ async function updateProfileMedia(
 
   if (bannerUrl !== undefined || isResetBanner) {
     bodyData.banner = isResetBanner
-      ? { url: placeholderUrl, alt: "Default Banner" }
+      ? { url: placeholderUrl, alt: "A blurry multi-colored rainbow background" }
       : { url: bannerUrl, alt: "Personal Banner" };
   }
 
   if (avatarUrl !== undefined || isResetAvatar) {
     bodyData.avatar = isResetAvatar
-      ? { url: placeholderUrl, alt: "Default Avatar" }
+      ? { url: placeholderUrl, alt: "A blurry multi-colored rainbow background" }
       : { url: avatarUrl, alt: "Personal Avatar" };
   }
 
@@ -251,6 +257,42 @@ async function fetchSinglePost(postId) {
   return result.data;
 }
 /**
+ * Updates an existing post.
+ * @param {number|string} postId
+ * @param {Object} updateData
+ * @returns {Promise}
+ */
+async function updatePost(postId, updateData) {
+  const response = await fetch(`${API_BASE_URL}/social/posts/${postId}`, {
+    method: "PUT",
+    headers: getHeaders(),
+    body: JSON.stringify(updateData),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(`Failed to update post: ${errorData.message}`);
+  }
+
+  const result = await response.json();
+  return result.data;
+}
+/**
+ * Deletes a post based on its ID.
+ * @param {number|string} postId
+ * @returns {Promise} the return promis is voide
+ */
+async function deletePost(postId) {
+  const response = await fetch(`${API_BASE_URL}/social/posts/${postId}`, {
+    method: "DELETE",
+    headers: getHeaders(false),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete the post");
+  }
+}
+/**
  * Posts a comment on a specific post.
  * @param {number|string} postId
  * @param {string} body
@@ -278,13 +320,33 @@ async function postComment(postId, body, replyToId = null) {
   return await response.json();
 }
 /**
+ * Deletes a comment from a post.
+ * @param {number|string} postId 
+ * @param {number|string} commentId 
+ * @returns {Promise}
+ */
+async function deleteComment(postId, commentId) {
+  const response = await fetch(`${API_BASE_URL}/social/posts/${postId}/comment/${commentId}`, {
+    method: "DELETE",
+    headers: getHeaders(false),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(`Failed to delete comment: ${errorData.message}`);
+  }
+
+}
+/**
  * React to a post
  * @param {number|string} postId
  * @param {string} symbol
  */
 async function reactToPost(postId, symbol) {
   const response = await fetch(
-    `${API_BASE_URL}/social/posts/${postId}/react/${encodeURIComponent(symbol)}`,
+    `${API_BASE_URL}/social/posts/${postId}/react/${encodeURIComponent(
+      symbol
+    )}`,
     {
       method: "PUT",
       headers: getHeaders(false),
@@ -294,7 +356,7 @@ async function reactToPost(postId, symbol) {
     const errorData = await response.json();
     throw new Error(`Failed to react to post: ${errorData.message}`);
   }
-  return await response.json(); 
+  return await response.json();
 }
 
 /**
@@ -335,13 +397,16 @@ async function unfollowUser(username) {
 }
 /**
  * Searches for profiles based on a query.
- * @param {string} query - The search query for profiles.
- * @returns {Promise<Array>} - A promise that resolves with the search results.
+ * @param {string} query
+ * @returns {Promise}
  */
 async function fetchProfilesSearch(query) {
-  const response = await fetch(`${API_BASE_URL}/social/profiles/search?q=${encodeURIComponent(query)}`, {
-    headers: getHeaders(),
-  });
+  const response = await fetch(
+    `${API_BASE_URL}/social/profiles/search?q=${encodeURIComponent(query)}`,
+    {
+      headers: getHeaders(),
+    }
+  );
   if (!response.ok) {
     throw new Error("Failed to search profiles");
   }
@@ -350,17 +415,21 @@ async function fetchProfilesSearch(query) {
 }
 /**
  * Searches for posts based on a query.
- * @param {string} query - The search query for posts.
- * @returns {Promise<Array>} - A promise that resolves with the search results.
+ * @param {string} query
+ * @returns {Promise}
  */
 async function fetchPostsSearch(query) {
-  const response = await fetch(`${API_BASE_URL}/social/posts/search?q=${encodeURIComponent(query)}`, {
-    headers: getHeaders(),
-  });
+  const response = await fetch(
+    `${API_BASE_URL}/social/posts/search?q=${encodeURIComponent(
+      query
+    )}&_author=true`,
+    {
+      headers: getHeaders(),
+    }
+  );
   if (!response.ok) {
     throw new Error("Failed to search posts");
   }
   const result = await response.json();
   return result.data;
 }
-
