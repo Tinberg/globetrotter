@@ -23,3 +23,4 @@ Alexandra:
  
 
 
+delete comment work if its the user, but not if the user has send the comment
