@@ -1,15 +1,17 @@
 # globetrotter
 Javascript2 Kopstad and Tinberg
 
---Om vi vil ha bare egene poster bytt value på explore på i filter aside og alle andre sider der man lager post til value "Not Specefied" og fiks funskjonen på new-post.js--
+Comments when deliver: 
+- error 404 when deployd to netlify bcs of node_modules is not present. Change the bootstrap css with CDN and remove bootstrap in nodemodules for better preformance!
 
-- write line where the code for export is! 
-- icon på comment?
+
+
 - dato på post 
-- se andre som har likt posten inne på post.html
 - modal på post.html bilde
 
 - error messages finsihed: post.js
+
+
 
 
 
@@ -23,4 +25,3 @@ Alexandra:
 - HTML på alle sider med meta description.
 - 
 
- flytt logout kode og direct fra my-profile.js(på bunn) til en en ny js fil i pages med navn navbar.js og legg til new-post.js kode til navbar.js. slett new-post
