@@ -1,6 +1,7 @@
 //------ Import --------/
 import { createPost } from "../modules/api.js";
 
+//------------------------- New post -------------------------//
 // --Handle the submission for the new post form --//
 document
   .getElementById("newPostForm")
@@ -72,3 +73,20 @@ function updateTitleFeedback() {
 document
   .getElementById("postTitle")
   .addEventListener("input", updateTitleFeedback);
+
+
+  //------------------------- My Profile -------------------------//
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Go to Profile
+    document.querySelector('.profile-option').addEventListener('click', function() {
+      window.location.href = '/html/my-profile.html'; 
+    });
+  
+    // Log Out
+    document.querySelector('.logout-option').addEventListener('click', function() {
+      localStorage.removeItem('userName'); 
+      localStorage.removeItem('accessToken'); 
+      window.location.href = '../index.html'; 
+    });
+  });

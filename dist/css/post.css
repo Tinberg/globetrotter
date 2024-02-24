@@ -11,14 +11,6 @@ section {
   cursor: pointer;
 }
 
-.profile-name:hover {
-  color: #ffa88f;
-}
-
-.post-profile-image:hover {
-  border: 2px solid #ffa88f;
-}
-
 .background-grey {
   background-color: #f8f9fa;
 }
