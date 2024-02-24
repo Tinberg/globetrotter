@@ -4,12 +4,12 @@ Javascript2 Kopstad and Tinberg
 --Om vi vil ha bare egene poster bytt value på explore på i filter aside og alle andre sider der man lager post til value "Not Specefied" og fiks funskjonen på new-post.js--
 
 - write line where the code for export is! 
-- can click user in comments to get to the user
+- icon på comment?
 - dato på post 
-- icon på comment
 - se andre som har likt posten inne på post.html
-- error messages finsihed: post.js
+- modal på post.html bilde
 
+- error messages finsihed: post.js
 
 
 
@@ -23,7 +23,4 @@ Alexandra:
 - HTML på alle sider med meta description.
 - 
 
- 
-
-
-delete comment work if its the user, but not if the user has send the comment
+ flytt logout kode og direct fra my-profile.js(på bunn) til en en ny js fil i pages med navn navbar.js og legg til new-post.js kode til navbar.js. slett new-post

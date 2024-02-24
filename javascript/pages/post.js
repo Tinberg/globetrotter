@@ -124,27 +124,35 @@ function displayComments(comments, isPostAuthor, postId) {
         : "";
         //display comment and deleteButtonHtml if its the users post or comment
       const commentHtml = `
-                <div class="container border bg-white my-3 position-relative">
-                    ${deleteButtonHtml}
-                    <div class="posting-user-details gap-3 d-flex flex-column flex-wrap px-4 pb-4 pt-4 justify-content-sm-start">
-                        <div class="d-flex align-items-center gap-2">
-                            <img src="${comment.author.avatar.url}" alt="${comment.author.avatar.alt}" class="comments-img rounded-circle">
-                            <p class="fw-medium mb-0">${comment.author.name}</p>
-                        </div>
-                        <div class="d-flex flex-column text-md-0 comment">
-                            <p class="fw-light">${comment.body}</p>
-                        </div>
-                    </div>
+        <div class="container border bg-white my-3 position-relative comment-item" data-username="${comment.author.name}">
+            ${deleteButtonHtml}
+            <div class="posting-user-details gap-3 d-flex flex-column flex-wrap px-4 pb-4 pt-4 justify-content-sm-start">
+                <div class="d-flex align-items-center gap-2">
+                    <img src="${comment.author.avatar.url}" alt="${comment.author.avatar.alt}" class="comments-img rounded-circle user-avatar post-profile-image">
+                    <p class="fw-medium mb-0 user-name profile-name">${comment.author.name}</p>
                 </div>
-            `;
+                <div class="d-flex flex-column text-md-0 comment">
+                    <p class="fw-light">${comment.body}</p>
+                </div>
+            </div>
+        </div>
+      `;
+
       commentsContainer.innerHTML += commentHtml;
     });
+
+    // Click listeners to username and avatar image 
+    commentsContainer.querySelectorAll('.comment-item').forEach(item => {
+      const username = item.getAttribute('data-username');
+      
+      item.querySelector('.user-name').addEventListener('click', () => navigateToUserProfile(username));
+      item.querySelector('.user-avatar').addEventListener('click', () => navigateToUserProfile(username));
+    });
   } else {
-    commentsContainer.innerHTML =
-      '<p class="text-center">Be the first to leave a comment!</p>';
+    commentsContainer.innerHTML = '<p class="text-center">Be the first to leave a comment!</p>';
   }
 
-  // Calls the attachDeleteCommentListners to attach delete functionality to comment buttons after comments are displayed
+  // Calls the attachDeleteCommentListeners to attach delete functionality to comment buttons after comments are displayed
   attachDeleteCommentListeners(postId);
 }
 //------------------------- Delete comment function with postId and commentId to check if its the users post or comment ------------------------- //

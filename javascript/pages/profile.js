@@ -172,7 +172,7 @@ function displayFollowers(profile) {
 
   profile.followers.forEach((follower) => {
     const listItem = document.createElement("li");
-    listItem.className = "list-group-item follow-container cursor-pointer";
+    listItem.className = "list-group-item hover-background cursor-pointer";
     listItem.innerHTML = `
       <div class="d-flex align-items-center my-2">
         <img src="${follower.avatar.url}" alt="${follower.avatar.alt}" class="small-profile-image rounded-circle me-2">
@@ -193,7 +193,7 @@ function displayFollowing(profile) {
 
   profile.following.forEach((following) => {
     const listItem = document.createElement("li");
-    listItem.className = "list-group-item follow-container cursor-pointer";
+    listItem.className = "list-group-item hover-background cursor-pointer";
     listItem.innerHTML = `
       <div class="d-flex align-items-center my-2">
         <img src="${following.avatar.url}" alt="${following.avatar.alt}" class="small-profile-image rounded-circle me-2">
