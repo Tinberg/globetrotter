@@ -74,19 +74,25 @@ document
   .getElementById("postTitle")
   .addEventListener("input", updateTitleFeedback);
 
-
-  //------------------------- My Profile -------------------------//
-
-  document.addEventListener('DOMContentLoaded', function() {
-    // Go to Profile
-    document.querySelector('.profile-option').addEventListener('click', function() {
-      window.location.href = '/html/my-profile.html'; 
+//------------------------- My Profile -------------------------//
+//Click event listeners from modal
+document.addEventListener("DOMContentLoaded", function () {
+  // Go to Profile
+  document
+    .querySelector(".profile-option")
+    .addEventListener("click", function () {
+      window.location.href = "/html/my-profile.html";
     });
-  
-    // Log Out
-    document.querySelector('.logout-option').addEventListener('click', function() {
-      localStorage.removeItem('userName'); 
-      localStorage.removeItem('accessToken'); 
-      window.location.href = '../index.html'; 
+
+  // Log Out
+  document
+    .querySelector(".logout-option")
+    .addEventListener("click", function () {
+      const isConfirmed = confirm("Are you sure you want to log out?");
+      if (isConfirmed) {
+        localStorage.removeItem("userName");
+        localStorage.removeItem("accessToken");
+        window.location.href = "../index.html";
+      }
     });
-  });
+});
