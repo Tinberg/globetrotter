@@ -8,39 +8,41 @@ import { apiKey } from "./auth.js";
 //------ Export --------/
 
 //-- For fetch register user --> register.js
-export { registerUser };
+export { registerUser }; //------------------------------------------------------------------- Line: 67
 //-- For fetch login user --> index.js
-export { loginUser };
+export { loginUser }; //---------------------------------------------------------------------- Line: 83
 //-- For fetch spesific user info --> my-profile.js
-export { fetchUserProfile };
+export { fetchUserProfile }; //--------------------------------------------------------------- Line: 105
 //-- For fetch posts by spesific user --> my-profile.js and profile.js
-export { fetchPostsByUserName };
+export { fetchPostsByUserName }; //----------------------------------------------------------- Line: 123
 //-- For fetch edit profile media --> my-profile.js
-export { updateProfileMedia };
+export { updateProfileMedia }; //------------------------------------------------------------- Line: 141
 //-- For fetch create post --> new-post.js
-export { createPost };
+export { createPost }; //--------------------------------------------------------------------- Line: 192
 //-- For fetch all posts --> explore.js
-export { fetchAllPosts };
+export { fetchAllPosts }; //------------------------------------------------------------------ Line: 210
 //-- For fetching all post that the user is following --> home.js
-export { fetchPostsFromFollowing };
+export { fetchPostsFromFollowing }; //-------------------------------------------------------- Line: 231
 //-- For fetching a single post with comments reactions and author info --> post.js
-export { fetchSinglePost };
+export { fetchSinglePost }; //---------------------------------------------------------------- Line: 248
 //-- For fetching to edit a post --> post.js
-export { updatePost };
+export { updatePost }; //--------------------------------------------------------------------- Line: 266
 //-- For fetching to delete a post --> post.js
-export { deletePost };
+export { deletePost }; //--------------------------------------------------------------------- Line: 287
 //-- For fetch comment --> post.js
-export { postComment };
+export { postComment }; //-------------------------------------------------------------------- Line: 302
+//-- For delete comment --> post.js
+export { deleteComment }; //------------------------------------------------------------------ Line: 329
 //-- For fetch reaction -->post.js
-export { reactToPost };
+export { reactToPost }; //-------------------------------------------------------------------- Line: 349
 //-- For follow a user by their username --> profile.js
-export { followUser };
+export { followUser }; //--------------------------------------------------------------------- Line: 370
 //-- For unfollow a user by their username --> profile.js
-export { unfollowUser };
+export { unfollowUser }; //------------------------------------------------------------------- Line: 388
 //-- For fetch all profiles search --> explore.js
-export { fetchProfilesSearch };
+export { fetchProfilesSearch }; //------------------------------------------------------------ Line: 406
 //-- For fetch all posts search --> explore.js
-export { fetchPostsSearch };
+export { fetchPostsSearch }; //--------------------------------------------------------------- Line: 424
 
 //---------- Utility ----------//
 //-- This is the Base URL --//
@@ -136,7 +138,7 @@ async function fetchPostsByUserName(userName) {
   return result.data;
 }
 /**
- *  Edit profile media
+ *  update profile media
  * @param {string} userName -  The username of the profile to update.
  * @param {string|undefined} bannerUrl
  * @param {string|undefined} avatarUrl
@@ -157,13 +159,19 @@ async function updateProfileMedia(
 
   if (bannerUrl !== undefined || isResetBanner) {
     bodyData.banner = isResetBanner
-      ? { url: placeholderUrl, alt: "A blurry multi-colored rainbow background" }
+      ? {
+          url: placeholderUrl,
+          alt: "A blurry multi-colored rainbow background",
+        }
       : { url: bannerUrl, alt: "Personal Banner" };
   }
 
   if (avatarUrl !== undefined || isResetAvatar) {
     bodyData.avatar = isResetAvatar
-      ? { url: placeholderUrl, alt: "A blurry multi-colored rainbow background" }
+      ? {
+          url: placeholderUrl,
+          alt: "A blurry multi-colored rainbow background",
+        }
       : { url: avatarUrl, alt: "Personal Avatar" };
   }
 
@@ -318,6 +326,26 @@ async function postComment(postId, body, replyToId = null) {
   return await response.json();
 }
 /**
+ * Deletes a comment from a post.
+ * @param {number|string} postId
+ * @param {number|string} commentId
+ * @returns {Promise}
+ */
+async function deleteComment(postId, commentId) {
+  const response = await fetch(
+    `${API_BASE_URL}/social/posts/${postId}/comment/${commentId}`,
+    {
+      method: "DELETE",
+      headers: getHeaders(false),
+    }
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(`Failed to delete comment: ${errorData.message}`);
+  }
+}
+/**
  * React to a post
  * @param {number|string} postId
  * @param {string} symbol
@@ -338,7 +366,6 @@ async function reactToPost(postId, symbol) {
   }
   return await response.json();
 }
-
 /**
  * Follow a user profile
  * @param {string} username

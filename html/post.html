@@ -15,7 +15,7 @@
     />
     <link rel="stylesheet" href="/dist/css/global.css" />
     <link rel="stylesheet" href="/dist/css/post.css" />
-    <script type="module" src="/javascript/modules/new-post.js"></script>
+    <script type="module" src="/javascript/pages/navbar.js"></script>
     <script type="module" src="/javascript/pages/post.js"></script>
     <!--Script for bootstrap JS-->
     <script
@@ -137,6 +137,55 @@
                 </button>
                 <p id="postErrorFeedback" class="text-danger my-3"></p>
               </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- User Options Modal -->
+      <div
+        class="modal fade"
+        id="userOptionsModal"
+        tabindex="-1"
+        aria-labelledby="userOptionsModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <p class="modal-title fs-5 fw-bolder" id="userOptionsModalLabel">
+                User Options
+              </p>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body text-center fw-bolder">
+              <ul class="list-group">
+                <li
+                  class="list-group-item hover-background profile-option cursor-pointer"
+                >
+                  <span> <i class="fa-solid fa-user"></i> Go to Profile </span>
+                </li>
+                <li
+                  class="list-group-item hover-background logout-option cursor-pointer"
+                >
+                  <span>
+                    <i class="fa-solid fa-right-from-bracket"></i> Log Out
+                  </span>
+                </li>
+              </ul>
             </div>
             <div class="modal-footer">
               <button
@@ -337,8 +386,11 @@
                 <li class="nav-item mx-3 my-md-0 my-2 text-center me-md-4">
                   <a
                     class="nav-link active text-white d-flex flex-column align-items-center"
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#userOptionsModal"
                     aria-current="page"
-                    href="/html/my-profile.html"
+                    href="#"
                     ><i class="fa-solid fa-user"></i><span>My Profile</span></a
                   >
                 </li>
@@ -433,27 +485,31 @@
                       class="justify-content-center justify-content-sm-end d-flex gap-3 pt-3"
                     >
                       <button
-                        class="like-button rounded px-3 pe-3 pt-1 pb-1 bg-transparent border d-flex gap-2 align-items-center text-dark"
+                        class="btn like-button rounded px-3 pe-3 pt-1 pb-1 border d-flex gap-2 align-items-center text-dark"
                         type="submit"
                       >
                         <i class="fa-regular fa-heart"></i>Like
                       </button>
                       <button
                         id="sendComment"
-                        class="send-comment bg-primary rounded px-3 pe-3 pt-1 pb-1 text-dark"
+                        class="btn send-comment btn-primary rounded px-3 pe-3 pt-1 pb-1 text-dark"
                         type="submit"
                       >
                         Send
                       </button>
                     </div>
-                    <p id="reactionCommentError" class="text-danger ms-sm-auto text-center pt-2 d-none"></p>
+                    <p
+                      id="reactionCommentError"
+                      class="text-danger ms-sm-auto text-center pt-2 d-none"
+                    ></p>
                   </form>
                 </div>
               </div>
             </div>
           </div>
         </section>
-
+        <!-- Error Message Container -->
+        <p class="loadPostData-error text-center text-danger"></p>
         <!--- Section 2: Comments section --->
         <section
           class="container-fluid d-flex justify-content-center pt-5 pb-5 mt-3 flex-column"

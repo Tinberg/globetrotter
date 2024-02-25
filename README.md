@@ -1,9 +1,16 @@
 # globetrotter
 Javascript2 Kopstad and Tinberg
 
---Om vi vil ha bare egene poster bytt value på explore på i filter aside og alle andre sider der man lager post til value "Not Specefied" og fiks funskjonen på new-post.js--
+Comments when deliver: 
+- error 404 when deployd to netlify bcs of node_modules is not present. Change the bootstrap css with CDN and remove bootstrap in nodemodules for better preformance!
 
-- write line where the code for export is! 
+
+
+- dato på post 
+- modal på post.html bilde
+
+- error messages finsihed: post.js
+
 
 
 
@@ -17,7 +24,4 @@ Alexandra:
 - post.html title body og comments blir veldig nærme den grå backgrunnen. vurder å sett mindre margin på "user-post-section" på små skjerm (bare litt mindre)
 - HTML på alle sider med meta description.
 - 
-
- 
-
 

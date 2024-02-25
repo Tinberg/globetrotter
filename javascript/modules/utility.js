@@ -6,6 +6,8 @@ export { formatCount, formatWithSuffix };
 export { trimText };
 //-- For redirect to right profile page --> post.js and profile.js
 export { navigateToUserProfile };
+//-- For removing error message and element after a duration --> all pages
+export { clearElementAfterDuration };
 
 //------ Format number function for comments and reactions to fit the layout --------/
 
@@ -75,4 +77,18 @@ function navigateToUserProfile(userName) {
       ? "my-profile.html"
       : `profile.html?username=${encodeURIComponent(userName)}`;
   window.location.href = profileUrl;
+}
+
+/**
+ * Clears the text content of the given element after a specified duration.
+ * 
+ * @param {HTMLElement} element The element whose content will be cleared.
+ * @param {number} duration The duration in milliseconds after which the content will be cleared.
+ */
+function clearElementAfterDuration(element, duration = 7000) {
+  setTimeout(() => {
+    if (element && element.remove) {
+      element.remove(); 
+    }
+  }, duration);
 }
