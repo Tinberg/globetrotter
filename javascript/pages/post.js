@@ -51,6 +51,7 @@ async function loadPostData() {
 document.addEventListener("DOMContentLoaded", loadPostData);
 
 //-------------------------Display-------------------------//
+
 //-- Renders detailed view of a post, including title, body, media, tags, author info, and initializes comment and reaction --//
 function displayPostDetails(postData, postId) {
   //displaying post title, body reactions count and comments count
@@ -68,6 +69,24 @@ function displayPostDetails(postData, postId) {
     postImageElement.src = postData.media.url;
     postImageElement.alt = postData.media.alt || "Post image";
     postImageElement.style.display = "";
+
+    // Add click event listener to the modal for image
+    postImageElement.addEventListener("click", function () {
+      const imageSrc = this.getAttribute("src");
+      const imageAlt = this.getAttribute("alt");
+      //Image with alt text
+      const modalImage = document.getElementById("modalImage");
+      modalImage.src = imageSrc;
+      modalImage.alt = this.alt;
+      //Display alt text over image
+      const modalImageAltText = document.getElementById("modalImageAltText");
+      modalImageAltText.textContent = imageAlt;
+
+      const imageModal = new bootstrap.Modal(
+        document.getElementById("imageModal")
+      );
+      imageModal.show();
+    });
   } else {
     postImageElement.src = "/images/no-image.png";
     postImageElement.alt = "Post image";
@@ -110,19 +129,19 @@ function displayPostDetails(postData, postId) {
 }
 
 //-------------------------  Function to Renders comments for a post, adding delete buttons for users that has made the post or the comment  ------------------------- //
+
 function displayComments(comments, isPostAuthor, postId) {
   const commentsContainer = document.querySelector(".comments-container");
   commentsContainer.innerHTML = "";
 
   if (comments && comments.length > 0) {
     comments.forEach((comment) => {
-      console.log(comment)
       // Check if its the users post, or the users comment and adds this to the comment if so
       const canDelete = isPostAuthor || currentUser === comment.author.name;
       const deleteButtonHtml = canDelete
         ? `<i class="fa-solid fa-trash-can delete-comment cursor-pointer position-absolute top-0 end-0 me-3 mt-3" data-comment-id="${comment.id}"></i>`
         : "";
-        //display comment and deleteButtonHtml if its the users post or comment
+      //display comment and deleteButtonHtml if its the users post or comment
       const commentHtml = `
         <div class="container border bg-white my-3 position-relative comment-item" data-username="${comment.author.name}">
             ${deleteButtonHtml}
@@ -141,41 +160,53 @@ function displayComments(comments, isPostAuthor, postId) {
       commentsContainer.innerHTML += commentHtml;
     });
 
-    // Click listeners to username and avatar image 
-    commentsContainer.querySelectorAll('.comment-item').forEach(item => {
-      const username = item.getAttribute('data-username');
-      
-      item.querySelector('.user-name').addEventListener('click', () => navigateToUserProfile(username));
-      item.querySelector('.user-avatar').addEventListener('click', () => navigateToUserProfile(username));
+    // Click listeners to username and avatar image
+    commentsContainer.querySelectorAll(".comment-item").forEach((item) => {
+      const username = item.getAttribute("data-username");
+
+      item
+        .querySelector(".user-name")
+        .addEventListener("click", () => navigateToUserProfile(username));
+      item
+        .querySelector(".user-avatar")
+        .addEventListener("click", () => navigateToUserProfile(username));
     });
   } else {
-    commentsContainer.innerHTML = '<p class="text-center">Be the first to leave a comment!</p>';
+    commentsContainer.innerHTML =
+      '<p class="text-center">Be the first to leave a comment!</p>';
   }
 
   // Calls the attachDeleteCommentListeners to attach delete functionality to comment buttons after comments are displayed
   attachDeleteCommentListeners(postId);
 }
+
 //------------------------- Delete comment function with postId and commentId to check if its the users post or comment ------------------------- //
+
 function attachDeleteCommentListeners(postId) {
   document.querySelectorAll(".delete-comment").forEach((button) => {
     button.addEventListener("click", function () {
       const commentId = this.getAttribute("data-comment-id");
-      const commentContainer = this.closest('.container'); 
-      const isConfirmed = confirm("Are you sure you want to delete this comment?");
+      const commentContainer = this.closest(".container");
+      const isConfirmed = confirm(
+        "Are you sure you want to delete this comment?"
+      );
       if (isConfirmed) {
         deleteComment(postId, commentId)
           .then(() => {
-            window.location.reload(); 
+            window.location.reload();
           })
           .catch((error) => {
             console.error("Error deleting comment:", error);
-            let errorDisplay = commentContainer.querySelector('.comment-delete-error');
+            let errorDisplay = commentContainer.querySelector(
+              ".comment-delete-error"
+            );
             if (!errorDisplay) {
-              errorDisplay = document.createElement('p');
-              errorDisplay.className = 'comment-delete-error text-danger';
-              commentContainer.append(errorDisplay); 
+              errorDisplay = document.createElement("p");
+              errorDisplay.className = "comment-delete-error text-danger";
+              commentContainer.append(errorDisplay);
             }
-            errorDisplay.textContent = "Failed to delete comment. Please try again. Note that if the comment is not yours but is on your post, the backend may not have been updated yet, and you may not have permission to delete it";
+            errorDisplay.textContent =
+              "Failed to delete comment. Please try again. Note that if the comment is not yours but is on your post, the backend may not have been updated yet, and you may not have permission to delete it";
             clearElementAfterDuration(errorDisplay, 10000);
           });
       }
@@ -183,8 +214,8 @@ function attachDeleteCommentListeners(postId) {
   });
 }
 
-
 //------------------------- Add Comment -------------------------//
+
 //Error p for reaction and comment
 const reactionCommentError = document.getElementById("reactionCommentError");
 
@@ -223,7 +254,9 @@ function attachCommentListener(postId) {
       }
     });
 }
+
 //------------------------- Add Reaction -------------------------//
+
 //--  This function is for Reaction on the post it takes the postId  --//
 function attachReactionListener(postId) {
   const likeButton = document.querySelector(".like-button");
@@ -244,7 +277,9 @@ function attachReactionListener(postId) {
     }
   });
 }
+
 //------------------------- Edit post -------------------------//
+
 //Target and eventlister click to edit post button, save post button, and delete post button. if and else statments will make the edit post only if its the users post
 //Called in loadPostData at the top
 function setupPostOptions(postData) {
@@ -323,7 +358,7 @@ function savePostChanges(postId) {
       const editErrorFeedback = document.getElementById("editErrorFeedback");
       editErrorFeedback.textContent =
         "Failed to edit post. Please ensure a valid title is provided. If including an image, ensure the URL starts with 'http://' or 'https://'. Captions, if added, must be under 280 characters. Please try again.";
-        clearElementAfterDuration(editErrorFeedback, 10000);
+      clearElementAfterDuration(editErrorFeedback, 10000);
     });
 }
 
@@ -341,7 +376,7 @@ function attemptDeletePost(postId) {
         );
         deleteErrorFeedback.textContent =
           "Failed to delete post. Please check your internet connection and try again";
-          clearElementAfterDuration(deleteErrorFeedback, 10000);
+        clearElementAfterDuration(deleteErrorFeedback, 10000);
       });
   }
 }

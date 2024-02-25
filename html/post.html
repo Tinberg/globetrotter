@@ -199,6 +199,43 @@
           </div>
         </div>
       </div>
+      <!-- Image Modal -->
+      <div
+        class="modal fade"
+        id="imageModal"
+        tabindex="-1"
+        aria-labelledby="imageModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <p class="modal-title fs-5 fw-bolder" id="imageModalLabel">
+                Image View
+              </p>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <p id="modalImageAltText" class="text-center fw-bolder"></p>
+              <img src="" id="modalImage" class="img-fluid" />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- Modal for editing a post -->
       <div
         class="modal fade"
@@ -412,7 +449,7 @@
               class="post-image-container container-fluid col-12 col-lg-6 order-1 p-0"
             >
               <img
-                class="post-image w-100 h-100"
+                class="post-image w-100 h-100 cursor-pointer"
                 src="/images/no-image.png"
                 alt=""
               />
