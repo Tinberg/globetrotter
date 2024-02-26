@@ -27,7 +27,6 @@ document
         media: mediaUrl ? { url: mediaUrl, alt: altText } : undefined,
       };
       const result = await createPost(postData);
-      console.log("Post created successfully:", result);
       document.getElementById("newPostForm").reset();
       updateCaptionFeedback();
       updateTitleFeedback();
