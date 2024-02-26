@@ -10782,4 +10782,9 @@ nav {
   background-color: #f5f5f5;
 }
 
+.nav-avatar {
+  width: 45px;
+  height: 45px;
+}
+
 /*# sourceMappingURL=global.css.map */

@@ -1,6 +1,8 @@
 //------ Import --------/
 import { createPost } from "../modules/api.js";
 
+import { fetchUserProfile } from "../modules/api.js";
+
 //------------------------- New post -------------------------//
 // --Handle the submission for the new post form --//
 document
@@ -74,8 +76,22 @@ document
   .addEventListener("input", updateTitleFeedback);
 
 //------------------------- My Profile -------------------------//
-//Click event listeners from modal
+
+// Display the user avatar or FontAwesome icon
 document.addEventListener("DOMContentLoaded", function () {
+  const userAvatarUrl = localStorage.getItem("userAvatar");
+  const avatarElement = document.getElementById("userAvatarImg");
+  const faUserIcon = document.getElementById("faUserIcon");
+
+  if (userAvatarUrl) {
+    avatarElement.src = userAvatarUrl;
+    avatarElement.style.display = "block";
+    faUserIcon.style.display = "none";
+  } else {
+    faUserIcon.style.display = "block";
+    avatarElement.style.display = "none";
+  }
+
   // Go to Profile
   document
     .querySelector(".profile-option")
@@ -91,7 +107,31 @@ document.addEventListener("DOMContentLoaded", function () {
       if (isConfirmed) {
         localStorage.removeItem("userName");
         localStorage.removeItem("accessToken");
+        localStorage.removeItem("userAvatar");
         window.location.href = "../index.html";
       }
     });
 });
+
+// //------------------------- My Profile -------------------------//
+// //Click event listeners from modal
+// document.addEventListener("DOMContentLoaded", function () {
+//   // Go to Profile
+//   document
+//     .querySelector(".profile-option")
+//     .addEventListener("click", function () {
+//       window.location.href = "/html/my-profile.html";
+//     });
+
+//   // Log Out
+//   document
+//     .querySelector(".logout-option")
+//     .addEventListener("click", function () {
+//       const isConfirmed = confirm("Are you sure you want to log out?");
+//       if (isConfirmed) {
+//         localStorage.removeItem("userName");
+//         localStorage.removeItem("accessToken");
+//         window.location.href = "../index.html";
+//       }
+//     });
+// });

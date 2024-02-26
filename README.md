@@ -7,7 +7,8 @@ Comments when deliver:
 
 
 - dato på post 
-- modal på post.html bilde
+- post.html content click will take user to the right filter
+- heart click will show the users that has reacted
 
 - error messages finsihed: post.js
 

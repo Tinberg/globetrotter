@@ -98,6 +98,9 @@ document.addEventListener("DOMContentLoaded", async () => {
           resetBanner,
           resetAvatar
         );
+        // Fetch the latest user profile and update the local storage with the new avatar URL.
+        const updatedProfile = await fetchUserProfile(userName);
+        localStorage.setItem("userAvatar", updatedProfile.avatar.url);
         window.location.reload();
       } catch (error) {
         console.error("Error updating profile media:", error);
@@ -218,4 +221,3 @@ function displayPosts(posts, profile) {
     postContainer.appendChild(postElement);
   });
 }
-

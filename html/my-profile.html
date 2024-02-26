@@ -420,7 +420,7 @@
               class="collapse navbar-collapse justify-content-end"
               id="navbarNavDropdown"
             >
-              <ul class="navbar-nav d-flex flex-md-row mt-md-1 mt-4">
+              <ul class="navbar-nav d-flex flex-md-row mt-md-1 mt-4 align-items-center">
                 <li class="nav-item mx-3 my-md-0 my-2 text-center">
                   <a
                     class="nav-link active text-white d-flex flex-column align-items-center"
@@ -446,16 +446,15 @@
                   >
                 </li>
                 <li class="nav-item mx-3 my-md-0 my-2 text-center me-md-4">
-                  <a
-                    class="nav-link active text-white d-flex flex-column align-items-center"
-                    href="#"
-                    data-bs-toggle="modal"
-                    data-bs-target="#userOptionsModal"
-                    aria-current="page"
-                    href="#"
-                    ><i class="fa-solid fa-user"></i><span>My Profile</span></a
-                  >
+                  <a class="nav-link active text-white d-flex flex-column align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#userOptionsModal" aria-current="page">
+                    <!-- New img element for the avatar with initial display set to none -->
+                    <img id="userAvatarImg" src="" alt="User Avatar" class="nav-avatar rounded-circle">
+                    <!-- Existing Font Awesome icon as a fallback -->
+                    <i class="fa-solid fa-user" id="faUserIcon"></i>
+                    
+                  </a>
                 </li>
+                
               </ul>
             </div>
           </div>
