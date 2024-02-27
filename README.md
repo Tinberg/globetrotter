@@ -5,9 +5,7 @@ Comments when deliver:
 - error 404 when deployd to netlify bcs of node_modules is not present. Change the bootstrap css with CDN and remove bootstrap in nodemodules for better preformance!
 
 
-
 - dato på post 
-- modal på post.html bilde
 
 - error messages finsihed: post.js
 
