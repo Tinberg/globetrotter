@@ -170,6 +170,7 @@ function displayPosts(posts, profile) {
 
     const postMediaUrl = post.media?.url || "/images/no-image.png";
     const postMediaAlt = post.media?.alt || "Post image";
+    const postDate = post.created || undefined;
     const reactionsFormatted = formatCount(post._count.reactions || 0);
     const commentsFormatted = formatCount(post._count.comments || 0);
 
@@ -189,7 +190,7 @@ function displayPosts(posts, profile) {
           </div>
           </div>
           <div class="card-body">
-              <div class="d-flex align-items-center mb-3 text-truncate">
+              <div class="d-flex align-items-center my-3 text-truncate">
                   <img src="${
                     profile.avatar.url || "/images/defaultProfileImage.jpg"
                   }" class="small-profile-image rounded-circle me-3" alt="${
@@ -201,6 +202,7 @@ function displayPosts(posts, profile) {
                             profile.name
                           }</span>
                       </p>
+                      <p class="my-1 fw-light">${postDate}</p>
                       <p class="card-text fw-light">
                           <i class="fa-solid fa-heart text-primary"></i>
                           <span class="post-reactions mx-1">${reactionsFormatted}</span> 
