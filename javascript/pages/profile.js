@@ -17,6 +17,8 @@ import { trimText } from "../modules/utility.js";
 import { navigateToUserProfile } from "../modules/utility.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
+//-- format date as relative time or DD/MM/YYYY
+import { formatRelativeTime } from "../modules/utility.js";
 
 //-- Initializes the page by fetching and displaying user profile and posts based on the username from URL, and sets up follow/unfollow functionality --//
 document.addEventListener("DOMContentLoaded", async () => {
@@ -84,6 +86,7 @@ function displayPosts(posts, profile) {
 
     const postMediaUrl = post.media?.url || "/images/no-image.png";
     const postMediaAlt = post.media?.alt || "Post image";
+    const postDate = formatRelativeTime(post.created || new Date().toISOString());
     const reactionsFormatted = formatCount(post._count.reactions || 0);
     const commentsFormatted = formatCount(post._count.comments || 0);
 
@@ -116,6 +119,7 @@ function displayPosts(posts, profile) {
                               profile.name
                             }</span>
                         </p>
+                        <p class="my-1 fw-light">${postDate}</p>
                         <p class="card-text fw-light">
                             <i class="fa-solid fa-heart text-primary"></i>
                             <span class="post-reactions mx-1">${reactionsFormatted}</span>
