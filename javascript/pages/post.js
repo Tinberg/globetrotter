@@ -19,6 +19,8 @@ import { navigateToUserProfile } from "../modules/utility.js";
 import { clearElementAfterDuration } from "../modules/utility.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
+//-- format date as relative time or DD/MM/YYYY
+import { formatRelativeTime } from "../modules/utility.js";
 
 //userName from local storage used to check if user has liked a post(change color of the heart), and nav to my-profile if its in the local storage
 //For edit and delete post, and for deleting comments on the users post.
@@ -97,6 +99,9 @@ function displayPostDetails(postData, postId) {
   } else {
     document.querySelector(".tags-container").textContent = "Not Specified";
   }
+  //Display date
+  const postDate = formatRelativeTime(postData.created || new Date().toISOString());
+  document.querySelector(".date-container").textContent = postDate;
   // Display author name and avatar
   const profileNameElement = document.querySelector(".profile-name");
   const profileAvatarElement = document.querySelector(".post-profile-image");

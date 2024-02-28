@@ -13,6 +13,8 @@ import { updateProfileMedia } from "../modules/api.js";
 import { trimText } from "../modules/utility.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
+//-- format date as relative time or DD/MM/YYYY
+import { formatRelativeTime } from "../modules/utility.js";
 
 //-------------------------User Info-------------------------//
 //-- For Displaying user info and posts, changing profile media, and it also calls the display post function--//
@@ -170,7 +172,7 @@ function displayPosts(posts, profile) {
 
     const postMediaUrl = post.media?.url || "/images/no-image.png";
     const postMediaAlt = post.media?.alt || "Post image";
-    const postDate = post.created || undefined;
+    const postDate = formatRelativeTime(post.created || new Date().toISOString());
     const reactionsFormatted = formatCount(post._count.reactions || 0);
     const commentsFormatted = formatCount(post._count.comments || 0);
 
@@ -190,7 +192,7 @@ function displayPosts(posts, profile) {
           </div>
           </div>
           <div class="card-body">
-              <div class="d-flex align-items-center my-3 text-truncate">
+              <div class="d-flex align-items-center mb-3 text-truncate">
                   <img src="${
                     profile.avatar.url || "/images/defaultProfileImage.jpg"
                   }" class="small-profile-image rounded-circle me-3" alt="${
