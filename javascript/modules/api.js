@@ -76,8 +76,7 @@ async function registerUser(userData) {
     },
     body: JSON.stringify(userData),
   });
-  const result = await response.json();
-  return result.data;
+ return response;
 }
 /**
  * login user profile
