@@ -74,6 +74,7 @@ async function fetchAndDisplayPosts(continentTag = "", sortOption = "") {
     displayPosts(posts);
   } catch (error) {
     console.error("Failed to fetch posts:", error);
+    document.querySelector(".explore-error").textContent = "We encountered an issue loading the posts. Please try again later.";
   }
 }
 //-- For Searchbar --//

@@ -46,6 +46,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       .addEventListener("click", () => toggleFollow(userName));
   } catch (error) {
     console.error("Failed to load user profile or posts:", error);
+    document.querySelector(".error-message").textContent =
+      "Failed to load user information. Please refresh the page or try again later.";
   }
 });
 
@@ -156,6 +158,8 @@ async function toggleFollow(userName) {
     updateProfileUI(updatedProfile);
   } catch (error) {
     console.error("Error toggling follow status:", error);
+    document.querySelector(".error-message").textContent =
+      "Could not update follow status. Please try again.";
   }
 }
 
