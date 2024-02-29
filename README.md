@@ -34,7 +34,7 @@ npm -v
 1. Clone the repo:
 
 ```bash
-git clone git@github.com:Tinberg/css-frameworks-ca.git
+git clone git@github.com:Tinberg/globetrotter.git
 ```
 2. Install the dependencies:
 
@@ -47,6 +47,15 @@ npm install bootstrap@5.3.2
 npm install live server
 
 ```
+### CDN
+Bootstrap JS:
+```html
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+  crossorigin="anonymous"
+></script>
 
 ## Running
 
