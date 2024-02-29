@@ -1,15 +1,15 @@
 //------ Export --------/
 
 //-- For showing 1k 1m and 1b on number of reations and comments --> Explore.js
-export { formatCount, formatWithSuffix };
+export { formatCount, formatWithSuffix }; //---------------------------------------------------------------------> Line: 24
 //-- For shorten the text on overlay text for posts --> explore.js, home.js, profile.js, and my-profile.js
-export { trimText };
-//-- Function to show date as relative time or DD/MM/YYYY
-export { formatRelativeTime };
+export { trimText };//-------------------------------------------------------------------------------------------> Line: 55
+//-- Function to show date as relative time or DD/MM/YYYY --> All pages with posts
+export { formatRelativeTime };//---------------------------------------------------------------------------------> Line: 70
 //-- For redirect to right profile page --> post.js and profile.js
-export { navigateToUserProfile };
+export { navigateToUserProfile };//------------------------------------------------------------------------------> Line: 94
 //-- For removing error message and element after a duration --> all pages
-export { clearElementAfterDuration };
+export { clearElementAfterDuration };//--------------------------------------------------------------------------> Line: 109
 
 //------ Format number function for comments and reactions to fit the layout --------/
 

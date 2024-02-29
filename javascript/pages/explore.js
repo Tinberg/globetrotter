@@ -179,7 +179,9 @@ function displaySearchResults(profiles, posts) {
           post.author && post.author.name ? post.author.name : "Unknown"
         }`,
         onClick: () =>
-          (window.location.href = `post.html?id=${encodeURIComponent(post.id)}`),
+          (window.location.href = `post.html?id=${encodeURIComponent(
+            post.id
+          )}`),
       });
       postsList.appendChild(listItem);
     });
@@ -202,7 +204,9 @@ function displayPosts(posts) {
 
   posts.forEach((post) => {
     const postImageAltText = post.media?.alt || "Post image";
-    const postDate = formatRelativeTime(post.created || new Date().toISOString());
+    const postDate = formatRelativeTime(
+      post.created || new Date().toISOString()
+    );
     const reactionsFormatted = formatCount(post._count.reactions || 0);
     const commentsFormatted = formatCount(post._count.comments || 0);
 
@@ -229,7 +233,7 @@ function displayPosts(posts) {
           </div>
               </div>
               <div class="card-body">
-                  <div class="d-flex align-items-center mb-3">
+                  <div class="d-flex align-items-center mb-2">
                       <img src="${
                         post.author?.avatar?.url || "/images/profileimage.jpg"
                       }" class="post-profile-image rounded-circle me-3" alt="Profile image">
@@ -242,7 +246,7 @@ function displayPosts(posts) {
                           <p class="my-1 fw-light">${postDate}</p>
                           <p class="card-text fw-light text-truncate">
                               <i class="fa-solid fa-heart text-primary"></i>
-                              <span class="mx-1">${reactionsFormatted}</span> | <span class="mx-1">${commentsFormatted}</span> comments
+                              <span class="mx-1">${reactionsFormatted}</span> <span class="mx-1">|</span> <span class="mx-1">${commentsFormatted}</span> comments
                           </p>
                       </div>
                   </div>
