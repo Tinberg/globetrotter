@@ -56,6 +56,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       displayPosts(posts, profile);
     } catch (error) {
       console.error("Failed to load profile information or posts:", error);
+      document.querySelector(".user-info-error").textContent =
+        "Failed to load profile information. Please try again later.";
     }
   } else {
     console.error("User name not found. Redirecting to login page.");

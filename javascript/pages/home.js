@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     displayPosts(posts);
   } catch (error) {
     console.error("Failed to fetch posts:", error);
+    document.querySelector(".home-error").textContent = "We encountered an issue loading the posts. Please try again later.";
   }
 });
 //-- Render the posts: Create and add post elements from users the logged-in user is following, including Post image, username, useravatar, comments, and reactions  --//
