@@ -100,7 +100,9 @@ function displayPostDetails(postData, postId) {
     document.querySelector(".tags-container").textContent = "Not Specified";
   }
   //Display date
-  const postDate = formatRelativeTime(postData.created || new Date().toISOString());
+  const postDate = formatRelativeTime(
+    postData.created || new Date().toISOString()
+  );
   document.querySelector(".date-container").textContent = postDate;
   // Display author name and avatar
   const profileNameElement = document.querySelector(".profile-name");
@@ -328,8 +330,12 @@ function populateEditModal(postData) {
   document
     .querySelector("#editPostBody")
     .addEventListener("input", updateCaptionCharacterCount);
+  document
+    .querySelector("#editPostMediaAlt")
+    .addEventListener("input", updateAltTextCharacterCount);
   updateTitleCharacterCount();
   updateCaptionCharacterCount();
+  updateAltTextCharacterCount();
 
   const editModal = new bootstrap.Modal(
     document.getElementById("editPostModal")
@@ -362,7 +368,7 @@ function savePostChanges(postId) {
       console.error("Failed to update post:", error);
       const editErrorFeedback = document.getElementById("editErrorFeedback");
       editErrorFeedback.textContent =
-        "Failed to edit post. Please ensure a valid title is provided. If including an image, ensure the URL starts with 'http://' or 'https://'. Captions, if added, must be under 280 characters. Please try again.";
+        "Failed to edit post. Include a title and ensure it, along with captions, are under 280 characters. If adding an image, descriptions should be under 120 characters and URLs must start with 'http://' or 'https://'. Adjust and retry.";
       clearElementAfterDuration(editErrorFeedback, 10000);
     });
 }
@@ -410,6 +416,20 @@ function updateCaptionCharacterCount() {
   if (caption.length > 280) {
     feedback.classList.add("text-danger");
     feedback.textContent += " - The caption cannot exceed 280 characters.";
+  } else {
+    feedback.classList.remove("text-danger");
+  }
+}
+//altText
+function updateAltTextCharacterCount() {
+  const altText = document.getElementById("editPostMediaAlt").value;
+  const feedback = document.getElementById("editAltTextFeedback");
+  feedback.textContent = `${altText.length}/120 characters`;
+
+  if (altText.length > 120) {
+    feedback.classList.add("text-danger");
+    feedback.textContent +=
+      " - The image description cannot exceed 120 characters.";
   } else {
     feedback.classList.remove("text-danger");
   }

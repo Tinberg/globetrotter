@@ -64,7 +64,7 @@
                   >
                   <div class="d-flex justify-content-center">
                     <div
-                      class="img-icon bg-secondary mb-2 rounded d-inline-flex justify-content-center align-items-center"
+                      class="img-icon bg-secondary d-inline-flex justify-content-center align-items-center mb-2 rounded"
                     >
                       <i class="fas fa-image fa-3x text-white"></i>
                     </div>
@@ -86,6 +86,9 @@
                       placeholder="Enter image description"
                       class="form-control mt-3 mx-auto"
                     />
+                    <div id="altTextFeedback" class="feedback form-text">
+                      0/120 characters
+                    </div>
                   </div>
                 </div>
 
@@ -130,15 +133,18 @@
                     <option value="Asia">Asia</option>
                     <option value="Europe">Europe</option>
                     <option value="Oceania">Oceania</option>
-                    <option value="North-america">North America</option>
-                    <option value="South-america">South America</option>
+                    <option value="North-America">North America</option>
+                    <option value="South-America">South America</option>
                   </select>
                 </div>
                 <div class="border my-4"></div>
                 <button type="submit" class="btn btn-primary my-2 px-5">
                   Publish
                 </button>
-                <p id="postErrorFeedback" class="text-danger my-3"></p>
+                <p
+                  id="postErrorFeedback"
+                  class="text-danger my-3 text-lg-center text-start"
+                ></p>
               </form>
             </div>
             <div class="modal-footer">

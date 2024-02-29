@@ -30,11 +30,12 @@ document
       document.getElementById("newPostForm").reset();
       updateCaptionFeedback();
       updateTitleFeedback();
+      updateAltTextFeedback();
       window.location.href = "my-profile.html";
     } catch (error) {
       console.error("Failed to create post:", error);
       errorFeedback.textContent =
-        "Failed to create post. Please ensure a valid title is provided. If including an image, ensure the URL starts with 'http://' or 'https://'. Captions, if added, must be under 280 characters. Please try again.";
+        "Failed to create post. Include a title and ensure it, along with captions, are under 280 characters. If adding an image, descriptions should be under 120 characters and URLs must start with 'http://' or 'https://'. Adjust and retry.";
       errorFeedback.style.display = "block";
     }
   });
@@ -73,7 +74,24 @@ document
   .getElementById("postTitle")
   .addEventListener("input", updateTitleFeedback);
 
-//------------------------- My Profile -------------------------//
+//Function to update altTextFeedback
+function updateAltTextFeedback() {
+  const altText = document.getElementById("altText").value;
+  const feedback = document.getElementById("altTextFeedback");
+  feedback.textContent = `${altText.length}/120 characters`;
+
+  if (altText.length > 120) {
+    feedback.classList.add("text-danger");
+    feedback.textContent += " - The alt text cannot exceed 120 characters.";
+  } else {
+    feedback.classList.remove("text-danger");
+  }
+}
+document
+  .getElementById("altText")
+  .addEventListener("input", updateAltTextFeedback);
+
+//------------------------- My Profile (Navbar)-------------------------//
 //Click event listeners from modal
 document.addEventListener("DOMContentLoaded", function () {
   // Go to Profile
@@ -95,3 +113,4 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 });
+
