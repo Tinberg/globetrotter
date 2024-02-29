@@ -16,4 +16,5 @@ Welcome to Globetrotter, an engaging social media platfor dedicated to travel en
 ## Built With 
 
 ![317755_badge_html_html5_achievement_award_icon (1)](https://github.com/Tinberg/Rainydays/assets/126072224/38fa6731-648a-4696-a360-2333939feb36)  ![317756_badge_css_css3_achievement_award_icon](https://github.com/Tinberg/Rainydays/assets/126072224/1f673d3c-9820-481f-9610-3d22010c8359) 
-![4373213_js_logo_logos_icon](https://github.com/Tinberg/Rainydays/assets/126072224/d877fa5d-c0f7-4dd0-beab-cca0b7c02da5)  
+![4373213_js_logo_logos_icon](https://github.com/Tinberg/Rainydays/assets/126072224/d877fa5d-c0f7-4dd0-beab-cca0b7c02da5)  ![image](https://github.com/Tinberg/globetrotter/assets/126072224/f9a41de1-5740-404d-b6fb-e9063f204ea0)
+
