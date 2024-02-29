@@ -1,9 +1,3 @@
-# globetrotter
+# Globetrotter 
 
-Javascript2 Kopstad and Tinberg
-
-Comments when deliver:
-
-- error 404 when deployd to netlify bcs of node_modules is not present. Change the bootstrap css with CDN and remove bootstrap in nodemodules for better preformance!
-
-- error messages finsihed: post.js, index.js, register.js
+![GlobeTrotter](https://github.com/Tinberg/globetrotter/assets/126072224/a931d9c6-11fc-4d9f-98ff-8c55ba8a7725)
