@@ -108,8 +108,8 @@ function navigateToUserProfile(userName) {
 /**
  * Clears the text content of the given element after a specified duration.
  *
- * @param {HTMLElement} element The element whose content will be cleared.
- * @param {number} duration The duration in milliseconds after which the content will be cleared.
+ * @param {HTMLElement}
+ * @param {number} 
  */
 function clearElementAfterDuration(element, duration = 7000) {
   setTimeout(() => {
