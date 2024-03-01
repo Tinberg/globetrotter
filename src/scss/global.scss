@@ -53,10 +53,6 @@ body {
   scroll-behavior: smooth;
 }
 
-main {
-  min-height: 100vh;
-}
-
 //Added to main element on every page, not index.html and register.html to even out the position fixed on navbar.
 .padding-fixed-navbar {
   padding-top: 79px;

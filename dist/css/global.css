@@ -10739,10 +10739,6 @@ body {
   scroll-behavior: smooth;
 }
 
-main {
-  min-height: 100vh;
-}
-
 .padding-fixed-navbar {
   padding-top: 79px;
 }
