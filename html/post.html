@@ -61,7 +61,7 @@
             <div class="modal-body">
               <form id="newPostForm" class="text-center">
                 <div class="mb-3">
-                  <label for="postImageInput" class="form-label fw-semibold"
+                  <label for="postImage" class="form-label fw-semibold"
                     >Post Image</label
                   >
                   <div class="d-flex justify-content-center">
@@ -234,7 +234,7 @@
             </div>
             <div class="modal-body">
               <p id="modalImageAltText" class="text-center fw-bolder"></p>
-              <img src="" id="modalImage" class="img-fluid" />
+              <img src="" id="modalImage" class="img-fluid" alt="Post image"/>
             </div>
             <div class="modal-footer">
               <button
@@ -537,8 +537,9 @@
                       class="border p-3"
                       rows="5"
                       placeholder="Leave a comment..."
-                      aria-placeholder="Leave a comment"
+                      aria-label="Leave_a_comment"
                     ></textarea>
+                    <label id="Leave_a_Comment" class="d-none" for="commentText">Leave a comment</label>
                     <div
                       class="justify-content-center justify-content-sm-end d-flex gap-3 pt-3"
                     >
