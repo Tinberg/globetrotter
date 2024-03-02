@@ -51,6 +51,17 @@ section {
     }
 }
 
+// To make width 100 an smaller screens
+@media(max-width: 575px){
+  section {
+    max-width: 100%;
+  }
+  .container-fluid {
+    padding: 0;
+  }
+
+}
+
 
 
 
