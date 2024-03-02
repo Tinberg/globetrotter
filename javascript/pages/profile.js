@@ -57,12 +57,12 @@ function updateProfileUI(profile) {
   document.getElementById("userName").textContent = profile.name;
   // Sets users banner and alt text
   const bannerImageElement = document.getElementById("bannerImage");
-  bannerImageElement.src = profile.banner?.url || "path/to/default/banner.jpg";
+  bannerImageElement.src = profile.banner?.url || "/images/background.jpg";
   bannerImageElement.alt = profile.banner?.alt || "Personal Banner";
   bannerImageElement.style.display = profile.banner?.url ? "block" : "none";
   // Sets users avatar and alt text
   const profileImageElement = document.getElementById("profileImage");
-  profileImageElement.src = profile.avatar?.url || "path/to/default/avatar.jpg";
+  profileImageElement.src = profile.avatar?.url || "/images/profileImage.jpg";
   profileImageElement.alt = profile.avatar?.alt || "Personal Avatar";
   profileImageElement.style.display = profile.avatar?.url ? "block" : "none";
   // Updates counts for posts, followers, and following.
