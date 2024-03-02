@@ -393,6 +393,42 @@
           </div>
         </div>
       </div>
+      <!-- Reactors Modal -->
+      <div
+        class="modal fade"
+        id="reactorsModal"
+        tabindex="-1"
+        aria-labelledby="reactorsModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <p class="modal-title fs-5 fw-bolder" id="reactorsModalLabel">
+                Liked By
+              </p>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <ul id="reactorsList" class="list-group fw-bolder"></ul>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <!---Navigation--->
       <header>
         <nav
@@ -465,10 +501,10 @@
       <main class="padding-fixed-navbar">
         <!--- Section 1: Post section --->
         <section
-          class="user-post-section container-fluid d-flex justify-content-center pt-3 pb-3 mt-5"
+          class="user-post-section container-fluid d-flex justify-content-center pt-sm-3 pb-3 mt-sm-5"
         >
           <div
-            class="inner-div-for-section-1 p-0 container row background-grey d-flex flex-column flex-lg-row w-100"
+            class="inner-div-for-section-1 p-0 container-fluid row background-grey d-flex flex-column flex-lg-row w-100"
           >
             <div
               class="post-image-container container-fluid col-12 col-lg-6 order-1 p-0"
@@ -519,9 +555,10 @@
                       ></span>
                     </p>
                     <p class="card-text fw-light">
-                      <i class="fa-solid fa-heart text-primary"></i>
-                      <!--Js injection post reaction count-->
-                      <span class="reactions-count mx-1"></span
+                      <span class="reaction-trigger cursor-pointer">
+                        <i class="fa-solid fa-heart text-primary"></i>
+                        <!--Js injection post reaction count-->
+                        <span class="reactions-count mx-1"></span></span
                       ><span class="mx-1">|</span>
                       <!--Js injection post comment count--><span
                         class="comments-count mx-1"
@@ -530,7 +567,7 @@
                     </p>
                   </div>
                 </div>
-                <div class="text-section container text-break px-sm-2 px-1">
+                <div class="text-section container text-break px-2 px-1">
                   <!-- Js injection date -->
                   <p class="date-container mb-lg-0 mt-lg-2 fw-light"></p>
                   <!--Js injection post Title-->

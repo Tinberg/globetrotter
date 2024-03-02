@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", loadPostData);
 
 //-- Renders detailed view of a post, including title, body, media, tags, author info, and initializes comment and reaction --//
 function displayPostDetails(postData, postId) {
+  console.log(postData);
   //displaying post title, body reactions count and comments count
   document.querySelector(".post-title").textContent = postData.title;
   document.querySelector(".post-body").textContent = postData.body;
@@ -72,7 +73,7 @@ function displayPostDetails(postData, postId) {
     postImageElement.alt = postData.media.alt || "Post image";
     postImageElement.style.display = "";
 
-    // Add click event listener to the modal for image
+    //Click event listener to the modal for image
     postImageElement.addEventListener("click", function () {
       const imageSrc = this.getAttribute("src");
       const imageAlt = this.getAttribute("alt");
@@ -121,6 +122,16 @@ function displayPostDetails(postData, postId) {
   } else {
     likeButtonIcon.classList.remove("fa-solid", "text-danger");
   }
+  // Click event listner to the modal for reactions
+  document.querySelector(".reactions-count").textContent =
+    postData._count.reactions;
+  document.querySelector(".reaction-trigger").addEventListener("click", () => {
+    var reactorsModal = new bootstrap.Modal(
+      document.getElementById("reactorsModal")
+    );
+    reactorsModal.show();
+    displayReactorsModal(postData.reactions);
+  });
 
   // Click event listeners to author name and avatar for navigating to user's profile
   profileNameElement.addEventListener("click", () =>
@@ -148,14 +159,17 @@ function displayComments(comments, isPostAuthor, postId) {
       const deleteButtonHtml = canDelete
         ? `<i class="fa-solid fa-trash-can delete-comment cursor-pointer position-absolute top-0 end-0 me-3 mt-3" data-comment-id="${comment.id}"></i>`
         : "";
+      const commentRelativeTime = formatRelativeTime(comment.created);
       //display comment and deleteButtonHtml if its the users post or comment
       const commentHtml = `
         <div class="container border bg-white my-3 position-relative comment-item" data-username="${comment.author.name}">
             ${deleteButtonHtml}
-            <div class="posting-user-details gap-3 d-flex flex-column flex-wrap px-4 pb-4 pt-4 justify-content-sm-start">
+            <div class="posting-user-details gap-3 d-flex flex-column flex-wrap px-3 pb-4 pt-4 justify-content-sm-start">
                 <div class="d-flex align-items-center gap-2">
                     <img src="${comment.author.avatar.url}" alt="${comment.author.avatar.alt}" class="comments-img rounded-circle user-avatar post-profile-image">
+                    <div>
                     <p class="fw-medium mb-0 user-name profile-name">${comment.author.name}</p>
+                    <p class="m-0 fw-light"> ${commentRelativeTime}</p></div>
                 </div>
                 <div class="d-flex flex-column text-md-0 comment">
                     <p class="fw-light">${comment.body}</p>
@@ -213,7 +227,7 @@ function attachDeleteCommentListeners(postId) {
               commentContainer.append(errorDisplay);
             }
             errorDisplay.textContent =
-              "Failed to delete comment. Please try again. Note that if the comment is not yours but is on your post, the backend may not have been updated yet, and you may not have permission to delete it";
+              "Failed to delete comment. Please try again. Note that if the comment is not yours but is on your post, this feature will soon be avilable. thank you for your patience.";
             clearElementAfterDuration(errorDisplay, 10000);
           });
       }
@@ -282,6 +296,25 @@ function attachReactionListener(postId) {
       reactionCommentError.classList.remove("d-none");
       clearElementAfterDuration(reactionCommentError, 10000);
     }
+  });
+}
+//-- Display Users tha has reacted to the modal for reactions and click to the profile  --//
+function displayReactorsModal(reactions) {
+  const reactorsList = document.getElementById("reactorsList");
+  reactorsList.innerHTML = "";
+
+  reactions.forEach((reaction) => {
+    reaction.reactors.forEach((reactor) => {
+      const li = document.createElement("li");
+      li.classList.add("list-group-item");
+      li.classList.add("hover-background");
+      li.classList.add("cursor-pointer");
+      li.textContent = reactor;
+
+      li.addEventListener("click", () => navigateToUserProfile(reactor));
+
+      reactorsList.appendChild(li);
+    });
   });
 }
 
@@ -373,7 +406,7 @@ function savePostChanges(postId) {
     });
 }
 
-//-- Delete a post --//
+//-------------------------  Delete a post ------------------------- //
 function attemptDeletePost(postId) {
   if (confirm("Are you sure you want to delete this post?")) {
     deletePost(postId)
