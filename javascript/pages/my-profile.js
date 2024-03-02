@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
       // Avatar Image
       const avatarImageElement = document.getElementById("profileImage");
-      avatarImageElement.src = profile.avatar?.url || "/images/no-image.png";
+      avatarImageElement.src = profile.avatar?.url || "/images/profileImage.jpg";
       avatarImageElement.alt = profile.avatar?.alt || "Personal Avatar";
       // Updates counts for posts, followers, and following.
       document.getElementById("allPosts").textContent = formatCount(
