@@ -177,7 +177,7 @@ function displayComments(comments, isPostAuthor, postId) {
         </div>
       `;
 
-      commentsContainer.innerHTML += commentHtml;
+      commentsContainer.insertAdjacentHTML('afterbegin', commentHtml);
     });
 
     // Click listeners to username and avatar image
@@ -274,6 +274,24 @@ function attachCommentListener(postId) {
       }
     });
 }
+
+// Function to update character count for the comment
+function updateCommentCharacterCount() {
+  const comment = document.getElementById("commentText").value;
+  const characterCount = document.getElementById("commentCharacterCount");
+  characterCount.textContent = `${comment.length}/280 characters`;
+
+  // Optional: Add a warning or limit text entry
+  if (comment.length > 280) {
+    characterCount.classList.add("text-danger");
+    characterCount.textContent += " - The comment cannot exceed 280 characters.";
+  } else {
+    characterCount.classList.remove("text-danger");
+  }
+}
+
+// Attach the event listener to the textarea
+document.getElementById("commentText").addEventListener("input", updateCommentCharacterCount);
 
 //------------------------- Add Reaction -------------------------//
 
