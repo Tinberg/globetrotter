@@ -295,7 +295,6 @@ function updateCommentCharacterCount() {
   }
 }
 
-// Attach the event listener to the textarea
 document
   .getElementById("commentText")
   .addEventListener("input", updateCommentCharacterCount);
