@@ -11,7 +11,14 @@ Welcome to Globetrotter, an engaging social media platfor dedicated to travel en
 - My profile page: create and customize your profile, share stories, photos, and tips. you can also visit other travelers profile to get inspred.
 - Responsive design: responsive design, powered by bootstrap.
 - Noroff API integration: discover travel posts form studnet across the noroff network. use globetrotter filter to explore content specifically from Globetrotter
-- Post Pages: dedicated page for each post, featuring detailed post image description and interactions options. 
+- Post Pages: dedicated page for each post, featuring detailed post image description and interactions options.
+
+### API limitations 
+- react modal do not contain avatar img bcs of no avatar img in the respons.
+- All comments on a post a user has made can not be delete(only comment the logged in user has created), but the icon is still there.
+- profile and my-profile do not show the right count on reactions on posts bcs of missing reactors array from query parameter. but on all other pages it shows one like pr username. 
+
+
 
 ## Built With 
 
