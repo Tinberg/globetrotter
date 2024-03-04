@@ -125,7 +125,7 @@ async function fetchUserProfile(userName) {
  */
 async function fetchPostsByUserName(userName) {
   const response = await fetch(
-    `${API_BASE_URL}/social/profiles/${userName}/posts`,
+    `${API_BASE_URL}/social/profiles/${userName}/posts?_author=true&_reactions=true`,
     {
       headers: getHeaders(),
     }
@@ -212,10 +212,10 @@ async function createPost(postData) {
  */
 async function fetchAllPosts(tag) {
   const url = tag
-    ? `${API_BASE_URL}/social/posts?_author=true&_tag=${encodeURIComponent(
+    ? `${API_BASE_URL}/social/posts?_author=true&_reactions=true&_tag=${encodeURIComponent(
         tag
       )}`
-    : `${API_BASE_URL}/social/posts?_author=true`;
+    : `${API_BASE_URL}/social/posts?_author=true&_reactions=true`;
 
   const response = await fetch(url, {
     headers: getHeaders(),

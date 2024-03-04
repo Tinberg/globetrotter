@@ -91,8 +91,8 @@ function displayPosts(posts, profile) {
     const postDate = formatRelativeTime(
       post.created || new Date().toISOString()
     );
-    const reactionsFormatted = formatCount(post._count.reactions || 0);
-    const commentsFormatted = formatCount(post._count.comments || 0);
+    const reactionsFormatted = formatCount(post._count.reactions);
+    const commentsFormatted = formatCount(post._count.comments);
 
     // Trim title and body with imported function from trimText utility.js
     const trimmedTitle = trimText(post.title, 25);

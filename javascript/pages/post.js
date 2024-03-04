@@ -21,6 +21,8 @@ import { clearElementAfterDuration } from "../modules/utility.js";
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
 //-- format date as relative time or DD/MM/YYYY
 import { formatRelativeTime } from "../modules/utility.js";
+//-- reaction number count only display one pr user regardless of how many emojis(times) they have reacted
+import { uniqueReactorsCount } from "../modules/utility.js";
 
 //userName from local storage used to check if user has liked a post(change color of the heart), and nav to my-profile if its in the local storage
 //For edit and delete post, and for deleting comments on the users post.
@@ -56,12 +58,14 @@ document.addEventListener("DOMContentLoaded", loadPostData);
 
 //-- Renders detailed view of a post, including title, body, media, tags, author info, and initializes comment and reaction --//
 function displayPostDetails(postData, postId) {
+  console.log(postData)
   //displaying post title, body reactions count and comments count
   document.querySelector(".post-title").textContent = postData.title;
   document.querySelector(".post-body").textContent = postData.body;
-  document.querySelector(".reactions-count").textContent = formatCount(
-    postData._count.reactions
-  );
+  //uniqueReactorsCount from utility to show one username regardless of how many emojis(reaction) they have made
+  const uniqueReactorCount = uniqueReactorsCount(postData.reactions);
+  document.querySelector(".reactions-count").textContent =
+    formatCount(uniqueReactorCount);
   document.querySelector(".comments-count").textContent = formatCount(
     postData._count.comments
   );
@@ -123,7 +127,7 @@ function displayPostDetails(postData, postId) {
   }
   // Click event listner to the modal for reactions
   document.querySelector(".reactions-count").textContent =
-    postData._count.reactions;
+    formatCount(uniqueReactorCount);
   document.querySelector(".reaction-trigger").addEventListener("click", () => {
     var reactorsModal = new bootstrap.Modal(
       document.getElementById("reactorsModal")
@@ -177,7 +181,7 @@ function displayComments(comments, isPostAuthor, postId) {
         </div>
       `;
 
-      commentsContainer.insertAdjacentHTML('afterbegin', commentHtml);
+      commentsContainer.insertAdjacentHTML("afterbegin", commentHtml);
     });
 
     // Click listeners to username and avatar image
@@ -284,14 +288,17 @@ function updateCommentCharacterCount() {
   // Optional: Add a warning or limit text entry
   if (comment.length > 280) {
     characterCount.classList.add("text-danger");
-    characterCount.textContent += " - The comment cannot exceed 280 characters.";
+    characterCount.textContent +=
+      " - The comment cannot exceed 280 characters.";
   } else {
     characterCount.classList.remove("text-danger");
   }
 }
 
 // Attach the event listener to the textarea
-document.getElementById("commentText").addEventListener("input", updateCommentCharacterCount);
+document
+  .getElementById("commentText")
+  .addEventListener("input", updateCommentCharacterCount);
 
 //------------------------- Add Reaction -------------------------//
 
@@ -319,19 +326,20 @@ function attachReactionListener(postId) {
 function displayReactorsModal(reactions) {
   const reactorsList = document.getElementById("reactorsList");
   reactorsList.innerHTML = "";
+  const uniqueUsernames = new Set();
 
   reactions.forEach((reaction) => {
     reaction.reactors.forEach((reactor) => {
-      const li = document.createElement("li");
-      li.classList.add("list-group-item");
-      li.classList.add("hover-background");
-      li.classList.add("cursor-pointer");
-      li.textContent = reactor;
-
-      li.addEventListener("click", () => navigateToUserProfile(reactor));
-
-      reactorsList.appendChild(li);
+      uniqueUsernames.add(reactor);
     });
+  });
+
+  uniqueUsernames.forEach((username) => {
+    const li = document.createElement("li");
+    li.classList.add("list-group-item", "hover-background", "cursor-pointer");
+    li.textContent = username;
+    li.addEventListener("click", () => navigateToUserProfile(username));
+    reactorsList.appendChild(li);
   });
 }
 

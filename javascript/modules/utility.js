@@ -1,18 +1,33 @@
 //------ Export --------/
 
-//-- For showing 1k 1m and 1b on number of reations and comments --> Explore.js
-export { formatCount, formatWithSuffix }; //---------------------------------------------------------------------> Line: 24
-//-- For shorten the text on overlay text for posts --> explore.js, home.js, profile.js, and my-profile.js
-export { trimText };//-------------------------------------------------------------------------------------------> Line: 55
-//-- Function to show date as relative time or DD/MM/YYYY --> All pages with posts
-export { formatRelativeTime };//---------------------------------------------------------------------------------> Line: 70
 //-- For redirect to right profile page --> post.js and profile.js
-export { navigateToUserProfile };//------------------------------------------------------------------------------> Line: 94
-//-- For removing error message and element after a duration --> all pages
-export { clearElementAfterDuration };//--------------------------------------------------------------------------> Line: 109
+export { navigateToUserProfile }; //---------------------------------------------------------------------------------------------------------> Line: 18
+//-- For showing 1k 1m and 1b on number of reations and comments --> Explore.js
+export { formatCount, formatWithSuffix }; //-------------------------------------------------------------------------------------------------> Line: 32 and 52
+//-- For shorten the text on overlay text for posts --> explore.js, home.js, profile.js, and my-profile.js
+export { trimText }; //----------------------------------------------------------------------------------------------------------------------> Line: 69
+//-- Function to show date as relative time or DD/MM/YYYY --> All pages with posts
+export { formatRelativeTime }; //------------------------------------------------------------------------------------------------------------> Line: 85
+//-- For removing error message and element after a duration -->
+export { clearElementAfterDuration }; //-----------------------------------------------------------------------------------------------------> Line: 110
+//-- For reaction number count only display one pr user reguardless of how many emojis(times) they have reacted --> All pages with posts
+export { uniqueReactorsCount }; //-----------------------------------------------------------------------------------------------------------> Line: 124
+
+//-------------------------Redirect-------------------------//
+/**
+ * Function when authorname or avatar is clicked directs to my-profile.html for the logged in user's own post, else directs to profile.html for other users' posts
+ * @param {string} userName
+ */
+function navigateToUserProfile(userName) {
+  const currentUser = localStorage.getItem("userName");
+  const profileUrl =
+    userName === currentUser
+      ? "my-profile.html"
+      : `profile.html?username=${encodeURIComponent(userName)}`;
+  window.location.href = profileUrl;
+}
 
 //------ Format number function for comments and reactions to fit the layout --------/
-
 /**
  * Formats a number into a readable string(For the layout) with a suffix ('K', 'M', 'B') based on its value.
  * For values under 1,000, it returns the number as a string.
@@ -50,7 +65,6 @@ function formatWithSuffix(number, divisor, suffix) {
 }
 
 //------ Trim text on overlay for posts to fit layout --------/
-
 /**
  * Function to trim text to show only the first maxChars characters followed by '...' in post body overylay
  * @param {string} text
@@ -66,6 +80,7 @@ function trimText(text, maxChars) {
   }
   return text;
 }
+//------ formatRealtiveTime to make dates more readable and fit layout--------/
 /**
  *  Formats a given date string as a relative time up to 6 days ago ("1 minute ago", "1 hour ago", "1 day ago"), and as a date in DD/MM/YYYY format for older dates
  * @param {string}
@@ -90,26 +105,12 @@ function formatRelativeTime(dateString) {
     return date.toLocaleDateString("en-GB");
   }
 }
-/**
- * Function when authorname or avatar is clicked directs to my-profile.html for the logged in user's own post, else directs to profile.html for other users' posts
- * @param {string} userName
- */
-//-------------------------Redirect-------------------------//
-
-function navigateToUserProfile(userName) {
-  const currentUser = localStorage.getItem("userName");
-  const profileUrl =
-    userName === currentUser
-      ? "my-profile.html"
-      : `profile.html?username=${encodeURIComponent(userName)}`;
-  window.location.href = profileUrl;
-}
-
+//------ clears a error message after a short duration --------/
 /**
  * Clears the text content of the given element after a specified duration.
  *
  * @param {HTMLElement}
- * @param {number} 
+ * @param {number}
  */
 function clearElementAfterDuration(element, duration = 7000) {
   setTimeout(() => {
@@ -117,4 +118,19 @@ function clearElementAfterDuration(element, duration = 7000) {
       element.remove();
     }
   }, duration);
+}
+//------ unique reaction count to make the website look better regardless of all the students that use the api --------/
+/**
+ * This function counts the total number of unique users who reacted to a post.regardless of how many emojis(reactions)they have made to the post
+ * @param {array} reactions
+ * @returns {number}
+ */
+function uniqueReactorsCount(reactions) {
+  const uniqueReactors = new Set();
+  reactions.forEach((reaction) => {
+    reaction.reactors.forEach((reactor) => {
+      uniqueReactors.add(reactor);
+    });
+  });
+  return uniqueReactors.size;
 }
