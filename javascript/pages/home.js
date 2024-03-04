@@ -11,6 +11,8 @@ import { trimText } from "../modules/utility.js";
 import { formatCount, formatWithSuffix } from "../modules/utility.js";
 //-- format date as relative time or DD/MM/YYYY
 import { formatRelativeTime } from "../modules/utility.js";
+//-- reaction number count only display one pr user reguardless of how many emojis(times) they have reacted
+import { uniqueReactorsCount } from "../modules/utility.js";
 
 //-- Calls the fetchPostsFromFollowing and uses displayPosts to render the fetched posts --//
 document.addEventListener("DOMContentLoaded", async () => {
@@ -24,6 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 //-- Render the posts: Create and add post elements from users the logged-in user is following, including Post image, username, useravatar, comments, and reactions  --//
 function displayPosts(posts) {
+  console.log(posts)
   const postContainer = document.querySelector("#allPosts");
   postContainer.innerHTML = "";
 
@@ -32,8 +35,9 @@ function displayPosts(posts) {
     const postDate = formatRelativeTime(
       post.created || new Date().toISOString()
     );
-    const reactionsFormatted = formatCount(post._count.reactions || 0);
-    const commentsFormatted = formatCount(post._count.comments || 0);
+    const uniqueReactionCount = uniqueReactorsCount(post.reactions);
+    const reactionsFormatted = formatCount(uniqueReactionCount);
+    const commentsFormatted = formatCount(post._count.comments);
 
     // Trim title and body with imported function from trimText utility.js
     const trimmedTitle = trimText(post.title, 25);
