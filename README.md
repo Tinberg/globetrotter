@@ -4,21 +4,28 @@
 
 ## Description
 
-Welcome to Globetrotter, an engaging social media platfor dedicated to travel enthusiasts around the globe. Developed as a project for the Javascript course (JS2). Globetrotter allows users to share their travel experience and discover new destinations. 
+Welcome to Globetrotter, an engaging social media platform dedicated to travel enthusiasts around the globe. Developed as a project for the Javascript course (JS2). Globetrotter allows users to share their travel experience and discover new destinations. 
 
-- Home page: shows the latest travel posts from users you follow.
-- Explore page: shows the latest travel posts. to tailor exploration, the page features a robust search function that allows you to discover both posts and profiles. additinoally, the page is equipped with a "Sort By" feature and a continent filter, enabling you to navigate through the content based on your preferences.
-- My profile page: create and customize your profile, share stories, photos, and tips. you can also visit other travelers profile to get inspred.
-- Responsive design: responsive design, powered by bootstrap.
-- Noroff API integration: discover travel posts form studnet across the noroff network. use globetrotter filter to explore content specifically from Globetrotter
-- Post Pages: dedicated page for each post, featuring detailed post image description and interactions options.
+#### Home page
+The Home Page shows the latest travel posts from users you follow.
+
+#### Explore
+The Explore page shows the latest travel posts. The page features a robust search function that allows you to discover both posts and profiles. Additionally, the page is equipped with a "Sort By" feature and a continent filter, enabling you to navigate through the content based on your preferences.
+
+#### My Profile
+Create and customize your profile, share stories, photos, and tips. You can also visit other travelers profiles to get inspired.
+
+#### Post
+The post specific page is a dedicated page for each post, featuring detailed post image description and interactions options.
+
 
 ### API limitations 
 - react modal do not contain avatar img bcs of no avatar img in the respons.
 - All comments on a post a user has made can not be delete(only comment the logged in user has created), but the icon is still there.
 - profile and my-profile do not show the right count on reactions on posts bcs of missing reactors array from query parameter. but on all other pages it shows one like pr username. 
 
-
+- The design is responsive, powered by Bootstrap.
+- Noroff API integration: We have integrated posts from students across the Noroff network, using an API powered by Noroff.
 
 ## Built With 
 
