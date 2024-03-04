@@ -20,7 +20,7 @@ The post specific page is a dedicated page for each post, featuring detailed pos
 
 
 ### API limitations 
-- react modal do not contain avatar img bcs of no avatar img in the respons.
+- react modal do not contain avatar img bcs of no avatar img in the respons, so no avatar image in react modal. 
 - All comments on a post a user has made can not be delete(only comment the logged in user has created), but the icon is still there.
 - profile and my-profile do not show the right count on reactions on posts bcs of missing reactors array from query parameter. but on all other pages it shows one like pr username. 
 
