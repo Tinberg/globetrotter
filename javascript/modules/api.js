@@ -212,14 +212,14 @@ async function createPost(postData) {
  * @param {string} - sortOrder="desc"
  * @returns {Promise}
  */
-async function fetchAllPosts(tag, sort = "", sortOrder = "desc") {
-  let url = `${API_BASE_URL}/social/posts?_author=true&_reactions=true`;
+async function fetchAllPosts(continentTag = "", sortOption = "", sortOrder = "desc", page = 1, limit = 20) {
+  let url = `${API_BASE_URL}/social/posts?_author=true&_reactions=true&page=${page}&limit=${limit}`;
 
-  if (tag) {
-    url += `&_tag=${encodeURIComponent(tag)}`;
+  if (continentTag) {
+    url += `&_tag=${encodeURIComponent(continentTag)}`;
   }
-  if (sort) {
-    url += `&sort=${sort}&sortOrder=${sortOrder}`;
+  if (sortOption) {
+    url += `&sort=${sortOption}&sortOrder=${sortOrder}`;
   }
 
   const response = await fetch(url, {

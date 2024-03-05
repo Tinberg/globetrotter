@@ -8,6 +8,8 @@ import { fetchAllPosts } from "../modules/api.js";
 import { fetchProfilesSearch } from "../modules/api.js";
 //-- Api for fetch all posts for search --> api.js
 import { fetchPostsSearch } from "../modules/api.js";
+//-- Infinite scroll, triggering a callback when the user reaches the bottom of the page
+import { addInfiniteScroll } from "../modules/utility.js";
 //-- Trim the text for overlay text title and body text for post --> utility.js --//
 import { trimText } from "../modules/utility.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
@@ -17,26 +19,76 @@ import { formatRelativeTime } from "../modules/utility.js";
 //-- reaction number count only display one pr user reguardless of how many emojis(times) they have reacted
 import { uniqueReactorsCount } from "../modules/utility.js";
 
-// Global state for filters and sorting
+// Global state for filters, sorting, and pagination
 let globalFilter = {
   continentTag: "",
   sortOption: "created",
   sortOrder: "desc",
+  page: 1,
+  limit: 20,
+  allPostsFetched: false,
 };
-//------------------------ FilterTag, SortBy changes and DOM ------------------------ //
-//-- Sets up event listeners for loading saved filters, fetching and displaying posts, and handling continent filter changes and search submissions --//
-document.addEventListener("DOMContentLoaded", async () => {
-  const savedContinent = sessionStorage.getItem("selectedContinent");
-  //-Filter Continent
-  if (savedContinent !== null) {
-    const radioToCheck = document.querySelector(
-      `input[name="continent"][value="${savedContinent}"]`
+
+// Fetches and displays posts based on the current global filter settings.
+async function fetchAndDisplayPosts() {
+  if (globalFilter.allPostsFetched) {
+    console.log("All posts have been fetched.");
+    return;
+  }
+  try {
+    const posts = await fetchAllPosts(
+      globalFilter.continentTag,
+      globalFilter.sortOption,
+      globalFilter.sortOrder,
+      globalFilter.page,
+      globalFilter.limit
     );
-    if (radioToCheck) {
-      radioToCheck.checked = true;
+    if (posts.length < globalFilter.limit) {
+      globalFilter.allPostsFetched = true;
     }
+    displayPosts(posts, globalFilter.page > 1);
+  } catch (error) {
+    console.error("Failed to fetch posts:", error);
+    document.querySelector(".explore-error").textContent =
+      "We encountered an issue loading the posts. Please try again later.";
+  }
+}
+//function from utility.js to load on scroll
+addInfiniteScroll(async () => {
+  if (!globalFilter.allPostsFetched) {
+    globalFilter.page++;
+    await fetchAndDisplayPosts(
+      globalFilter.continentTag,
+      globalFilter.sortOption,
+      globalFilter.sortOrder,
+      globalFilter.page,
+      globalFilter.limit
+    );
+  }
+});
+
+// Sets up initial event listeners when the DOM is loaded.
+document.addEventListener("DOMContentLoaded", async () => {
+  // Load saved filters from sessionStorage
+  const savedContinent = sessionStorage.getItem("selectedContinent");
+  if (savedContinent !== null) {
+    document.querySelector(
+      `input[name="continent"][value="${savedContinent}"]`
+    ).checked = true;
     globalFilter.continentTag = savedContinent;
   }
+
+  const savedSortOption = sessionStorage.getItem("sortOption");
+  const savedSortOrder = sessionStorage.getItem("sortOrder");
+  if (savedSortOption && savedSortOrder) {
+    globalFilter.sortOption = savedSortOption;
+    globalFilter.sortOrder = savedSortOrder;
+    document.getElementById("sortBy").value = savedSortOrder;
+  }
+
+  await fetchAndDisplayPosts();
+
+  // Handles changes to the continent filter, updating the global filter and fetching posts.
   document
     .getElementById("filterContinent")
     .addEventListener("change", async () => {
@@ -44,91 +96,65 @@ document.addEventListener("DOMContentLoaded", async () => {
         'input[name="continent"]:checked'
       )?.value;
       globalFilter.continentTag = selectedContinent;
-
+      globalFilter.page = 1;
+      globalFilter.allPostsFetched = false;
       sessionStorage.setItem("selectedContinent", selectedContinent);
-      fetchAndDisplayPosts(
-        globalFilter.continentTag,
-        globalFilter.sortOption,
-        globalFilter.sortOrder
-      );
+      await fetchAndDisplayPosts();
     });
-  //-Sort by
-  const savedSortOption = sessionStorage.getItem("sortOption");
-  const savedSortOrder = sessionStorage.getItem("sortOrder");
-  if (savedSortOption && savedSortOrder) {
-    globalFilter.sortOption = savedSortOption;
-    globalFilter.sortOrder = savedSortOrder;
-    const sortBySelect = document.getElementById("sortBy");
-    sortBySelect.value = savedSortOrder;
-  }
 
-  //-Search button
+  // Adjusts sorting options based on user selection and fetches posts.
+  document
+    .getElementById("sortBy")
+    .addEventListener("change", async (event) => {
+      const { value } = event.target;
+      adjustSortAndOrder(value);
+      globalFilter.page = 1;
+      globalFilter.allPostsFetched = false;
+      await fetchAndDisplayPosts();
+    });
+
+  // Search form submission handler
   document
     .getElementById("searchForm")
     .addEventListener("submit", async (event) => {
       event.preventDefault();
       handleSearch();
     });
-  //-Fetch and display posts based on the saved filters.
-  await fetchAndDisplayPosts(
-    globalFilter.continentTag,
-    globalFilter.sortOption,
-    globalFilter.sortOrder
-  );
 });
 
-//-- Function to sort posts --//
-document.getElementById("sortBy").addEventListener("change", async (event) => {
-  const value = event.target.value;
-  let sort = "";
-  let sortOrder = "";
-
-  if (value === "desc") {
-    sort = "created";
-    sortOrder = "desc";
-  } else if (value === "asc") {
-    sort = "created";
-    sortOrder = "asc";
-  } else if (value === "alpha-asc") {
-    sort = "title";
-    sortOrder = "asc";
-  } else if (value === "alpha-desc") {
-    sort = "title";
-    sortOrder = "desc";
+// Adjusts global filter settings based on sort selection
+function adjustSortAndOrder(value) {
+  switch (value) {
+    case "desc":
+      globalFilter.sortOption = "created";
+      globalFilter.sortOrder = "desc";
+      break;
+    case "asc":
+      globalFilter.sortOption = "created";
+      globalFilter.sortOrder = "asc";
+      break;
+    case "alpha-asc":
+      globalFilter.sortOption = "title";
+      globalFilter.sortOrder = "asc";
+      break;
+    case "alpha-desc":
+      globalFilter.sortOption = "title";
+      globalFilter.sortOrder = "desc";
+      break;
+    default:
+      globalFilter.sortOption = "created";
+      globalFilter.sortOrder = "desc";
   }
-
-  globalFilter.sortOption = sort;
-  globalFilter.sortOrder = sortOrder;
-
-  sessionStorage.setItem("sortOption", sort);
-  sessionStorage.setItem("sortOrder", sortOrder);
-
-  fetchAndDisplayPosts(
-    globalFilter.continentTag,
-    globalFilter.sortOption,
-    globalFilter.sortOrder
-  );
-});
-
-//------------------------  Call the fetchAllPosts and use the displayPosts to render the fetched posts. Sorts, and displays posts based on the specified filters ------------------------ //
-async function fetchAndDisplayPosts(
-  continentTag = "",
-  sortOption = "",
-  sortOrder = "desc"
-) {
-  try {
-    let posts = await fetchAllPosts(continentTag, sortOption, sortOrder);
-    displayPosts(posts);
-  } catch (error) {
-    console.error("Failed to fetch posts:", error);
-    document.querySelector(".explore-error").textContent =
-      "We encountered an issue loading the posts. Please try again later.";
-  }
+  globalFilter.page = 1;
+  globalFilter.allPostsFetched = false;
+  // Save the current sort settings to sessionStorage
+  sessionStorage.setItem("sortOption", globalFilter.sortOption);
+  sessionStorage.setItem("sortOrder", globalFilter.sortOrder);
 }
 
 //------------------------ For Searchbar ------------------------ //
 
-// Initiates a search based on user input, fetching matching profiles and posts
+// Initiates a search based on user input, fetching matching profiles and posts.
 async function handleSearch() {
   const query = document.getElementById("searchInput").value.trim();
   if (!query) return;
@@ -142,7 +168,7 @@ async function handleSearch() {
   }
 }
 
-// Utility function to create list items for search results
+// Creates a search result list item for profiles and posts.
 function createSearchListItem({
   imageUrl,
   imageAlt,
@@ -247,10 +273,13 @@ function displaySearchResults(profiles, posts) {
 }
 
 //------------------------  Render the posts: Create and add post elements including Post image, username, useravatar, comments, and reactions to the post  ------------------------ //
-function displayPosts(posts) {
+// Renders posts on the page, appending new posts for infinite scroll.
+function displayPosts(posts, append = false) {
   console.log(posts);
   const postContainer = document.querySelector("#allPosts");
-  postContainer.innerHTML = "";
+  if (!append) {
+    postContainer.innerHTML = "";
+  }
 
   posts.forEach((post) => {
     const postImageAltText = post.media?.alt || "Post image";

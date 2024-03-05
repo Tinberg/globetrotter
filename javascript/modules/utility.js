@@ -1,17 +1,19 @@
 //------ Export --------/
 
 //-- For redirect to right profile page --> post.js and profile.js
-export { navigateToUserProfile }; //---------------------------------------------------------------------------------------------------------> Line: 18
+export { navigateToUserProfile }; //---------------------------------------------------------------------------------------------------------> Line: 20
+//-- Infinite scroll, triggering a callback when the user reaches the bottom of the page
+export { addInfiniteScroll }; //-------------------------------------------------------------------------------------------------------------> Line: 32
 //-- For showing 1k 1m and 1b on number of reations and comments --> Explore.js
-export { formatCount, formatWithSuffix }; //-------------------------------------------------------------------------------------------------> Line: 32 and 52
+export { formatCount, formatWithSuffix }; //-------------------------------------------------------------------------------------------------> Line: 44 and 64
 //-- For shorten the text on overlay text for posts --> explore.js, home.js, profile.js, and my-profile.js
-export { trimText }; //----------------------------------------------------------------------------------------------------------------------> Line: 69
+export { trimText }; //----------------------------------------------------------------------------------------------------------------------> Line: 81
 //-- Function to show date as relative time or DD/MM/YYYY --> All pages with posts
-export { formatRelativeTime }; //------------------------------------------------------------------------------------------------------------> Line: 85
+export { formatRelativeTime }; //------------------------------------------------------------------------------------------------------------> Line: 97
 //-- For removing error message and element after a duration -->
-export { clearElementAfterDuration }; //-----------------------------------------------------------------------------------------------------> Line: 110
+export { clearElementAfterDuration }; //-----------------------------------------------------------------------------------------------------> Line: 122
 //-- For reaction number count only display one pr user reguardless of how many emojis(times) they have reacted --> All pages with posts
-export { uniqueReactorsCount }; //-----------------------------------------------------------------------------------------------------------> Line: 124
+export { uniqueReactorsCount }; //-----------------------------------------------------------------------------------------------------------> Line: 136
 
 //-------------------------Redirect-------------------------//
 /**
@@ -26,7 +28,17 @@ function navigateToUserProfile(userName) {
       : `profile.html?username=${encodeURIComponent(userName)}`;
   window.location.href = profileUrl;
 }
-
+/**
+ * Enables infinite scroll, triggering a callback when the user reaches the bottom of the page
+ * @param {Function}
+ */
+function addInfiniteScroll(callback) {
+  window.addEventListener("scroll", async () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      await callback();
+    }
+  });
+}
 //------ Format number function for comments and reactions to fit the layout --------/
 /**
  * Formats a number into a readable string(For the layout) with a suffix ('K', 'M', 'B') based on its value.
