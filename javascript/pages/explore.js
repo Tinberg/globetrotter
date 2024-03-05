@@ -20,13 +20,23 @@ import { uniqueReactorsCount } from "../modules/utility.js";
 // Global state for filters and sorting
 let globalFilter = {
   continentTag: "",
-  sortOption: "",
+  sortOption: "created",
+  sortOrder: "desc",
 };
-//-- Sets up event listeners for post filtering and sorting, then fetches and displays posts --//
+//------------------------ FilterTag, SortBy changes and DOM ------------------------ //
+//-- Sets up event listeners for loading saved filters, fetching and displaying posts, and handling continent filter changes and search submissions --//
 document.addEventListener("DOMContentLoaded", async () => {
-  fetchAndDisplayPosts();
-
-  // Continent filter change event listener
+  const savedContinent = sessionStorage.getItem("selectedContinent");
+  //-Filter Continent
+  if (savedContinent !== null) {
+    const radioToCheck = document.querySelector(
+      `input[name="continent"][value="${savedContinent}"]`
+    );
+    if (radioToCheck) {
+      radioToCheck.checked = true;
+    }
+    globalFilter.continentTag = savedContinent;
+  }
   document
     .getElementById("filterContinent")
     .addEventListener("change", async () => {
@@ -34,52 +44,89 @@ document.addEventListener("DOMContentLoaded", async () => {
         'input[name="continent"]:checked'
       )?.value;
       globalFilter.continentTag = selectedContinent;
-      fetchAndDisplayPosts(globalFilter.continentTag, globalFilter.sortOption);
-    });
 
-  // Sort by change event listener
-  document
-    .getElementById("sortBy")
-    .addEventListener("change", async (event) => {
-      const sortOption = event.target.value;
-      globalFilter.sortOption = sortOption;
-      fetchAndDisplayPosts(globalFilter.continentTag, globalFilter.sortOption);
+      sessionStorage.setItem("selectedContinent", selectedContinent);
+      fetchAndDisplayPosts(
+        globalFilter.continentTag,
+        globalFilter.sortOption,
+        globalFilter.sortOrder
+      );
     });
-  // Search button event listner
+  //-Sort by
+  const savedSortOption = sessionStorage.getItem("sortOption");
+  const savedSortOrder = sessionStorage.getItem("sortOrder");
+  if (savedSortOption && savedSortOrder) {
+    globalFilter.sortOption = savedSortOption;
+    globalFilter.sortOrder = savedSortOrder;
+    const sortBySelect = document.getElementById("sortBy");
+    sortBySelect.value = savedSortOrder;
+  }
+
+  //-Search button
   document
     .getElementById("searchForm")
     .addEventListener("submit", async (event) => {
-      event.preventDefault(); // Prevent form submission
+      event.preventDefault();
       handleSearch();
     });
+  //-Fetch and display posts based on the saved filters.
+  await fetchAndDisplayPosts(
+    globalFilter.continentTag,
+    globalFilter.sortOption,
+    globalFilter.sortOrder
+  );
 });
 
 //-- Function to sort posts --//
-function sortPosts(posts, sortOption) {
-  if (sortOption === "desc") {
-    return posts.sort((a, b) => new Date(b.created) - new Date(a.created));
-  } else if (sortOption === "asc") {
-    return posts.sort((a, b) => new Date(a.created) - new Date(b.created));
-  } else if (sortOption === "alpha-asc") {
-    return posts.sort((a, b) => a.title.localeCompare(b.title));
-  } else if (sortOption === "alpha-desc") {
-    return posts.sort((a, b) => b.title.localeCompare(a.title));
-  } else {
-    return posts;
+document.getElementById("sortBy").addEventListener("change", async (event) => {
+  const value = event.target.value;
+  let sort = "";
+  let sortOrder = "";
+
+  if (value === "desc") {
+    sort = "created";
+    sortOrder = "desc";
+  } else if (value === "asc") {
+    sort = "created";
+    sortOrder = "asc";
+  } else if (value === "alpha-asc") {
+    sort = "title";
+    sortOrder = "asc";
+  } else if (value === "alpha-desc") {
+    sort = "title";
+    sortOrder = "desc";
   }
-}
-//-- Call the fetchAllPosts and use the displayPosts to render the fetched posts. Sorts, and displays posts based on the specified filters --//
-async function fetchAndDisplayPosts(continentTag = "", sortOption = "") {
+
+  globalFilter.sortOption = sort;
+  globalFilter.sortOrder = sortOrder;
+
+  sessionStorage.setItem("sortOption", sort);
+  sessionStorage.setItem("sortOrder", sortOrder);
+
+  fetchAndDisplayPosts(
+    globalFilter.continentTag,
+    globalFilter.sortOption,
+    globalFilter.sortOrder
+  );
+});
+
+//------------------------  Call the fetchAllPosts and use the displayPosts to render the fetched posts. Sorts, and displays posts based on the specified filters ------------------------ //
+async function fetchAndDisplayPosts(
+  continentTag = "",
+  sortOption = "",
+  sortOrder = "desc"
+) {
   try {
-    let posts = await fetchAllPosts(continentTag);
-    posts = sortPosts(posts, sortOption);
+    let posts = await fetchAllPosts(continentTag, sortOption, sortOrder);
     displayPosts(posts);
   } catch (error) {
     console.error("Failed to fetch posts:", error);
-    document.querySelector(".explore-error").textContent = "We encountered an issue loading the posts. Please try again later.";
+    document.querySelector(".explore-error").textContent =
+      "We encountered an issue loading the posts. Please try again later.";
   }
 }
-//-- For Searchbar --//
+
+//------------------------ For Searchbar ------------------------ //
 
 // Initiates a search based on user input, fetching matching profiles and posts
 async function handleSearch() {
@@ -193,16 +240,15 @@ function displaySearchResults(profiles, posts) {
   profilesContainer.appendChild(profilesList);
   postsContainer.appendChild(postsList);
 
-  // Show the search results modal
   const searchModal = new bootstrap.Modal(
     document.getElementById("searchResultsModal")
   );
   searchModal.show();
 }
 
-//-- Render the posts: Create and add post elements including Post image, username, useravatar, comments, and reactions to the post  --//
+//------------------------  Render the posts: Create and add post elements including Post image, username, useravatar, comments, and reactions to the post  ------------------------ //
 function displayPosts(posts) {
-  console.log(posts)
+  console.log(posts);
   const postContainer = document.querySelector("#allPosts");
   postContainer.innerHTML = "";
 

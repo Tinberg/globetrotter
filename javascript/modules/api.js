@@ -207,22 +207,29 @@ async function createPost(postData) {
 }
 /**
  * Fetches all posts optionally filtered by a tag.
- * @param {string} [tag]
+ * @param {string} - tag
+ * @param {string} - sort=""
+ * @param {string} - sortOrder="desc"
  * @returns {Promise}
  */
-async function fetchAllPosts(tag) {
-  const url = tag
-    ? `${API_BASE_URL}/social/posts?_author=true&_reactions=true&_tag=${encodeURIComponent(
-        tag
-      )}`
-    : `${API_BASE_URL}/social/posts?_author=true&_reactions=true`;
+async function fetchAllPosts(tag, sort = "", sortOrder = "desc") {
+  let url = `${API_BASE_URL}/social/posts?_author=true&_reactions=true`;
+
+  if (tag) {
+    url += `&_tag=${encodeURIComponent(tag)}`;
+  }
+  if (sort) {
+    url += `&sort=${sort}&sortOrder=${sortOrder}`;
+  }
 
   const response = await fetch(url, {
     headers: getHeaders(),
   });
+
   if (!response.ok) {
     throw new Error("Failed to fetch all posts");
   }
+
   const result = await response.json();
   return result.data;
 }
