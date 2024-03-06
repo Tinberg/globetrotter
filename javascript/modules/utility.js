@@ -5,15 +5,15 @@ export { navigateToUserProfile }; //--------------------------------------------
 //-- Infinite scroll, triggering a callback when the user reaches the bottom of the page
 export { addInfiniteScroll }; //-------------------------------------------------------------------------------------------------------------> Line: 32
 //-- For showing 1k 1m and 1b on number of reations and comments --> Explore.js
-export { formatCount, formatWithSuffix }; //-------------------------------------------------------------------------------------------------> Line: 44 and 64
+export { formatCount, formatWithSuffix }; //-------------------------------------------------------------------------------------------------> Line: 49 and 71
 //-- For shorten the text on overlay text for posts --> explore.js, home.js, profile.js, and my-profile.js
-export { trimText }; //----------------------------------------------------------------------------------------------------------------------> Line: 81
+export { trimText }; //----------------------------------------------------------------------------------------------------------------------> Line: 88
 //-- Function to show date as relative time or DD/MM/YYYY --> All pages with posts
-export { formatRelativeTime }; //------------------------------------------------------------------------------------------------------------> Line: 97
+export { formatRelativeTime }; //------------------------------------------------------------------------------------------------------------> Line: 102
 //-- For removing error message and element after a duration -->
-export { clearElementAfterDuration }; //-----------------------------------------------------------------------------------------------------> Line: 122
+export { clearElementAfterDuration }; //-----------------------------------------------------------------------------------------------------> Line: 129
 //-- For reaction number count only display one pr user reguardless of how many emojis(times) they have reacted --> All pages with posts
-export { uniqueReactorsCount }; //-----------------------------------------------------------------------------------------------------------> Line: 136
+export { uniqueReactorsCount }; //-----------------------------------------------------------------------------------------------------------> Line: 143
 
 //-------------------------Redirect-------------------------//
 /**
@@ -33,10 +33,17 @@ function navigateToUserProfile(userName) {
  * @param {Function}
  */
 function addInfiniteScroll(callback) {
-  window.addEventListener("scroll", async () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-      await callback();
-    }
+  let timeout;
+  window.addEventListener("scroll", () => {
+    clearTimeout(timeout);
+    timeout = setTimeout(async () => {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.body.offsetHeight - 500
+      ) {
+        await callback();
+      }
+    }, 100);
   });
 }
 //------ Format number function for comments and reactions to fit the layout --------/

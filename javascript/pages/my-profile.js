@@ -7,6 +7,8 @@ checkAuthAndRedirect();
 import { fetchUserProfile } from "../modules/api.js";
 //-- Api for fetch post by spesific user --> api.js
 import { fetchPostsByUserName } from "../modules/api.js";
+//-- Infinite scroll, triggering a callback when the user reaches the bottom of the page
+import { addInfiniteScroll } from "../modules/utility.js";
 //-- Api for fetch edit profile media --> api.js
 import { updateProfileMedia } from "../modules/api.js";
 //-- Trim the text for overlay text title and body text for post --> utility.js --//
@@ -16,45 +18,55 @@ import { formatCount, formatWithSuffix } from "../modules/utility.js";
 //-- format date as relative time or DD/MM/YYYY
 import { formatRelativeTime } from "../modules/utility.js";
 
+//Global state for user profile and pagination
+let globalUserProfile = null;
+let globalFilter = {
+  page: 1,
+  limit: 10,
+  allPostsFetched: false,
+};
 
-//-------------------------User Info-------------------------//
+//------------------------- User Info -------------------------//
 //-- For Displaying user info and posts, changing profile media, and it also calls the display post function--//
 document.addEventListener("DOMContentLoaded", async () => {
   const userName = localStorage.getItem("userName");
   if (userName) {
     try {
       // Fetch and display user profile information
-      const profile = await fetchUserProfile(userName);
-      //Display Followers and following - functions for this Line: 110 and 133
-      displayFollowers(profile);
-      displayFollowing(profile);
-      document.getElementById("userName").textContent = profile.name;
+      globalUserProfile = await fetchUserProfile(userName);
+      //Display Followers and following
+      displayFollowers(globalUserProfile);
+      displayFollowing(globalUserProfile);
+      document.getElementById("userName").textContent = globalUserProfile.name;
       // Banner Image
       const bannerImageElement = document.getElementById("bannerImage");
-      if (profile.banner) {
-        bannerImageElement.src = profile.banner.url;
-        bannerImageElement.alt = profile.banner?.alt || "Personal Banner";
+      if (globalUserProfile.banner) {
+        bannerImageElement.src = globalUserProfile.banner.url;
+        bannerImageElement.alt =
+          globalUserProfile.banner?.alt || "Personal Banner";
         bannerImageElement.style.display = "";
       } else {
         bannerImageElement.style.display = "none";
       }
       // Avatar Image
       const avatarImageElement = document.getElementById("profileImage");
-      avatarImageElement.src = profile.avatar?.url || "/images/profileImage.jpg";
-      avatarImageElement.alt = profile.avatar?.alt || "Personal Avatar";
+      avatarImageElement.src =
+        globalUserProfile.avatar?.url || "/images/profileImage.jpg";
+      avatarImageElement.alt =
+        globalUserProfile.avatar?.alt || "Personal Avatar";
       // Updates counts for posts, followers, and following.
       document.getElementById("allPosts").textContent = formatCount(
-        profile._count.posts
+        globalUserProfile._count.posts
       );
       document.getElementById("followers").textContent = formatCount(
-        profile._count.followers
+        globalUserProfile._count.followers
       );
       document.getElementById("following").textContent = formatCount(
-        profile._count.following
+        globalUserProfile._count.following
       );
-      // Fetch and display posts made by the user and avatar and userName from profile
+      // Fetch user posts on page load and display them
       const posts = await fetchPostsByUserName(userName);
-      displayPosts(posts, profile);
+      displayPosts(posts, globalUserProfile);
     } catch (error) {
       console.error("Failed to load profile information or posts:", error);
       document.querySelector(".user-info-error").textContent =
@@ -63,7 +75,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   } else {
     console.error("User name not found. Redirecting to login page.");
   }
-
+  // // Function to handle infinite scrolling
+  function handleInfiniteScroll() {
+    if (!globalFilter.allPostsFetched) {
+      globalFilter.page++;
+      fetchAndDisplayPosts();
+    }
+  }
+  addInfiniteScroll(handleInfiniteScroll);
   //-- Fetch the profile media for changing banner and avatar --//
   document
     .getElementById("editProfileForm")
@@ -96,6 +115,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
       try {
+        // Update profile media
         await updateProfileMedia(
           userName,
           bannerUrl,
@@ -112,12 +132,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
 });
-//-- Function to display followers --//
-function displayFollowers(profile) {
+
+//------------------------- Function to display followers -------------------------//
+function displayFollowers(globalUserProfile) {
   const followersList = document.getElementById("followersList");
   followersList.innerHTML = "";
 
-  profile.followers.forEach((follower) => {
+  globalUserProfile.followers.forEach((follower) => {
     const listItem = document.createElement("li");
     listItem.className = "list-group-item hover-background cursor-pointer";
     listItem.innerHTML = `
@@ -135,12 +156,12 @@ function displayFollowers(profile) {
     });
   });
 }
-//-- Function to display following --//
-function displayFollowing(profile) {
+//-------------------------Function to display following -------------------------//
+function displayFollowing(globalUserProfile) {
   const followingList = document.getElementById("followingList");
   followingList.innerHTML = "";
 
-  profile.following.forEach((following) => {
+  globalUserProfile.following.forEach((following) => {
     const listItem = document.createElement("li");
     listItem.className = "list-group-item hover-background cursor-pointer";
     listItem.innerHTML = `
@@ -160,15 +181,38 @@ function displayFollowing(profile) {
 }
 
 //-------------------------User Posts-------------------------//
+
+//Fetches and displays posts with pagination support, and updates the global state to reflect fetching status
+async function fetchAndDisplayPosts() {
+  const userName = localStorage.getItem("userName");
+  if (!globalFilter.allPostsFetched) {
+    try {
+      const posts = await fetchPostsByUserName(
+        userName,
+        globalFilter.page,
+        globalFilter.limit
+      );
+      if (posts.length < globalFilter.limit) {
+        globalFilter.allPostsFetched = true;
+        document.querySelector(".profile-message").textContent = "You've reached the end of your posts. Back to Top";
+      }
+      displayPosts(posts, true);
+      globalFilter.page++;
+    } catch (error) {
+      console.error("Failed to fetch more posts:", error);
+    }
+  }
+}
 /**
  *
  * @param {Array} posts
  */
-//-- For display users posts. Function called in DOMContentLoaded!--//
-function displayPosts(posts, profile) {
-  console.log(posts)
+//-- Displays posts, appending to existing ones if 'append' is true, or clears container first--//
+function displayPosts(posts, append = false) {
+  console.log(posts);
+  const profile = globalUserProfile;
   const postContainer = document.getElementById("postContainer");
-  postContainer.innerHTML = "";
+  if (!append) postContainer.innerHTML = "";
 
   posts.forEach((post) => {
     const postElement = document.createElement("div");

@@ -5,6 +5,8 @@ import { checkAuthAndRedirect } from "../modules/auth.js";
 checkAuthAndRedirect();
 //-- function to fetch all post that the user are following --> api.js --//
 import { fetchPostsFromFollowing } from "../modules/api.js";
+//-- Infinite scroll, triggering a callback when the user reaches the bottom of the page
+import { addInfiniteScroll } from "../modules/utility.js";
 //-- Trim the text for overlay text title and body text for post --> utility.js --//
 import { trimText } from "../modules/utility.js";
 //-- For formatting reaction and comment numbers to fit the layout --> utility.js --//
@@ -14,21 +16,59 @@ import { formatRelativeTime } from "../modules/utility.js";
 //-- reaction number count only display one pr user reguardless of how many emojis(times) they have reacted
 import { uniqueReactorsCount } from "../modules/utility.js";
 
-//-- Calls the fetchPostsFromFollowing and uses displayPosts to render the fetched posts --//
+//Global stat for pagination
+let globalFilter = {
+  page: 1,
+  limit: 20,
+  allPostsFetched: false,
+};
+//----------------- Calls the fetchPostsFromFollowing and uses displayPosts to render the fetched posts on page load -----------------//
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const posts = await fetchPostsFromFollowing();
-    displayPosts(posts);
+    const posts = await fetchPostsFromFollowing(globalFilter.page, globalFilter.limit);
+    if (posts.length > 0) {
+      displayPosts(posts);
+    } else {
+      globalFilter.allPostsFetched = true;
+      console.log("No more posts to fetch.");
+    }
   } catch (error) {
     console.error("Failed to fetch posts:", error);
     document.querySelector(".home-error").textContent = "We encountered an issue loading the posts. Please try again later.";
   }
 });
+//Function from utility.js to load on scroll
+function handleInfiniteScroll() {
+  if (!globalFilter.allPostsFetched) {
+    globalFilter.page++;
+    fetchAndDisplayPosts();
+  }
+}
+addInfiniteScroll(handleInfiniteScroll);
+//----------------- Fetch more posts from followed users and display them, considering pagination. -----------------//
+async function fetchAndDisplayPosts() {
+  if (!globalFilter.allPostsFetched) {
+    try {
+      const posts = await fetchPostsFromFollowing(globalFilter.page, globalFilter.limit);
+      if (posts.length < globalFilter.limit) {
+        globalFilter.allPostsFetched = true; 
+        document.querySelector(".home-message").textContent = "You've reached the end of the follwing feed. Keep exploring!";
+      }
+      displayPosts(posts, true); 
+    } catch (error) {
+      console.error("Failed to fetch more posts:", error);
+    }
+  }
+  else{
+
+  }
+}
 //-- Render the posts: Create and add post elements from users the logged-in user is following, including Post image, username, useravatar, comments, and reactions  --//
-function displayPosts(posts) {
+function displayPosts(posts, append = false) {
   console.log(posts)
   const postContainer = document.querySelector("#allPosts");
-  postContainer.innerHTML = "";
+  if (!append) {
+    postContainer.innerHTML = "";}
 
   posts.forEach((post) => {
     const postImageAltText = post.media?.alt || "Post image";
