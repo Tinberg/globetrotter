@@ -45,6 +45,10 @@ async function fetchAndDisplayPosts() {
     );
     if (posts.length < globalFilter.limit) {
       globalFilter.allPostsFetched = true;
+      document.querySelector(".explore-message").textContent = "No more posts. Back to Top";
+    }
+    else {
+      document.querySelector(".explore-message").textContent = "";
     }
     displayPosts(posts, globalFilter.page > 1);
   } catch (error) {
@@ -53,7 +57,7 @@ async function fetchAndDisplayPosts() {
       "We encountered an issue loading the posts. Please try again later.";
   }
 }
-//function from utility.js to load on scroll
+//Function from utility.js to load on scroll
 addInfiniteScroll(async () => {
   if (!globalFilter.allPostsFetched) {
     globalFilter.page++;

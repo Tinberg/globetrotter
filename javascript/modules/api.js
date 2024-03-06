@@ -123,9 +123,9 @@ async function fetchUserProfile(userName) {
  * @param {string} userName
  * @returns {Promise}
  */
-async function fetchPostsByUserName(userName) {
+async function fetchPostsByUserName(userName, page = 1, limit = 10) {
   const response = await fetch(
-    `${API_BASE_URL}/social/profiles/${userName}/posts?_author=true&_reactions=true`,
+    `${API_BASE_URL}/social/profiles/${userName}/posts?_author=true&_reactions=true&limit=${limit}&page=${page}`,
     {
       headers: getHeaders(),
     }
@@ -136,6 +136,7 @@ async function fetchPostsByUserName(userName) {
   const result = await response.json();
   return result.data;
 }
+
 /**
  *  update profile media
  * @param {string} userName -  The username of the profile to update.
@@ -210,6 +211,8 @@ async function createPost(postData) {
  * @param {string} - tag
  * @param {string} - sort=""
  * @param {string} - sortOrder="desc"
+ * @param {number} - page
+ * @param {number} - limit
  * @returns {Promise}
  */
 async function fetchAllPosts(continentTag = "", sortOption = "", sortOrder = "desc", page = 1, limit = 20) {
@@ -235,11 +238,13 @@ async function fetchAllPosts(continentTag = "", sortOption = "", sortOrder = "de
 }
 /**
  * fetch post all post from the users is following
+ * @param {number} - page
+ * @param {number} - limit
  * @returns  {Promise}
  */
-async function fetchPostsFromFollowing() {
+async function fetchPostsFromFollowing(page = 1, limit = 20) {
   const response = await fetch(
-    `${API_BASE_URL}/social/posts/following?_author=true&_comments=true&_reactions=true`,
+    `${API_BASE_URL}/social/posts/following?_author=true&_comments=true&_reactions=true&limit=${limit}&page=${page}`,
     {
       headers: getHeaders(),
     }
