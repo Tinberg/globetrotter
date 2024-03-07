@@ -7,6 +7,8 @@ checkAuthAndRedirect();
 import { fetchUserProfile } from "../modules/api.js";
 //-- Api for fetch post by spesific user --> api.js
 import { fetchPostsByUserName } from "../modules/api.js";
+//-- Infinite scroll, triggering a callback when the user reaches the bottom of the page
+import { addInfiniteScroll } from "../modules/utility.js";
 //-- Api for to set status for follow -- api.js
 import { followUser } from "../modules/api.js";
 //-- Api for to set status for unfollow -- api.js
@@ -20,6 +22,14 @@ import { formatCount, formatWithSuffix } from "../modules/utility.js";
 //-- format date as relative time or DD/MM/YYYY
 import { formatRelativeTime } from "../modules/utility.js";
 
+//Global state for user profile and pagination
+let globalUserProfile = null;
+let globalFilter = {
+  page: 1,
+  limit: 6,
+  allPostsFetched: false,
+};
+//------------------------- User Info -------------------------//
 //-- Initializes the page by fetching and displaying user profile and posts based on the username from URL, and sets up follow/unfollow functionality --//
 document.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -32,14 +42,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     // Fetches and displays the user profile and posts.
-    const profile = await fetchUserProfile(userName);
-    displayFollowers(profile);
-    displayFollowing(profile);
-    updateProfileUI(profile);
-    updateFollowButton(profile);
+    globalUserProfile = await fetchUserProfile(userName);
+    displayFollowers(globalUserProfile);
+    displayFollowing(globalUserProfile);
+    updateProfileUI(globalUserProfile);
+    updateFollowButton(globalUserProfile);
 
     const posts = await fetchPostsByUserName(userName);
-    displayPosts(posts, profile);
+    displayPosts(posts, globalUserProfile);
+      // Function to handle infinite scrolling
+  function handleInfiniteScroll() {
+    if (!globalFilter.allPostsFetched) {
+      globalFilter.page++;
+      fetchAndDisplayPosts(userName);
+    }
+  }
+  addInfiniteScroll(handleInfiniteScroll);
     //Event listener for follow/unfollow.
     document
       .getElementById("followOrUnfollow")
@@ -51,36 +69,137 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-//-- Updates the UI with user profile information --//
-function updateProfileUI(profile) {
+//------------------------- Updates the UI with user profile information -------------------------//
+function updateProfileUI(globalUserProfile) {
   // Sets users name
-  document.getElementById("userName").textContent = profile.name;
+  document.getElementById("userName").textContent = globalUserProfile.name;
   // Sets users banner and alt text
   const bannerImageElement = document.getElementById("bannerImage");
-  bannerImageElement.src = profile.banner?.url || "/images/background.jpg";
-  bannerImageElement.alt = profile.banner?.alt || "Personal Banner";
-  bannerImageElement.style.display = profile.banner?.url ? "block" : "none";
+  bannerImageElement.src = globalUserProfile.banner?.url || "/images/background.jpg";
+  bannerImageElement.alt = globalUserProfile.banner?.alt || "Personal Banner";
+  bannerImageElement.style.display = globalUserProfile.banner?.url ? "block" : "none";
   // Sets users avatar and alt text
   const profileImageElement = document.getElementById("profileImage");
-  profileImageElement.src = profile.avatar?.url || "/images/profileImage.jpg";
-  profileImageElement.alt = profile.avatar?.alt || "Personal Avatar";
-  profileImageElement.style.display = profile.avatar?.url ? "block" : "none";
+  profileImageElement.src = globalUserProfile.avatar?.url || "/images/profileImage.jpg";
+  profileImageElement.alt = globalUserProfile.avatar?.alt || "Personal Avatar";
+  profileImageElement.style.display = globalUserProfile.avatar?.url ? "block" : "none";
   // Updates counts for posts, followers, and following.
   document.getElementById("allPosts").textContent = formatCount(
-    profile._count.posts
+    globalUserProfile._count.posts
   );
   document.getElementById("followers").textContent = formatCount(
-    profile._count.followers
+    globalUserProfile._count.followers
   );
   document.getElementById("following").textContent = formatCount(
-    profile._count.following
+    globalUserProfile._count.following
   );
 }
 
-//-- Display Posts from the profile user --//
-function displayPosts(posts, profile) {
+//------------------------- Update Follow/Following -------------------------//
+// Toggles the follow/unfollow status of the profile based on the current button text and then performs api call --//
+async function toggleFollow(userName) {
+  const followButton = document.getElementById("followOrUnfollow");
+
+  try {
+    if (followButton.textContent.trim() === "Follow") {
+      await followUser(userName);
+      followButton.textContent = "Unfollow";
+    } else {
+      await unfollowUser(userName);
+      followButton.textContent = "Follow";
+    }
+    const updatedProfile = await fetchUserProfile(userName);
+    updateProfileUI(updatedProfile);
+  } catch (error) {
+    console.error("Error toggling follow status:", error);
+    document.querySelector(".error-message").textContent =
+      "Could not update follow status. Please try again.";
+  }
+}
+
+//-- Updates the follow/unfollow button based on current user's follow status --//
+function updateFollowButton(globalUserProfile) {
+  const currentUser = localStorage.getItem("userName");
+  const followButton = document.getElementById("followOrUnfollow");
+
+  const isFollowing = globalUserProfile.followers.some(
+    (follower) => follower.name === currentUser
+  );
+  followButton.textContent = isFollowing ? "Unfollow" : "Follow";
+}
+
+//-------------------------- Follow/Following display -------------------------//
+//-- Function to display followers --//
+function displayFollowers(globalUserProfile) {
+  const followersList = document.getElementById("followersList");
+  followersList.innerHTML = "";
+
+  globalUserProfile.followers.forEach((follower) => {
+    const listItem = document.createElement("li");
+    listItem.className = "list-group-item hover-background cursor-pointer";
+    listItem.innerHTML = `
+      <div class="d-flex align-items-center my-2">
+        <img src="${follower.avatar.url}" alt="${follower.avatar.alt}" class="small-profile-image rounded-circle me-2">
+        <strong>${follower.name}</strong>
+      </div>
+    `;
+    followersList.appendChild(listItem);
+
+    listItem.addEventListener("click", () =>
+      navigateToUserProfile(follower.name)
+    );
+  });
+}
+//-- Function to display following --//
+function displayFollowing(globalUserProfile) {
+  const followingList = document.getElementById("followingList");
+  followingList.innerHTML = "";
+
+  globalUserProfile.following.forEach((following) => {
+    const listItem = document.createElement("li");
+    listItem.className = "list-group-item hover-background cursor-pointer";
+    listItem.innerHTML = `
+      <div class="d-flex align-items-center my-2">
+        <img src="${following.avatar.url}" alt="${following.avatar.alt}" class="small-profile-image rounded-circle me-2">
+        <strong>${following.name}</strong>
+      </div>
+    `;
+    followingList.appendChild(listItem);
+
+    listItem.addEventListener("click", () =>
+      navigateToUserProfile(following.name)
+    );
+  });
+}
+
+//-------------------------User Posts-------------------------//
+//Fetches and displays posts with pagination support, and updates the global state to reflect fetching status
+async function fetchAndDisplayPosts(userName) {
+  if (!globalFilter.allPostsFetched) {
+    try {
+      const posts = await fetchPostsByUserName(
+        userName,
+        globalFilter.page,
+        globalFilter.limit
+      );
+      if (posts.length < globalFilter.limit) {
+        globalFilter.allPostsFetched = true;
+        document.querySelector(".profile-message").textContent =
+          "You've reached the end of your posts. Back to Top";
+      }
+      displayPosts(posts, true);
+    } catch (error) {
+      console.error("Failed to fetch more posts:", error);
+    }
+  }
+}
+
+//-- Displays posts, appending to existing ones if 'append' is true, or clears container first--//
+function displayPosts(posts, append = false) {
+  console.log(posts);
+  const profile = globalUserProfile;
   const postContainer = document.getElementById("postContainer");
-  postContainer.innerHTML = "";
+  if (!append) postContainer.innerHTML = "";
 
   posts.forEach((post) => {
     const postElement = document.createElement("div");
@@ -138,82 +257,5 @@ function displayPosts(posts, profile) {
       window.location.href = `post.html?id=${post.id}`;
     });
     postContainer.appendChild(postElement);
-  });
-}
-
-//-- Follow/Following button --//
-// Toggles the follow/unfollow status of the profile based on the current button text and then performs api call --//
-async function toggleFollow(userName) {
-  const followButton = document.getElementById("followOrUnfollow");
-
-  try {
-    if (followButton.textContent.trim() === "Follow") {
-      await followUser(userName);
-      followButton.textContent = "Unfollow";
-    } else {
-      await unfollowUser(userName);
-      followButton.textContent = "Follow";
-    }
-    const updatedProfile = await fetchUserProfile(userName);
-    updateProfileUI(updatedProfile);
-  } catch (error) {
-    console.error("Error toggling follow status:", error);
-    document.querySelector(".error-message").textContent =
-      "Could not update follow status. Please try again.";
-  }
-}
-
-//-- Updates the follow/unfollow button based on current user's follow status --//
-function updateFollowButton(profile) {
-  const currentUser = localStorage.getItem("userName");
-  const followButton = document.getElementById("followOrUnfollow");
-
-  const isFollowing = profile.followers.some(
-    (follower) => follower.name === currentUser
-  );
-  followButton.textContent = isFollowing ? "Unfollow" : "Follow";
-}
-
-//-- Follow/Following display --//
-//-- Function to display followers --//
-function displayFollowers(profile) {
-  const followersList = document.getElementById("followersList");
-  followersList.innerHTML = "";
-
-  profile.followers.forEach((follower) => {
-    const listItem = document.createElement("li");
-    listItem.className = "list-group-item hover-background cursor-pointer";
-    listItem.innerHTML = `
-      <div class="d-flex align-items-center my-2">
-        <img src="${follower.avatar.url}" alt="${follower.avatar.alt}" class="small-profile-image rounded-circle me-2">
-        <strong>${follower.name}</strong>
-      </div>
-    `;
-    followersList.appendChild(listItem);
-
-    listItem.addEventListener("click", () =>
-      navigateToUserProfile(follower.name)
-    );
-  });
-}
-//-- Function to display following --//
-function displayFollowing(profile) {
-  const followingList = document.getElementById("followingList");
-  followingList.innerHTML = "";
-
-  profile.following.forEach((following) => {
-    const listItem = document.createElement("li");
-    listItem.className = "list-group-item hover-background cursor-pointer";
-    listItem.innerHTML = `
-      <div class="d-flex align-items-center my-2">
-        <img src="${following.avatar.url}" alt="${following.avatar.alt}" class="small-profile-image rounded-circle me-2">
-        <strong>${following.name}</strong>
-      </div>
-    `;
-    followingList.appendChild(listItem);
-
-    listItem.addEventListener("click", () =>
-      navigateToUserProfile(following.name)
-    );
   });
 }
