@@ -18,7 +18,8 @@ import { formatCount, formatWithSuffix } from "../modules/utility.js";
 //-- format date as relative time or DD/MM/YYYY
 import { formatRelativeTime } from "../modules/utility.js";
 
-//Global state for user profile and pagination
+//Global state for user Bio text, profile and pagination
+let initialBioText = "";
 let globalUserProfile = null;
 let globalFilter = {
   page: 1,
@@ -54,6 +55,28 @@ document.addEventListener("DOMContentLoaded", async () => {
         globalUserProfile.avatar?.url || "/images/profileImage.jpg";
       avatarImageElement.alt =
         globalUserProfile.avatar?.alt || "Personal Avatar";
+      //Bio Text
+      //Pre-fill and dynamically update character count in the edit modal
+      if (globalUserProfile) {
+        initialBioText = globalUserProfile.bio || "";
+        const bioTextArea = document.getElementById("bioInput");
+        if (bioTextArea) {
+          bioTextArea.value = initialBioText;
+        }
+      }
+      // Initialize and update bio character count on input
+      updateBioCharacterCount();
+      document.getElementById("bioInput").addEventListener("input", updateBioCharacterCount);
+      // Display current bio in profile or hide if empty
+      if (globalUserProfile) {
+        const bioElement = document.querySelector(".bio-text");
+        if (globalUserProfile.bio && globalUserProfile.bio.trim()) {
+          bioElement.textContent = globalUserProfile.bio;
+        } else {
+          bioElement.textContent = "";
+          bioElement.style.display = "none";
+        }
+      }
       // Updates counts for posts, followers, and following.
       document.getElementById("allPosts").textContent = formatCount(
         globalUserProfile._count.posts
@@ -75,7 +98,22 @@ document.addEventListener("DOMContentLoaded", async () => {
   } else {
     console.error("User name not found. Redirecting to login page.");
   }
-  // Function to handle infinite scrolling
+  //-- Function to update bio character count feedback
+function updateBioCharacterCount() {
+  const bioInput = document.getElementById("bioInput");
+  const bioFeedback = document.getElementById("bio-text");
+  const maxCharacters = 160;
+  const currentLength = bioInput.value.length;
+  
+  bioFeedback.textContent = `${currentLength}/${maxCharacters} characters`;
+  
+  if (currentLength > maxCharacters) {
+    bioFeedback.classList.add("text-danger");
+  } else {
+    bioFeedback.classList.remove("text-danger");
+  }
+}
+  //-- Function to handle infinite scrolling
   function handleInfiniteScroll() {
     if (!globalFilter.allPostsFetched) {
       globalFilter.page++;
@@ -90,25 +128,27 @@ document.addEventListener("DOMContentLoaded", async () => {
       event.preventDefault();
       const errorFeedback = document.getElementById("profileEditError");
 
+      // Fetch current form values
+      const bioText = document.getElementById("bioInput").value.trim();
       const resetBanner = document.getElementById(
         "resetBannerCheckbox"
       ).checked;
       const resetAvatar = document.getElementById(
         "resetAvatarCheckbox"
       ).checked;
-
       let bannerUrl = resetBanner
         ? undefined
         : document.getElementById("bannerImageInput").value || undefined;
       let avatarUrl = resetAvatar
         ? undefined
         : document.getElementById("profileImageInput").value || undefined;
-      if (
-        !resetBanner &&
-        !resetAvatar &&
-        bannerUrl === undefined &&
-        avatarUrl === undefined
-      ) {
+
+      // Check if any changes were made
+      const isBioChanged = bioText !== initialBioText;
+      const isBannerChanged = resetBanner || bannerUrl !== undefined;
+      const isAvatarChanged = resetAvatar || avatarUrl !== undefined;
+
+      if (!isBioChanged && !isBannerChanged && !isAvatarChanged) {
         errorFeedback.textContent =
           "Profile unchanged, no new updates submitted";
         errorFeedback.style.display = "block";
@@ -121,7 +161,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           bannerUrl,
           avatarUrl,
           resetBanner,
-          resetAvatar
+          resetAvatar,
+          bioText
         );
         window.location.reload();
       } catch (error) {

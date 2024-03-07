@@ -50,14 +50,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const posts = await fetchPostsByUserName(userName);
     displayPosts(posts, globalUserProfile);
-      // Function to handle infinite scrolling
-  function handleInfiniteScroll() {
-    if (!globalFilter.allPostsFetched) {
-      globalFilter.page++;
-      fetchAndDisplayPosts(userName);
+    // Function to handle infinite scrolling
+    function handleInfiniteScroll() {
+      if (!globalFilter.allPostsFetched) {
+        globalFilter.page++;
+        fetchAndDisplayPosts(userName);
+      }
     }
-  }
-  addInfiniteScroll(handleInfiniteScroll);
+    addInfiniteScroll(handleInfiniteScroll);
     //Event listener for follow/unfollow.
     document
       .getElementById("followOrUnfollow")
@@ -75,14 +75,29 @@ function updateProfileUI(globalUserProfile) {
   document.getElementById("userName").textContent = globalUserProfile.name;
   // Sets users banner and alt text
   const bannerImageElement = document.getElementById("bannerImage");
-  bannerImageElement.src = globalUserProfile.banner?.url || "/images/background.jpg";
+  bannerImageElement.src =
+    globalUserProfile.banner?.url || "/images/background.jpg";
   bannerImageElement.alt = globalUserProfile.banner?.alt || "Personal Banner";
-  bannerImageElement.style.display = globalUserProfile.banner?.url ? "block" : "none";
+  bannerImageElement.style.display = globalUserProfile.banner?.url
+    ? "block"
+    : "none";
   // Sets users avatar and alt text
   const profileImageElement = document.getElementById("profileImage");
-  profileImageElement.src = globalUserProfile.avatar?.url || "/images/profileImage.jpg";
+  profileImageElement.src =
+    globalUserProfile.avatar?.url || "/images/profileImage.jpg";
   profileImageElement.alt = globalUserProfile.avatar?.alt || "Personal Avatar";
-  profileImageElement.style.display = globalUserProfile.avatar?.url ? "block" : "none";
+  profileImageElement.style.display = globalUserProfile.avatar?.url
+    ? "block"
+    : "none";
+  // Set bio text hide if empty
+  const bioParagraph = document.querySelector(".bio-text");
+  if (globalUserProfile.bio && globalUserProfile.bio.trim()) {
+    bioParagraph.textContent = globalUserProfile.bio;
+    bioParagraph.style.display = "";
+  } else {
+    bioParagraph.textContent = "";
+    bioParagraph.style.display = "none";
+  }
   // Updates counts for posts, followers, and following.
   document.getElementById("allPosts").textContent = formatCount(
     globalUserProfile._count.posts

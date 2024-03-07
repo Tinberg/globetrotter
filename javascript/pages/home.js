@@ -30,7 +30,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       displayPosts(posts);
     } else {
       globalFilter.allPostsFetched = true;
-      console.log("No more posts to fetch.");
+      const noPostsMessage = "No posts to display. Follow more users to see their posts here!";
+      document.querySelector(".home-message").textContent = noPostsMessage;
     }
   } catch (error) {
     console.error("Failed to fetch posts:", error);

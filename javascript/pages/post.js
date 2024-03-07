@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", loadPostData);
 
 //-- Renders detailed view of a post, including title, body, media, tags, author info, and initializes comment and reaction --//
 function displayPostDetails(postData, postId) {
-  console.log(postData)
+  console.log(postData);
   //displaying post title, body reactions count and comments count
   document.querySelector(".post-title").textContent = postData.title;
   document.querySelector(".post-body").textContent = postData.body;
@@ -99,8 +99,28 @@ function displayPostDetails(postData, postId) {
   }
   //Display the tag/Continent
   if (postData.tags && postData.tags.length > 0) {
-    document.querySelector(".tags-container").textContent = postData.tags[0];
+    // List of valid continents
+    const validContinents = [
+      "Africa",
+      "Asia",
+      "Europe",
+      "Oceania",
+      "North-America",
+      "South-America",
+    ];
+
+    const isContinent = validContinents.includes(postData.tags[0]);
+
+    if (isContinent) {
+      document.querySelector(
+        ".tags-container"
+      ).textContent = `${postData.tags[0]}`;
+    } else {
+      //set value to Not Specefied to posts that has other tags then GlobeTrotter
+      document.querySelector(".tags-container").textContent = "Not Specified";
+    }
   } else {
+    // If there are no tags, also display "Not Specified"
     document.querySelector(".tags-container").textContent = "Not Specified";
   }
   //Display date
