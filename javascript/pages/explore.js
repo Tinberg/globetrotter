@@ -18,6 +18,8 @@ import { formatCount, formatWithSuffix } from "../modules/utility.js";
 import { formatRelativeTime } from "../modules/utility.js";
 //-- reaction number count only display one pr user reguardless of how many emojis(times) they have reacted
 import { uniqueReactorsCount } from "../modules/utility.js";
+//- Function when profile is clicked directs to my-profile.html if its your own profile directs to profile.html
+import { navigateToUserProfile } from "../modules/utility.js";
 
 // Global state for filters, sorting, and pagination
 let globalFilter = {
@@ -45,9 +47,9 @@ async function fetchAndDisplayPosts() {
     );
     if (posts.length < globalFilter.limit) {
       globalFilter.allPostsFetched = true;
-      document.querySelector(".explore-message").textContent = "No more posts. Back to Top";
-    }
-    else {
+      document.querySelector(".explore-message").textContent =
+        "No more posts. Back to Top";
+    } else {
       document.querySelector(".explore-message").textContent = "";
     }
     displayPosts(posts, globalFilter.page > 1);
@@ -231,10 +233,7 @@ function displaySearchResults(profiles, posts) {
         imageUrl: profile.avatar?.url || "/images/profileImage.jpg",
         imageAlt: profile.avatar?.alt || "Profile avatar",
         primaryText: profile.name,
-        onClick: () =>
-          (window.location.href = `profile.html?username=${encodeURIComponent(
-            profile.name
-          )}`),
+        onClick: () => navigateToUserProfile(profile.name),
         isProfile: true,
       });
       profilesList.appendChild(listItem);

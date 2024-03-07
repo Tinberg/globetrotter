@@ -200,7 +200,7 @@ async function fetchAndDisplayPosts(userName) {
       if (posts.length < globalFilter.limit) {
         globalFilter.allPostsFetched = true;
         document.querySelector(".profile-message").textContent =
-          "You've reached the end of your posts. Back to Top";
+          "You've reached the end of the posts. Back to Top";
       }
       displayPosts(posts, true);
     } catch (error) {
