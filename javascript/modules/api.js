@@ -10,11 +10,11 @@ import { apiKey } from "./auth.js";
 //-- For fetch register user --> register.js
 export { registerUser }; //------------------------------------------------------------------- Line: 67
 //-- For fetch login user --> index.js
-export { loginUser }; //---------------------------------------------------------------------- Line: 83
+export { loginUser }; //---------------------------------------------------------------------- Line: 82
 //-- For fetch spesific user info --> my-profile.js
-export { fetchUserProfile }; //--------------------------------------------------------------- Line: 105
+export { fetchUserProfile }; //--------------------------------------------------------------- Line: 104
 //-- For fetch posts by spesific user --> my-profile.js and profile.js
-export { fetchPostsByUserName }; //----------------------------------------------------------- Line: 123
+export { fetchPostsByUserName }; //----------------------------------------------------------- Line: 122
 //-- For fetch edit profile media --> my-profile.js
 export { updateProfileMedia }; //------------------------------------------------------------- Line: 141
 //-- For fetch create post --> new-post.js
@@ -22,27 +22,27 @@ export { createPost }; //-------------------------------------------------------
 //-- For fetch all posts --> explore.js
 export { fetchAllPosts }; //------------------------------------------------------------------ Line: 210
 //-- For fetching all post that the user is following --> home.js
-export { fetchPostsFromFollowing }; //-------------------------------------------------------- Line: 231
+export { fetchPostsFromFollowing }; //-------------------------------------------------------- Line: 246
 //-- For fetching a single post with comments reactions and author info --> post.js
-export { fetchSinglePost }; //---------------------------------------------------------------- Line: 248
+export { fetchSinglePost }; //---------------------------------------------------------------- Line: 265
 //-- For fetching to edit a post --> post.js
-export { updatePost }; //--------------------------------------------------------------------- Line: 266
+export { updatePost }; //--------------------------------------------------------------------- Line: 283
 //-- For fetching to delete a post --> post.js
-export { deletePost }; //--------------------------------------------------------------------- Line: 287
+export { deletePost }; //--------------------------------------------------------------------- Line: 304
 //-- For fetch comment --> post.js
-export { postComment }; //-------------------------------------------------------------------- Line: 302
+export { postComment }; //-------------------------------------------------------------------- Line: 319
 //-- For delete comment --> post.js
-export { deleteComment }; //------------------------------------------------------------------ Line: 329
+export { deleteComment }; //------------------------------------------------------------------ Line: 346
 //-- For fetch reaction -->post.js
-export { reactToPost }; //-------------------------------------------------------------------- Line: 349
+export { reactToPost }; //-------------------------------------------------------------------- Line: 366
 //-- For follow a user by their username --> profile.js
-export { followUser }; //--------------------------------------------------------------------- Line: 370
+export { followUser }; //--------------------------------------------------------------------- Line: 387
 //-- For unfollow a user by their username --> profile.js
-export { unfollowUser }; //------------------------------------------------------------------- Line: 388
+export { unfollowUser }; //------------------------------------------------------------------- Line: 405
 //-- For fetch all profiles search --> explore.js
-export { fetchProfilesSearch }; //------------------------------------------------------------ Line: 406
+export { fetchProfilesSearch }; //------------------------------------------------------------ Line: 423
 //-- For fetch all posts search --> explore.js
-export { fetchPostsSearch }; //--------------------------------------------------------------- Line: 424
+export { fetchPostsSearch }; //--------------------------------------------------------------- Line: 441
 
 //---------- Utility ----------//
 //-- This is the Base URL --//
@@ -76,7 +76,7 @@ async function registerUser(userData) {
     },
     body: JSON.stringify(userData),
   });
- return response;
+  return response;
 }
 /**
  * login user profile
@@ -123,7 +123,7 @@ async function fetchUserProfile(userName) {
  * @param {string} userName
  * @returns {Promise}
  */
-async function fetchPostsByUserName(userName, page = 1, limit = 10) {
+async function fetchPostsByUserName(userName, page = 1, limit = 6) {
   const response = await fetch(
     `${API_BASE_URL}/social/profiles/${userName}/posts?_author=true&_reactions=true&limit=${limit}&page=${page}`,
     {
@@ -215,7 +215,13 @@ async function createPost(postData) {
  * @param {number} - limit
  * @returns {Promise}
  */
-async function fetchAllPosts(continentTag = "", sortOption = "", sortOrder = "desc", page = 1, limit = 20) {
+async function fetchAllPosts(
+  continentTag = "",
+  sortOption = "",
+  sortOrder = "desc",
+  page = 1,
+  limit = 20
+) {
   let url = `${API_BASE_URL}/social/posts?_author=true&_reactions=true&page=${page}&limit=${limit}`;
 
   if (continentTag) {

@@ -22,7 +22,7 @@ import { formatRelativeTime } from "../modules/utility.js";
 let globalUserProfile = null;
 let globalFilter = {
   page: 1,
-  limit: 10,
+  limit: 6,
   allPostsFetched: false,
 };
 
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   } else {
     console.error("User name not found. Redirecting to login page.");
   }
-  // // Function to handle infinite scrolling
+  // Function to handle infinite scrolling
   function handleInfiniteScroll() {
     if (!globalFilter.allPostsFetched) {
       globalFilter.page++;
@@ -194,10 +194,10 @@ async function fetchAndDisplayPosts() {
       );
       if (posts.length < globalFilter.limit) {
         globalFilter.allPostsFetched = true;
-        document.querySelector(".profile-message").textContent = "You've reached the end of your posts. Back to Top";
+        document.querySelector(".profile-message").textContent =
+          "You've reached the end of your posts. Back to Top";
       }
       displayPosts(posts, true);
-      globalFilter.page++;
     } catch (error) {
       console.error("Failed to fetch more posts:", error);
     }
