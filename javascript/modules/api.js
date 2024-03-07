@@ -151,11 +151,12 @@ async function updateProfileMedia(
   bannerUrl,
   avatarUrl,
   isResetBanner,
-  isResetAvatar
+  isResetAvatar,
+  bioText
 ) {
   const placeholderUrl =
     "https://images.unsplash.com/photo-1579547945413-497e1b99dac0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&h=500&w=1500";
-  const bodyData = {};
+  const bodyData = { bio: bioText,};
 
   if (bannerUrl !== undefined || isResetBanner) {
     bodyData.banner = isResetBanner

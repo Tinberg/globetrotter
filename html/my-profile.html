@@ -385,6 +385,21 @@
                     </label>
                   </div>
                 </div>
+                <div class="border my-4"></div>
+                <!-- BIO-->
+                <div class="mb-3 text-center">
+                  <label for="bioInput" class="my-2 fw-semibold">Bio</label>
+                  <textarea
+                    class="form-control"
+                    id="bioInput"
+                    name="bio"
+                    rows="3"
+                    placeholder="Tell us about yourself"
+                  ></textarea>
+                  <div id="bio-text" class="form-text">
+                    0/280 characters
+                  </div>
+                </div>
                 <div class="d-flex justify-content-center mt-3">
                   <button type="submit" class="btn btn-primary my-2 px-5">
                     Save Changes
@@ -501,6 +516,7 @@
           <div class="d-flex flex-column align-items-center">
             <!--target #userName in js and set the user userName-->
             <h1 class="mt-4" id="userName">Username</h1>
+            <p class="bio-text px-4 px-sm-5 mt-1"></p>
             <div class="d-flex mt-4">
               <div class="d-flex flex-column align-items-center mx-4">
                 <p>Posts</p>
