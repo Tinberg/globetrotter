@@ -18,29 +18,29 @@ export { fetchPostsByUserName }; //---------------------------------------------
 //-- For fetch edit profile media --> my-profile.js
 export { updateProfileMedia }; //------------------------------------------------------------- Line: 141
 //-- For fetch create post --> new-post.js
-export { createPost }; //--------------------------------------------------------------------- Line: 192
+export { createPost }; //--------------------------------------------------------------------- Line: 193
 //-- For fetch all posts --> explore.js
-export { fetchAllPosts }; //------------------------------------------------------------------ Line: 210
+export { fetchAllPosts }; //------------------------------------------------------------------ Line: 211
 //-- For fetching all post that the user is following --> home.js
-export { fetchPostsFromFollowing }; //-------------------------------------------------------- Line: 246
+export { fetchPostsFromFollowing }; //-------------------------------------------------------- Line: 247
 //-- For fetching a single post with comments reactions and author info --> post.js
-export { fetchSinglePost }; //---------------------------------------------------------------- Line: 265
+export { fetchSinglePost }; //---------------------------------------------------------------- Line: 266
 //-- For fetching to edit a post --> post.js
-export { updatePost }; //--------------------------------------------------------------------- Line: 283
+export { updatePost }; //--------------------------------------------------------------------- Line: 284
 //-- For fetching to delete a post --> post.js
-export { deletePost }; //--------------------------------------------------------------------- Line: 304
+export { deletePost }; //--------------------------------------------------------------------- Line: 305
 //-- For fetch comment --> post.js
-export { postComment }; //-------------------------------------------------------------------- Line: 319
+export { postComment }; //-------------------------------------------------------------------- Line: 320
 //-- For delete comment --> post.js
-export { deleteComment }; //------------------------------------------------------------------ Line: 346
+export { deleteComment }; //------------------------------------------------------------------ Line: 347
 //-- For fetch reaction -->post.js
-export { reactToPost }; //-------------------------------------------------------------------- Line: 366
+export { reactToPost }; //-------------------------------------------------------------------- Line: 367
 //-- For follow a user by their username --> profile.js
-export { followUser }; //--------------------------------------------------------------------- Line: 387
+export { followUser }; //--------------------------------------------------------------------- Line: 388
 //-- For unfollow a user by their username --> profile.js
-export { unfollowUser }; //------------------------------------------------------------------- Line: 405
+export { unfollowUser }; //------------------------------------------------------------------- Line: 406
 //-- For fetch all profiles search --> explore.js
-export { fetchProfilesSearch }; //------------------------------------------------------------ Line: 423
+export { fetchProfilesSearch }; //------------------------------------------------------------ Line: 424
 //-- For fetch all posts search --> explore.js
 export { fetchPostsSearch }; //--------------------------------------------------------------- Line: 441
 
@@ -156,7 +156,7 @@ async function updateProfileMedia(
 ) {
   const placeholderUrl =
     "https://images.unsplash.com/photo-1579547945413-497e1b99dac0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&h=500&w=1500";
-  const bodyData = { bio: bioText,};
+  const bodyData = { bio: bioText };
 
   if (bannerUrl !== undefined || isResetBanner) {
     bodyData.banner = isResetBanner

@@ -304,7 +304,6 @@ function updateCommentCharacterCount() {
   const characterCount = document.getElementById("commentCharacterCount");
   characterCount.textContent = `${comment.length}/280 characters`;
 
-  // Optional: Add a warning or limit text entry
   if (comment.length > 280) {
     characterCount.classList.add("text-danger");
     characterCount.textContent +=

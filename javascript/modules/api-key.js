@@ -1,4 +1,4 @@
-//-- This module contains functionality to generate a new API key. It's intended for rare use, primarily in setup or maintenance scenarios --//
+//-- This module contains functionality to generate a new API key. It's intended for rare use, primarily in setup scenarios --//
 //Api key is located in --> auth.js
 //-- Import --//
 import { getToken } from "./auth.js";
@@ -25,6 +25,7 @@ async function createApiKey() {
     }
 
     const data = await response.json();
+    //To get the Apu Key
     console.log("API Key created successfully:", data.data.key);
     return data.data.key;
   } catch (error) {

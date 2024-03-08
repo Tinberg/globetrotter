@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-//------------------------- LOADER!-------------------------//
+//------------------------- LOADER to all pages with navbar script-------------------------//
 window.addEventListener('load', function() {
   const loader = document.getElementById('loader');
   if (loader) {

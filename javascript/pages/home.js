@@ -45,6 +45,7 @@ function handleInfiniteScroll() {
     fetchAndDisplayPosts();
   }
 }
+//AddInfiniteScroll from utility.js 
 addInfiniteScroll(handleInfiniteScroll);
 //----------------- Fetch more posts from followed users and display them, considering pagination. -----------------//
 async function fetchAndDisplayPosts() {
