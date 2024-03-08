@@ -32,6 +32,15 @@
   </head>
   <body class="background-img container-xxl p-0">
     <div class="container-xxl p-0">
+      <!--Loader-->
+      <div
+        id="loader"
+        class="position-fixed vw-100 vh-100 top-0 start-0 d-flex justify-content-center align-items-center bg-light loader-backdrop"
+      >
+        <div class="spinner-border text-secondary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
       <!-- New Post Modal -->
       <div
         class="modal modal-lg fade"
@@ -527,11 +536,16 @@
                   </form>
                   <!--Sort by-->
                   <div class="d-flex justify-content-center gap-2 mt-5 mt-md-0">
-                    <label for="sortBy" class="m-0 align-self-center border rounded py-2 px-3"
+                    <label
+                      for="sortBy"
+                      class="m-0 align-self-center border rounded py-2 px-3"
                       >Sort by:</label
                     >
                     <div class="d-line align-self-center">
-                      <select class="text-center border rounded py-2 px-3 sort-by-hight" id="sortBy">
+                      <select
+                        class="text-center border rounded py-2 px-3 sort-by-hight"
+                        id="sortBy"
+                      >
                         <option value="desc">Newest</option>
                         <option value="asc">Oldest</option>
                         <option value="alpha-asc">Title (A-Z)</option>
@@ -549,8 +563,12 @@
                 >
                   <!--All posts JS-->
                 </div>
-                <a href="#" class="text-center justify-content-center d-flex text-dark">
-                <p class="explore-message fw-bolder"></p></a>
+                <a
+                  href="#"
+                  class="text-center justify-content-center d-flex text-dark"
+                >
+                  <p class="explore-message fw-bolder"></p
+                ></a>
               </section>
             </div>
           </div>
@@ -596,11 +614,11 @@
             </li>
             <li>
               <a
-              class="nav-link active text-white d-flex flex-column align-items-center"
-              href="#"
-              data-bs-toggle="modal"
-              data-bs-target="#userOptionsModal"
-              aria-current="page"
+                class="nav-link active text-white d-flex flex-column align-items-center"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#userOptionsModal"
+                aria-current="page"
                 >Log out</a
               >
             </li>

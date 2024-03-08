@@ -66,7 +66,6 @@ async function fetchAndDisplayPosts() {
 }
 //-- Render the posts: Create and add post elements from users the logged-in user is following, including Post image, username, useravatar, comments, and reactions  --//
 function displayPosts(posts, append = false) {
-  console.log(posts)
   const postContainer = document.querySelector("#allPosts");
   if (!append) {
     postContainer.innerHTML = "";}
