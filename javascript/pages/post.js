@@ -58,7 +58,6 @@ document.addEventListener("DOMContentLoaded", loadPostData);
 
 //-- Renders detailed view of a post, including title, body, media, tags, author info, and initializes comment and reaction --//
 function displayPostDetails(postData, postId) {
-  console.log(postData);
   //displaying post title, body reactions count and comments count
   document.querySelector(".post-title").textContent = postData.title;
   document.querySelector(".post-body").textContent = postData.body;

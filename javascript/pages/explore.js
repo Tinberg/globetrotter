@@ -278,7 +278,6 @@ function displaySearchResults(profiles, posts) {
 //------------------------  Render the posts: Create and add post elements including Post image, username, useravatar, comments, and reactions to the post  ------------------------ //
 // Renders posts on the page, appending new posts for infinite scroll.
 function displayPosts(posts, append = false) {
-  console.log(posts);
   const postContainer = document.querySelector("#allPosts");
   if (!append) {
     postContainer.innerHTML = "";

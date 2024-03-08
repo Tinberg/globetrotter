@@ -32,6 +32,15 @@
   </head>
   <body class="background-img container-xxl p-0">
     <div class="container-xxl p-0">
+      <!--Loader-->
+      <div
+        id="loader"
+        class="position-fixed vw-100 vh-100 top-0 start-0 d-flex justify-content-center align-items-center bg-light loader-backdrop"
+      >
+        <div class="spinner-border text-secondary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
       <!-- New Post Modal -->
       <div
         class="modal modal-lg fade"
@@ -300,8 +309,12 @@
               <div id="allPosts" class="row justify-content-center mx-3">
                 <!--All posts JS-->
               </div>
-              <a class="d-flex justify-content-center text-dark fs-5" href="/html/explore.html">
-              <p class="home-message fs-6 fw-bolder"></p></a>
+              <a
+                class="d-flex justify-content-center text-dark fs-5"
+                href="/html/explore.html"
+              >
+                <p class="home-message fs-6 fw-bolder"></p
+              ></a>
             </section>
           </div>
         </div>
@@ -346,11 +359,11 @@
             </li>
             <li>
               <a
-              class="nav-link active text-white d-flex flex-column align-items-center"
-              href="#"
-              data-bs-toggle="modal"
-              data-bs-target="#userOptionsModal"
-              aria-current="page"
+                class="nav-link active text-white d-flex flex-column align-items-center"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#userOptionsModal"
+                aria-current="page"
                 >Log out</a
               >
             </li>

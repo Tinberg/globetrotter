@@ -1,4 +1,4 @@
-//------ Import --------/
+//-------------------------  Import ------------------------- /
 import { createPost } from "../modules/api.js";
 
 //------------------------- New post -------------------------//
@@ -114,3 +114,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+//------------------------- LOADER!-------------------------//
+window.addEventListener('load', function() {
+  const loader = document.getElementById('loader');
+  if (loader) {
+    loader.classList.add('d-none');
+  }
+});

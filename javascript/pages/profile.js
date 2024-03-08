@@ -211,7 +211,6 @@ async function fetchAndDisplayPosts(userName) {
 
 //-- Displays posts, appending to existing ones if 'append' is true, or clears container first--//
 function displayPosts(posts, append = false) {
-  console.log(posts);
   const profile = globalUserProfile;
   const postContainer = document.getElementById("postContainer");
   if (!append) postContainer.innerHTML = "";
