@@ -87,6 +87,6 @@ Customize the application's styles by modifying the Sass files in the `src/scss/
 
 https://github.com/users/A-Kopstad/projects/1
 
-## Contact me
+## Github Project Link
 
-[![386655_linkedin_linked in_icon](https://github.com/Tinberg/Rainydays/assets/126072224/ec1dfc29-cc5c-4c56-90c0-7c4b4808ba1c)](https://www.linkedin.com/in/mathias-tinberg-a13147113/)
+https://github.com/users/A-Kopstad/projects/1/views/1?pane=issue&itemId=55469947
