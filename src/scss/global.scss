@@ -1,0 +1,99 @@
+//-------  Bootstrap Customizations-------//
+
+/* Sets custom values for Bootstrap's Variables */
+$primary: #ffa88f;
+$secondary: #142f42;
+$font-family-base: "BodyFontName", lato, sans-serif;
+$headings-font-family: "HeaderFontName", hammersmith one, sans-serif;
+
+//import function and variables for customization and use
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+
+/*  Custom values for bootstrap functions and variables */
+$container-max-widths: map-merge(
+  $container-max-widths,
+  (
+    "xxl": 1470px,
+  )
+);
+
+//Googlefont Import
+@import url("https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Lato:wght@300;400;700&display=swap");
+
+//Bootstrap library import
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+//-------  Bootstrap Overwriting-------//
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+.card {
+  background-color: #f4f6f8;
+}
+
+//------- SCSS -------//
+
+/* Global Resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-style: none;
+  list-style-type: none;
+}
+
+html {
+  font-size: 16px;
+  background-color: #f5f5f5;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+//Added to main element on every page, not index.html and register.html to even out the position fixed on navbar.
+.padding-fixed-navbar {
+  padding-top: 79px;
+}
+
+a {
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  display: inline-block;
+  cursor: pointer;
+}
+
+img {
+  object-fit: cover;
+}
+a:hover {
+  transform: scale(1.05);
+}
+
+/*Header*/
+nav {
+  z-index: 1000;
+  min-height: 79.55px;
+}
+
+.img-icon {
+  width: 200px;
+  height: 200px;
+}
+
+/* Customized Utility classes */
+//Background image
+.background-img{
+  background-image: url(/images/background.jpg);
+}
+//pointer class
+.cursor-pointer {
+  cursor: pointer;
+}
+
+//hover for modals
+.hover-background:hover {
+  background-color: #f5f5f5;
+}

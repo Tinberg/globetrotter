@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Explore the world's wonders and connect with like-minded adventurers on Globetrotter. From discovering new horizons to sharing your own journey, Globetrotter is your ultimate destination for global exploration"
+    />
+    <title>Globetrotter | Explore the Globe, and Discover New Horizons</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon-32x32.png" />
+    <link
+      rel="stylesheet"
+      href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/dist/css/global.css" />
+    <link rel="stylesheet" href="/dist/css/feed.css" />
+    <script type="module" src="/javascript/pages/navbar.js"></script>
+    <script type="module" src="/javascript/pages/explore.js"></script>
+    <!--Script for bootstrap JS-->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <!--Script for Fontawesome-->
+    <script
+      src="https://kit.fontawesome.com/0933736d52.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="background-img container-xxl p-0">
+    <div class="container-xxl p-0">
+      <!--Loader-->
+      <div
+        id="loader"
+        class="position-fixed vw-100 vh-100 top-0 start-0 d-flex justify-content-center align-items-center bg-light loader-backdrop"
+      >
+        <div class="spinner-border text-secondary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <!-- New Post Modal -->
+      <div
+        class="modal modal-lg fade"
+        id="newPostModal"
+        tabindex="-1"
+        aria-labelledby="newPostModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header text-start">
+              <p
+                class="modal-title fs-5 fw-bolder w-100"
+                id="newPostModalLabel"
+              >
+                New Post
+              </p>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="newPostForm" class="text-center">
+                <div class="mb-3">
+                  <label for="postImage" class="form-label fw-semibold"
+                    >Post Image</label
+                  >
+                  <div class="d-flex justify-content-center">
+                    <div
+                      class="img-icon bg-secondary d-inline-flex justify-content-center align-items-center mb-2 rounded"
+                    >
+                      <i class="fas fa-image fa-3x text-white"></i>
+                    </div>
+                  </div>
+                  <div class="form-text">Recommended aspect ratio: 1:1</div>
+                  <input
+                    type="text"
+                    id="postImage"
+                    placeholder="Image URL to a uploaded image "
+                    class="form-control mt-2 mx-auto"
+                  />
+                  <div class="mb-3">
+                    <label
+                      for="altText"
+                      id="imageDescriptionLabel"
+                      class="form-label fw-semibold d-none"
+                      >Image Description</label
+                    >
+                    <input
+                      type="text"
+                      id="altText"
+                      placeholder="Enter image description"
+                      class="form-control mt-3 mx-auto"
+                      aria-label="imageDescriptionLabel"
+                    />
+                    <div id="altTextFeedback" class="feedback form-text">
+                      0/120 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="postTitle" class="form-label fw-semibold"
+                    >Title</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control mx-auto"
+                    id="postTitle"
+                    placeholder="Enter title here"
+                  />
+                  <div id="titleFeedback" class="form-text">
+                    0/280 characters
+                  </div>
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="postCaption" class="form-label fw-semibold"
+                    >Caption</label
+                  >
+                  <textarea
+                    class="form-control mx-auto"
+                    id="postCaption"
+                    rows="5"
+                    placeholder="Write a caption..."
+                  ></textarea>
+                  <div id="captionFeedback" class="form-text">
+                    0/280 characters
+                  </div>
+                </div>
+                <div class="border my-4"></div>
+                <div class="mb-3">
+                  <label for="continentSelect" class="form-label fw-semibold"
+                    >Continent</label
+                  >
+                  <select class="form-select mx-auto" id="continentSelect">
+                    <option selected>Not Specified</option>
+                    <option value="Africa">Africa</option>
+                    <option value="Asia">Asia</option>
+                    <option value="Europe">Europe</option>
+                    <option value="Oceania">Oceania</option>
+                    <option value="North-America">North America</option>
+                    <option value="South-America">South America</option>
+                  </select>
+                </div>
+                <div class="border my-4"></div>
+                <button type="submit" class="btn btn-primary my-2 px-5">
+                  Publish
+                </button>
+                <p
+                  id="postErrorFeedback"
+                  class="text-danger my-3 text-lg-center text-start"
+                ></p>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- User Options Modal -->
+      <div
+        class="modal fade"
+        id="userOptionsModal"
+        tabindex="-1"
+        aria-labelledby="userOptionsModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <p class="modal-title fs-5 fw-bolder" id="userOptionsModalLabel">
+                User Options
+              </p>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body text-center fw-bolder">
+              <ul class="list-group">
+                <li
+                  class="list-group-item hover-background profile-option cursor-pointer"
+                >
+                  <span> <i class="fa-solid fa-user"></i> Go to Profile </span>
+                </li>
+                <li
+                  class="list-group-item hover-background logout-option cursor-pointer"
+                >
+                  <span>
+                    <i class="fa-solid fa-right-from-bracket"></i> Log Out
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Search Results Modal -->
+      <div
+        class="modal fade"
+        id="searchResultsModal"
+        tabindex="-1"
+        aria-labelledby="searchResultsModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <p class="modal-title fs-5 fw-bold" id="searchResultsModalLabel">
+                Search Results
+              </p>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body" id="searchResults">
+              <ul class="nav nav-tabs" id="searchTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link active"
+                    id="profiles-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#profiles"
+                    type="button"
+                    role="tab"
+                    aria-controls="profiles"
+                    aria-selected="true"
+                  >
+                    Profiles
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    id="posts-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#posts"
+                    type="button"
+                    role="tab"
+                    aria-controls="posts"
+                    aria-selected="false"
+                  >
+                    Posts
+                  </button>
+                </li>
+              </ul>
+              <div class="tab-content" id="searchTabsContent">
+                <div
+                  class="tab-pane fade show active mt-3"
+                  id="profiles"
+                  role="tabpanel"
+                  aria-labelledby="profiles-tab"
+                >
+                  <!-- Profiles results go here -->
+                </div>
+                <div
+                  class="tab-pane fade mt-3"
+                  id="posts"
+                  role="tabpanel"
+                  aria-labelledby="posts-tab"
+                >
+                  <!-- Posts results go here -->
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Header -->
+      <header>
+        <nav
+          class="navbar navbar-expand-md bg-secondary position-fixed container-xxl py-3 py-md-2"
+        >
+          <div class="container-fluid">
+            <a
+              class="navbar-brand active fs-3 text-white ms-4"
+              aria-current="page"
+              href="#"
+              >Globetrotter</a
+            >
+            <button
+              class="navbar-toggler text-white"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div
+              class="collapse navbar-collapse justify-content-end"
+              id="navbarNavDropdown"
+            >
+              <ul class="navbar-nav d-flex flex-md-row mt-md-1 mt-4">
+                <li class="nav-item mx-3 my-md-0 my-2 text-center">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    aria-current="page"
+                    href="/html/home.html"
+                    ><i class="fa-solid fa-house"></i><span>Home</span></a
+                  >
+                </li>
+                <li class="nav-item mx-3 my-md-0 my-2 text-center">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    aria-current="page"
+                    href="/html/explore.html"
+                    ><i class="fa-solid fa-globe"></i><span>Explore</span></a
+                  >
+                </li>
+                <li class="nav-item mx-3 my-md-0 my-2 text-center">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    aria-current="page"
+                    data-bs-toggle="modal"
+                    data-bs-target="#newPostModal"
+                    ><i class="fa-solid fa-plus"></i><span>New post</span></a
+                  >
+                </li>
+                <li class="nav-item mx-3 my-md-0 my-2 text-center me-md-4">
+                  <a
+                    class="nav-link active text-white d-flex flex-column align-items-center"
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#userOptionsModal"
+                    aria-current="page"
+                    ><i class="fa-solid fa-user"></i><span>My Profile</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <main class="padding-fixed-navbar">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-2 mt-5 pt-3">
+              <!-- Aside -->
+              <aside
+                class="container d-flex justify-content-md-start flex-column align-items-center align-items-md-start"
+              >
+                <p class="fs-4 mb-2">Filter</p>
+                <p class="lead mb-4">Continents</p>
+                <form
+                  id="filterContinent"
+                  class="gap-3 row d-flex justify-content-center"
+                >
+                  <div
+                    class="col-12 justify-content-center justify-content-md-start d-flex gap-2 align-items-center flex-row flex-md-row"
+                  >
+                    <div>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        id="notSpecified"
+                        name="continent"
+                        value=""
+                        checked
+                      />
+                    </div>
+                    <label class="form-check-label" for="notSpecified"
+                      >Not Specified</label
+                    >
+                  </div>
+                  <div
+                    class="col-4 col-md-12 d-flex gap-2 align-items-center flex-row-reverse flex-md-row"
+                  >
+                    <div>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        id="africa"
+                        name="continent"
+                        value="Africa"
+                      />
+                    </div>
+                    <label class="form-check-label" for="africa">Africa</label>
+                  </div>
+
+                  <div class="col-4 col-md-12 d-flex gap-2">
+                    <div>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        id="asia"
+                        name="continent"
+                        value="Asia"
+                      />
+                    </div>
+                    <label class="form-check-label" for="asia">Asia</label>
+                  </div>
+
+                  <div
+                    class="col-4 col-md-12 d-flex gap-2 flex-row-reverse flex-md-row"
+                  >
+                    <div>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        id="europe"
+                        name="continent"
+                        value="Europe"
+                      />
+                    </div>
+                    <label for="europe">Europe</label>
+                  </div>
+                  <div class="col-4 col-md-12 d-flex gap-2">
+                    <div>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        id="oceania"
+                        name="continent"
+                        value="Oceania"
+                      />
+                    </div>
+                    <label class="form-check-label" for="oceania"
+                      >Oceania</label
+                    >
+                  </div>
+
+                  <div
+                    class="col-4 col-md-12 d-flex gap-2 flex-row-reverse flex-md-row"
+                  >
+                    <div>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        id="north-america"
+                        name="continent"
+                        value="North-America"
+                      />
+                    </div>
+                    <label
+                      class="form-check-label text-end text-md-start"
+                      for="north-america"
+                      >North-America</label
+                    >
+                  </div>
+
+                  <div class="col-4 col-md-12 d-flex gap-2">
+                    <div>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        id="south-america"
+                        name="continent"
+                        value="South-America"
+                      />
+                    </div>
+                    <label class="form-check-label" for="south-america"
+                      >South-America</label
+                    >
+                  </div>
+                </form>
+              </aside>
+            </div>
+            <div
+              class="col-md-10 border-start border-2 d-flex align-items-center flex-column mt-3 mt-md-0"
+            >
+              <!-- Section 1 heading - h1, search and sort-by -->
+              <section
+                class="container mb-5 gap-3 gap-md-0 d-flex flex-column-reverse flex-md-column mt-5 mt-md-0"
+              >
+                <h1
+                  class="fs-2 d-flex justify-content-center mb-md-5 mt-3 mt-md-5 pt-md-3 pb-md-3"
+                >
+                  Explore the World
+                </h1>
+                <!--Error message-->
+                <p class="explore-error text-center text-danger"></p>
+                <div
+                  class="mb-3 mb-md-0 mx-3 flex-column flex-md-row d-flex justify-content-between"
+                >
+                  <!--Search posts or profiles-->
+                  <form
+                    id="searchForm"
+                    class="d-flex col-12 col-md-6 col-lg-4 gap-4 gap-md-2 align-self-center align-self-md-start flex-column flex-md-row"
+                    action="#"
+                  >
+                    <input
+                      id="searchInput"
+                      class="border border-2 rounded p-2 w-100 form-control"
+                      type="text"
+                      placeholder="Search for posts or profiles..."
+                      aria-label="search for all posts and all profiles"
+                    />
+                    <button
+                      id="searchButton"
+                      class="btn btn-primary"
+                      type="submit"
+                    >
+                      Search
+                    </button>
+                  </form>
+                  <!--Sort by-->
+                  <div class="d-flex justify-content-center gap-2 mt-5 mt-md-0">
+                    <label
+                      for="sortBy"
+                      class="m-0 align-self-center border rounded py-2 px-3"
+                      >Sort by:</label
+                    >
+                    <div class="d-line align-self-center">
+                      <select
+                        class="text-center border rounded py-2 px-3 sort-by-hight"
+                        id="sortBy"
+                      >
+                        <option value="desc">Newest</option>
+                        <option value="asc">Oldest</option>
+                        <option value="alpha-asc">Title (A-Z)</option>
+                        <option value="alpha-desc">Title (Z-A)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <!--Section 2 List of cards all posts-->
+              <section class="w-100">
+                <div
+                  id="allPosts"
+                  class="row justify-content-center mx-3 mx-md-3"
+                >
+                  <!--All posts JS-->
+                </div>
+                <a
+                  href="#"
+                  class="text-center justify-content-center d-flex text-dark"
+                >
+                  <p class="explore-message fw-bolder"></p
+                ></a>
+              </section>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer
+        class="footer bg-secondary mt-5 pt-5 pb-5 justify-content-center justify-content-sm-start"
+      >
+        <div
+          class="container text-white d-flex justify-content-center flex-column align-items-center gap-2"
+        >
+          <ul class="d-flex gap-3 p-0 justify-content-center flex-wrap">
+            <li class="">
+              <a
+                class="nav-link active text-white d-flex flex-column align-items-center"
+                aria-current="page"
+                href="/html/home.html"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                class="nav-link active text-white d-flex flex-column align-items-center"
+                aria-current="page"
+                href="/html/explore.html"
+                >Explore</a
+              >
+            </li>
+            <li>
+              <a
+                class="nav-link active text-white d-flex flex-column align-items-center"
+                href="/html/my-profile.html"
+                >Profile</a
+              >
+            </li>
+            <li>
+              <a
+                class="nav-link active text-white d-flex flex-column align-items-center"
+                data-bs-toggle="modal"
+                data-bs-target="#newPostModal"
+                >New post</a
+              >
+            </li>
+            <li>
+              <a
+                class="nav-link active text-white d-flex flex-column align-items-center"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#userOptionsModal"
+                aria-current="page"
+                >Log out</a
+              >
+            </li>
+          </ul>
+          <p class="m-0">© Globetrotter 2024</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
