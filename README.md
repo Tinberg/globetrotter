@@ -87,6 +87,3 @@ Customize the application's styles by modifying the Sass files in the `src/scss/
 
 https://github.com/users/A-Kopstad/projects/1
 
-## Github Project Link
-
-https://github.com/users/A-Kopstad/projects/1/views/1?pane=issue&itemId=55469947
