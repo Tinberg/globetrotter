@@ -1,0 +1,1 @@
+//entry for js. common used js. include in every html. and use post modal in this bcs its in the nav on every page. 

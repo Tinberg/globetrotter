@@ -1,0 +1,54 @@
+section {
+  max-width: 85%;
+}
+
+.post-image {
+  min-height: 300px;
+}
+
+.profile-name,
+.post-profile-image {
+  cursor: pointer;
+}
+
+.background-grey {
+  background-color: #f8f9fa;
+}
+
+.post-profile-image {
+  height: 80px;
+  width: 80px;
+}
+
+.post-title {
+  font-size: 20px;
+}
+
+.comment {
+  letter-spacing: 1px;
+  line-height: 30px;
+}
+
+.comments-img {
+  height: 50px;
+  width: 50px;
+}
+
+@media (min-width: 991px) {
+  .inner-div-for-section-1 {
+    min-width: 750px;
+  }
+  .post-image {
+    min-width: 400px;
+  }
+}
+@media (max-width: 575px) {
+  section {
+    max-width: 100%;
+  }
+  .container-fluid {
+    padding: 0;
+  }
+}
+
+/*# sourceMappingURL=post.css.map */
